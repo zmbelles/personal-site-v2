@@ -1,4 +1,13 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import process from 'process/browser';
 
-createApp(App).mount('#app')
+window.process = process;
+import { createApp } from 'vue';
+import App from './views/App.vue';
+import router from './router';
+
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
+
+
+

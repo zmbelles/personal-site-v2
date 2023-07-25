@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <navbar></navbar>
+    <router-view></router-view>
+    <footer>
+      Made by <a href="http://github.com/zmbelles">Zachary Belles</a> in Vue.js 
+      <p>&copy;2023 All Rights Reserved.</p>
+    </footer>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from '@/components/NavBar.vue';
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Navbar,
   }
 }
 </script>

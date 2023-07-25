@@ -1,0 +1,37 @@
+{
+	"posts": [
+		{
+			"post_id": "00001",
+			"title": "About me",
+			"body": "I am from Yorkville Illinois. I have a brother, a sister, a dog, and a beautiful girlfriend whom I spend all of my free time with",
+			"post_date": "2023-07-12",
+			"images": {
+				"imagesrc": "",
+				"image_tag": "",
+				"image_seo_tag": ""
+			}
+		},
+		{
+			"post_id": "00002",
+			"title": "Coding best practices",
+			"body": "1. read the documentation. 2. understand neccesary paradigms. 3. write self-documenting code. 4. theres *almost* no such thing as too many comments.",
+			"post_date": "2023-07-12",
+			"images": {
+				"imagesrc": "",
+				"image_tag": "",
+				"image_seo_tag": ""
+			}
+		},
+    {
+			"post_id": "00003",
+			"title": "How this page works",
+			"body": "There is a BlogPost.vue component that sets the default layout for each blog post. This component is then fed into the BlogPosts.vue component where all of the blog posts are bundled together with scoped styling and then data is emitted to the BlogPage.vue component that uses a v-for statement to loop through all of the posts and display them on the page. The posts themselves are currently locally stored on a db.json file using json-server and fetching the data with CRUD calls but will be migrated to another API/CDN later on.",
+			"post_date": "2023-07-12",
+			"images": {
+				"imagesrc": "",
+				"image_tag": "",
+				"image_seo_tag": ""
+			}
+		}
+	]
+}
