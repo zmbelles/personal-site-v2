@@ -11,7 +11,7 @@
         </div>
         <div class="info-section">
           <p class="info-label">Alma Mater:</p>
-          <p class="info-value"><a href="noctrl.edu">North Central College</a></p>
+          <p class="info-value"><a href="https://www.northcentralcollege.edu/">North Central College</a></p>
         </div>
       </div>
       <div class="bio-container">
