@@ -1,5 +1,5 @@
 <template>
-  <title>Button Match</title>
+	<title>Button Match</title>
 	<div class="button-match-container">
 		<h1 class="button-match-header">Button Match</h1>
 		<h3 class="button-match-description">
@@ -28,7 +28,7 @@
 			<div v-if="showPopup" class="popup-overlay">
 				<div class="popup">
 					{{ successMessage }}
-					<button @click="showPopup = false">Close</button>
+					<button @click="handleRefreshAfterPopup">OK</button>
 				</div>
 			</div>
 		</div>
@@ -153,16 +153,13 @@ export default {
 				);
 			}, 1000);
 		},
-    scrambleButtons() {
-        this.buttons = Array.from({ length: 10 }, () => ({
-            class: `vari_${Math.floor(Math.random() * 10) + 1}`,
-            color: Math.random() < 0.5 ? "blue" : "orange",
-        }));
-    },
 		stopTimer() {
 			this.timerStarted = false;
 			clearInterval(this.timerInterval);
-      this.elapsedTime = 0;
+			this.elapsedTime = 0;
+		},
+		handleRefreshAfterPopup() {
+			window.location.reload();
 		},
 	},
 	computed: {
@@ -217,12 +214,17 @@ export default {
 	border-radius: 6px;
 	cursor: pointer;
 }
-
 .button {
 	width: 30px;
 	height: 30px;
 	border: none;
 	margin-right: 4px;
+	box-shadow: 1 2px 4px rgba(1, 1, 0, 0.6); /* Initial box shadow */
+}
+
+.button:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+	transform: translateY(2px); /* Depress inward on hover */
 }
 .timer {
 	display: flex;
