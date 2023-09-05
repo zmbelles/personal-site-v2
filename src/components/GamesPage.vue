@@ -1,4 +1,5 @@
 <template>
+  <title>Games</title>
     <div class="game-page">
       <div class="game-card">
         <h2><router-link to="/match">Button Match</router-link></h2>

@@ -1,4 +1,5 @@
 <template>
+  <title>Resume</title>
   <div class="resume">
     <h2 class="section-title">Zachary Belles</h2>
     <div class="contact-info">

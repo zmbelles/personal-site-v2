@@ -1,4 +1,5 @@
 <template>
+  <title>Home</title>
   <div class="container">
     <div class="home-content">
       <div class="headshot-container">

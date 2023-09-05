@@ -1,4 +1,5 @@
 <template>
+  <title>Button Match</title>
 	<div class="button-match-container">
 		<h1 class="button-match-header">Button Match</h1>
 		<h3 class="button-match-description">
@@ -152,7 +153,12 @@ export default {
 				);
 			}, 1000);
 		},
-
+    scrambleButtons() {
+        this.buttons = Array.from({ length: 10 }, () => ({
+            class: `vari_${Math.floor(Math.random() * 10) + 1}`,
+            color: Math.random() < 0.5 ? "blue" : "orange",
+        }));
+    },
 		stopTimer() {
 			this.timerStarted = false;
 			clearInterval(this.timerInterval);
