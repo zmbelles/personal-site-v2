@@ -17,7 +17,7 @@
       </div>
       <div class="bio-container">
         <p class="bio">
-          I graduated with a Bachelors of Science in Computer Science at North
+          I graduated with a Bachelors of Science in Computer Science from North
           Central College in May of 2023. I currently work as a NetSuite Solution
           Provider and Application Development Engineer at Solution Source in
           Goshen, Indiana. Check out my github down below or send me an email from my Contact Me page.
