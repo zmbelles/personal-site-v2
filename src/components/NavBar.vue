@@ -1,8 +1,8 @@
 <template>
   <header>
-    <div class="nav-left">
+    <!-- <div class="nav-left">
       <router-link to="/login">Login</router-link>
-    </div>
+    </div> -->
     <div class="quote">
       <p><i>"I don't write code with bugs in it"</i></p>
       <p>    -Dr. Sun-il Kim</p>
