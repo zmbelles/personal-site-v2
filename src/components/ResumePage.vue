@@ -29,33 +29,38 @@
     <h3 class="section-title">Projects</h3>
     <ul class="projects">
       <li>
-        <strong>“CONNECT” THE SOCIAL MEDIA HUB</strong>
-        <span class="tech-stack">(MongoDB, React, Next.js, Node.js, JavaScript)</span>
+        <strong>DDS SFTP INTEGRATION FOR PIM DATA</strong>
+        <span class="tech-stack">(JavaScript)</span>
         <ul class="project-details">
-          <li>Worked in a <b>Full Stack Agile development</b> environment utilizing <b>Trello</b> and <b>Slack</b> to maximize efficiency and effectively visualize our burndown.</li>
-          <li>Applied both <b>CRUD</b> and <b>REST API</b> operations to Meta, Twitter, and Tiktok API’s.</li>
-          <li>Used <b>Postman</b> to test API calls to our database and social media API’s.</li>
-          <li>Securely stored data to custom <b>MongoDB</b> database, using <b>Amazon S3</b> as a <b>CDN</b> for images and videos.</li>
+          <li>Created GET and POST scripts to handle SFTP requests for PIM Data to a DDS Server</li>
+          <ul>
+            <li>Developed a reusable class for <b>SFTP</b> connection in <b>NetSuite</b></li>
+            <li>Conceived a script to send POST request to DDS server with Item Data CSV parsed from a <b>NetSuite Saved Search</b></li>
+            <li>Designed a script which downloads files from SFTP site and updates item fields in NetSuite</li>
+            <li>Assisted with design of front end for <b>SuiteCommerce</b> website when needed</li>
+            <li>Successfully worked in a duo to provide <b>$40,000</b> in development revenue for the company</li>
+          </ul>
         </ul>
       </li>
       <li>
-        <strong>GROCERY STORE DATABASE</strong>
-        <span class="tech-stack">(MySQL, Java)</span>
+        <strong>OPTIMIZED DELIVERY ROUTE SOLUTION</strong>
+        <span class="tech-stack">Vue.js, JavaScript, OracleSQL, NextBillionAPI</span>
         <ul class="project-details">
-          <li>Worked with a team of my peers to create a database for a fake grocery store which included tables and foreign keys for</li>
+          <li>Developed an application for a client in <b>Vue.js</b> and <b>JavaScript</b> that found optimal route to deliver each delivery tickets</li>
           <ul>
-            <li>Employees</li>
-            <li>Inventory</li>
-            <li>Vendors</li>
-            <li>Customers</li>
-            <li>Shipments</li>
-            <li>Purchase Orders</li>
-            <li>Equipment</li>
+            <li>Allowed end user to select multiple delivery tickets from NetSuite, select all, and filter by route</li>
+            <li>used <b>JavaScript Promises</b> with the problem Object to wait for the solution from <b>NextBillion</b></li>
+            <li>Highlight all deliveries on the optimized route and gives a list of delivery locations, and the time to get there</li>
+            <li>Provided <b>$10,000</b> in development revenue for our company</li>
+            <li>Examples of application before and after optimization can be found below</li>
           </ul>
-          <li>Allowed for table creation, legacy data implementation, and addition of new data and tables.</li>
-          <li>Written in <b>Java</b> implementing <b>Connector/J</b> to link with <b>MySQL</b>.</li>
-          <li>Created a database normalized to <b>3NF</b>.</li>
         </ul>
+        <div class="image-container">
+          <img src="../assets/pre-optimized.png" alt="Picture of NetSuite customization for finding optimal delivery route prior to opimizing and selecting tickets" class="example-image">
+        </div>
+        <div class="image-container">
+          <img src="../assets/optimized.png" alt="Picture of NetSuite customization for finding optimal delivery route after opimizing and selecting tickets" class="example-image">
+        </div>  
       </li>
       <li>
         <strong>DICTIONARY</strong>
@@ -206,6 +211,20 @@
     margin-bottom: 20px;
     color: #333333;
     text-align: left;
+  }
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .example-image {
+    max-width: 100%;   /* Adjust as per your requirements */
+    margin: 0 2.5%; 
+      /* Spacing between the images */
+    height: auto;     /* Keep aspect ratio */
+    border: 1px solid #ddd;   /* Optional border */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);   /* Optional shadow for aesthetics */
   }
   
   .skills {
