@@ -128,14 +128,14 @@ export default {
 			const flattenedButtons = this.buttons.flat();
 
 			if (flattenedButtons.every((button) => button.color === "blue")) {
-				this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}!`;
+				this.successMessage = `Congrats elseif! You matched all buttons in ${this.minutes}:${this.seconds}!`;
 				this.showPopup = true;
 				this.stopTimer();
 				return true;
 			} else if (
 				flattenedButtons.every((button) => button.color === "orange")
 			) {
-				this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}!`;
+				this.successMessage = `Congrats elseif! You matched all buttons in ${this.minutes}:${this.seconds}!`;
 				this.showPopup = true;
 				this.stopTimer();
 				return true;
