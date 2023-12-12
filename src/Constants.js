@@ -1,0 +1,3 @@
+ENUM_A = 1;
+ENUM_B = 2;
+ENUM_C;

@@ -34,7 +34,7 @@
         <ul class="project-details">
           <li>Created GET and POST scripts to handle SFTP requests for PIM Data to a DDS Server</li>
           <ul>
-            <li>Developed a reusable class for <b>SFTP</b> connection in <b>NetSuite</b></li>
+            <li>Developed a reusable class for <b>SFTP</b> connection in <b>NetSuite</b>, one of the leading ERP providers in the world</li>
             <li>Conceived a script to send POST request to DDS server with Item Data CSV parsed from a <b>NetSuite Saved Search</b></li>
             <li>Designed a script which downloads files from SFTP site and updates item fields in NetSuite</li>
             <li>Assisted with design of front end for <b>SuiteCommerce</b> website when needed</li>

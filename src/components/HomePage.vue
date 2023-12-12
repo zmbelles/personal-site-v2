@@ -3,7 +3,7 @@
   <div class="container">
     <div class="home-content">
       <div class="headshot-container">
-        <img src="../assets/headshot.png" alt="Headshot" class="headshot" />
+        <img src="../assets/logo.png" alt="Headshot" class="headshot" />
       </div>
       <div class="info-container">
         <div class="info-section">
@@ -41,7 +41,7 @@
           </ul>
         </div>
       </div>
-      <h2>Did you know...</h2>
+      <h2 class="didyouknow">Did you know...</h2>
       <br>
       <div class="funFacts">
         <FunFacts />
@@ -66,13 +66,16 @@ export default {
   display: flex;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  background-color: #181825;
 }
 
+.didyouknow {
+  color: #ffffff;
+}
 .home-content {
   max-width: 650px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #362E5F;
 }
 
 .headshot-container {
@@ -100,7 +103,7 @@ export default {
 .info-label {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #494949;
+  color: #ffffff;
 }
 
 .info-value {
@@ -115,7 +118,7 @@ export default {
 
 .bio {
   max-width: 600px;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
 }
 
