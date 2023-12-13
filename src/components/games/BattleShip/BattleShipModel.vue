@@ -7,20 +7,25 @@
         <p>Use the <b>R Key</b> to rotate the ship 90 degrees</p>
         <p>Press <b>START</b> when all your ships have been placed</p>
       </div>
-      <div class="battlefield">
-        <div 
-          v-for="row in 10" 
-          :key="row" 
-          class="grid-row">
-          <div 
-            v-for="col in 10" 
-            :key="col" 
-            class="grid-cell"
-            @mouseover="handleMouseOver(row, col)"
-            @mouseleave="handleMouseLeave">
+      <div class="grid-container">
+      <div class="grid-header">
+        <div class="grid-label corner"></div> <!-- Empty corner cell -->
+        <div class="grid-label" v-for="colLabel in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']" :key="colLabel">{{ colLabel }}</div>
+      </div>
+      <div class="grid-body">
+        <div class="grid-row" v-for="row in 10" :key="row">
+          <div class="grid-label">{{ row }}</div> <!-- Row labels -->
+            <div 
+              v-for="col in 10" 
+              :key="col" 
+              class="grid-cell"
+              @mouseover="handleMouseOver(row, col)"
+              @mouseleave="handleMouseLeave">
+            </div>
           </div>
         </div>
       </div>
+      <br><br><br>
       <div v-if="hoveredCell">
         Hovered Cell: {{ hoveredCell }}
       </div>
@@ -52,15 +57,60 @@ export default {
   
   <style scoped>
   :root {
-    --cell-size: 200px; /* Each cell is now 200x200 */
+    --cell-size: 150px; /* Each cell is now 200x200 */
   }
-  
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  background-image: url('@/assets/battleship/sea-water-waves-surface-wallpaper.jpg'); /* Adjust the path as necessary */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  width: 1088px; /* Adjusted for labels */
+  height: 1088px; /* Adjusted for labels */
+}
+
+.grid-header, .grid-row {
+  display: flex;
+}
+
+.grid-label {
+  width: 100px; /* Match grid-cell width */
+  height: 98px; /* Match grid-cell height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.5); /* Optional for label visibility */
+}
+
+.grid-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.corner {
+  width: 96px; /* Match grid-cell width */
+  height: 6px; /* Match grid-cell height */
+  /* Optional styling for the corner cell */
+}
+
+/* Rest of your CSS for grid-cell, etc. */
+
+
+.corner {
+  width: 98px; /* Match grid-cell width */
+  height: 98px; /* Match grid-cell height */
+  /* Optional styling for the corner cell */
+}
   .battleship-container {
-    max-width: 980px;
-    max-height: 980px;
+    max-width: 80%;
+    max-height: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    padding-bottom: 100px;
     align-items: center;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -88,7 +138,7 @@ export default {
   
   .grid-cell {
     width: 98px;
-    height: 98px;
+    height: 96.4px;
     background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent cells */
     border: 1px solid #000000;
     border-radius: 4px;

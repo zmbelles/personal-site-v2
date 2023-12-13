@@ -28,8 +28,8 @@
           <p class="section-title">Top 3 Languages used</p>
           <ul class="language-list">
             <li>JavaScript</li>
+            <li>SQL</li>
             <li>C#</li>
-            <li>Java</li>
           </ul>
         </div>
         <div class="frameworks">
@@ -129,7 +129,7 @@ export default {
 .languages,
 .frameworks {
   flex: 1;
-  background-color: #ffffff;
+  background-color: #181825;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
@@ -144,13 +144,15 @@ export default {
 .framework-list {
   padding-left: 0;
   margin: 0;
+  color:#ffffff;
   list-style-type: none;
 }
 
 .language-list li,
 .framework-list li {
   margin-bottom: 10px;
-  color: #494949;
+  background-color: inherit;
+  color: #ffffff;
 }
 
 .info-value a {
