@@ -50,9 +50,10 @@
             <li>Developed an application for a client in <b>Vue.js</b> and <b>JavaScript</b> that found optimal route to deliver each delivery tickets</li>
             <ul>
               <li>Allowed end user to select multiple delivery tickets from NetSuite, select all, and filter by route</li>
-              <li>used <b>JavaScript Promises</b> with the problem Object to wait for the solution from <b>NextBillion</b></li>
-              <li>Highlight all deliveries on the optimized route and gives a list of delivery locations, and the time to get there</li>
-              <li>Provided <b>$10,000</b> in development revenue for our company</li>
+              <li>Used <b>JavaScript Promises</b> with the problem Object to wait for the solution from <b>NextBillion</b></li>
+              <li>Created custom records for the Optimization solution, the trip, and each stop in NetSuite</li>
+              <li>Added a feature to highlight all deliveries on the optimized route and gives a list of delivery locations, and the time to get there</li>
+              <li>Provides <b>$15,000</b> per year per client in recurring revenue for the company</li>
               <li>Examples of application before and after optimization can be found below</li>
             </ul>
           </ul>
