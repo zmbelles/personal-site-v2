@@ -11,6 +11,7 @@
             <router-link to="/resume">Resume</router-link>
             <router-link to="/contact">Contact Me</router-link>
             <router-link to="/games">Games</router-link>
+            <router-link to="/blog">Blog</router-link>
         </div>
       </nav>
     </div>

@@ -1,18 +1,18 @@
 <template>
   <title>Games</title>
-    <div class="game-page">
-      <div class="game-card">
-        <h2><router-link to="/games/match">Button Match</router-link></h2>
-        <p>A fun and challenging matching game where you need to find matching buttons.</p>
-      </div>
-      <br><br>
-      <div class="game-card">
-        <!-- <h2><router-link to="/games/battleship">BattleShip</router-link></h2> -->
-        <h2 class="coming-soon">BattleShip (coming soon)</h2>
-        <p>Take turns to outsmart your opponent by guessing the location of the enemy's fleet, aiming to be the first to sink all opposing ships.</p>
-      </div>
+  <div class="game-page">
+    <div class="game-card">
+      <h2><router-link to="/games/match">Button Match</router-link></h2>
+      <p>A fun and challenging matching game where you need to find matching buttons.</p>
     </div>
-  </template>
+    <br><br>
+    <div class="game-card">
+      <!-- <h2><router-link to="/games/battleship">BattleShip</router-link></h2> -->
+      <h2 class="coming-soon">BattleShip (coming soon)</h2>
+      <p>Take turns to outsmart your opponent by guessing the location of the enemy's fleet, aiming to be the first to sink all opposing ships.</p>
+    </div>
+  </div>
+</template>
   
   <script>
   export default {

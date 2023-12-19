@@ -28,6 +28,7 @@
     "timers-browserify": "^2.0.12",
     "url": "^0.11.1",
     "vue": "^3.2.13",
+    "vue-meta": "^2.4.0",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
