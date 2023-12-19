@@ -2,19 +2,19 @@
   <title>Contact</title>
   <body class="contact">
     <div class="contact-container">
-      <div class="form-head"><b>Get in touch</b></div>
+      <div class="form-head" style="color: #ffffff"><b>Get in touch</b></div>
       <form ref="form" @submit.prevent="submitForm">
         <div class="form-group">
           <br />
-          <label for="fullName">Name:</label>
+          <label for="fullName" style="color: #ffffff">Name:</label>
           <input type="text" id="first" v-model="fullName" /><br />
-          <label for="email">Email Address: </label>
+          <label for="email" style="color: #ffffff">Email Address: </label>
           <input type="text" id="email" v-model="reply_to" />
-          <label for="message">Message:</label>
+          <label for="message" style="color: #ffffff">Message:</label>
           <textarea class="textArea" type="text" id="message" v-model="message"></textarea>
         </div>
         <button type="submit">Submit</button><br /><br />
-        <footer>Form powered by <a href="https://www.emailjs.com/">EmailJS</a></footer>
+        <footer style="color: #181825"><b>Form powered by </b><a href="https://www.emailjs.com/"><b>EmailJS</b></a></footer>
       </form>
     </div>
     <div class="response" v-if="isSubmitted">
@@ -78,20 +78,20 @@ export default {
 
 <style scoped>
 .contact {
-  background-color: #f2f2f2;
+  background-color: #181825;
   font-family: Arial, sans-serif;
   padding: 50px;
 }
 .contact-container {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   max-width: 400px;
+  background-color: #362E5F;
   margin: 0 auto;
 }
 .form-head {
   font-family: Arial, sans-serif;
   font-size: 48px;
-  color:#2e2e2e;
-  padding-top: 8px;
+  color:#000000;
 }
 .form-group {
   margin-bottom: 10px;
@@ -129,5 +129,8 @@ button:hover {
 
 button:active {
   background-color: #5c067d;
+}
+a:visited {
+  color: #181825; 
 }
 </style>

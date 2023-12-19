@@ -3,13 +3,7 @@
     <!-- <div class="nav-left">
       <router-link to="/login">Login</router-link>
     </div> -->
-    <div class="quote">
-      <p><i>"I don't write code with bugs in it"</i></p>
-      <p>    -Dr. Sun-il Kim</p>
-    </div>
-    <div class="name">
-        Zachary Belles 
-    </div>
+    <img src="@/assets/Banner.png" alt="Banner" class="banner-image" />
     <div class="nav-right">
       <nav>
         <div class="nav-links">
@@ -33,8 +27,14 @@ export default {
 
 <style scoped>
 /* Component-specific styles */
+.banner-image {
+  width: 100%; /* Makes the image stretch to cover the header's width */
+  height: auto; /* Maintains the aspect ratio */
+  display: block; /* Removes any extra space below the image */
+}
+
 header {
-  background-color: #2c2c2c;
+  background-color: #181825;
   padding: 20px;
 }
 
@@ -58,7 +58,6 @@ header {
   justify-content: space-between;
   margin: 0 auto;
   max-width: 960px;
-  padding: 0 20px;
   align-items: center;
 }
 
@@ -72,8 +71,9 @@ header {
 
 .nav-links {
   display: flex;
-  color: #dadada;
-  box-shadow: 0 2px 4px rgba(199, 192, 192, 0.1);
+  color: #dadada; /* Keeps the text color the same */
+  background-color: #362E5F; /* New background color */
+  box-shadow: 0 2px 4px #DFA8CD;
   justify-content: space-between;
   align-items: center;
   flex-grow: 1;

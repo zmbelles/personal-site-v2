@@ -3,16 +3,16 @@
   <div class="container">
     <div class="home-content">
       <div class="headshot-container">
-        <img src="../assets/headshot.png" alt="Headshot" class="headshot" />
+        <img src="../assets/logo.png" alt="Headshot" class="headshot" />
       </div>
       <div class="info-container">
         <div class="info-section">
           <p class="info-label">Company:</p>
-          <p class="info-value"><a href="http://www.solution-source.net/">Solution Source</a></p>
+          <p class="info-value"><a class='links' href="http://www.solution-source.net/">Solution Source</a></p>
         </div>
         <div class="info-section">
           <p class="info-label">Alma Mater:</p>
-          <p class="info-value"><a href="https://www.northcentralcollege.edu/">North Central College</a></p>
+          <p class="info-value"><a class='links' href="https://www.northcentralcollege.edu/">North Central College</a></p>
         </div>
       </div>
       <div class="bio-container">
@@ -28,20 +28,20 @@
           <p class="section-title">Top 3 Languages used</p>
           <ul class="language-list">
             <li>JavaScript</li>
+            <li>SQL</li>
             <li>C#</li>
-            <li>Java</li>
           </ul>
         </div>
         <div class="frameworks">
           <p class="section-title">Top 3 Frameworks used</p>
           <ul class="framework-list">
-            <li><a href="https://vuejs.org">Vue</a></li>
-            <li><a href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API">SuiteScript</a></li>
-            <li><a href="https://jquery.org">jQuery</a></li>
+            <li><a class='links' href="https://vuejs.org">Vue</a></li>
+            <li><a class='links' href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API">SuiteScript</a></li>
+            <li><a class='links' href="https://jquery.org">jQuery</a></li>
           </ul>
         </div>
       </div>
-      <h2>Did you know...</h2>
+      <h2 class="didyouknow">Did you know...</h2>
       <br>
       <div class="funFacts">
         <FunFacts />
@@ -66,13 +66,16 @@ export default {
   display: flex;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  background-color: #181825;
 }
 
+.didyouknow {
+  color: #ffffff;
+}
 .home-content {
   max-width: 650px;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #362E5F;
 }
 
 .headshot-container {
@@ -96,11 +99,13 @@ export default {
   margin-right: 20px;
   text-align: center;
 }
-
+.links:visited {
+  color: #181825; 
+}
 .info-label {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #494949;
+  color: #ffffff;
 }
 
 .info-value {
@@ -115,7 +120,7 @@ export default {
 
 .bio {
   max-width: 600px;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
 }
 
@@ -126,7 +131,7 @@ export default {
 .languages,
 .frameworks {
   flex: 1;
-  background-color: #ffffff;
+  background-color: #181825;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
@@ -141,13 +146,15 @@ export default {
 .framework-list {
   padding-left: 0;
   margin: 0;
+  color:#ffffff;
   list-style-type: none;
 }
 
 .language-list li,
 .framework-list li {
   margin-bottom: 10px;
-  color: #494949;
+  background-color: inherit;
+  color: #ffffff;
 }
 
 .info-value a {

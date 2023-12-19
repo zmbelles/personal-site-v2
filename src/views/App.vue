@@ -2,7 +2,7 @@
   <div id="app">
     <navbar></navbar>
     <router-view></router-view>
-    <footer>
+    <footer class="footer">
       Made by <a href="http://github.com/zmbelles">Zachary Belles</a> in Vue.js 
       <p>&copy;2023 All Rights Reserved.</p>
     </footer>
@@ -27,7 +27,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #181825;
+}
+
+.footer {
+  background-color: #181825;
+  color: #ffffff    
+}
+a:visited {
+  color: #9510D8; 
 }
 </style>
