@@ -7,7 +7,8 @@
       </div>
       <br><br>
       <div class="game-card">
-        <h2><router-link to="/games/battleship">BattleShip</router-link></h2>
+        <!-- <h2><router-link to="/games/battleship">BattleShip</router-link></h2> -->
+        <h2 class="coming-soon">BattleShip (coming soon)</h2>
         <p>Take turns to outsmart your opponent by guessing the location of the enemy's fleet, aiming to be the first to sink all opposing ships.</p>
       </div>
     </div>
@@ -26,7 +27,7 @@
     justify-content: center; /* Centers children vertically */
     align-items: center; /* Centers children horizontally */
     background-color: #181825;
-    height: 100vh;
+    height: 48vh;
     padding: 20px; /* Adds some space between the cards */
   }
   
@@ -45,10 +46,12 @@
   .game-card h2 {
     font-size: 24px;
     font-weight: bold;
-    color: #7163AC;
     margin-bottom: 10px;
+    color: #181825; 
   }
-  
+  .coming-soon h2 {
+    color: #2d2d41; 
+  }
   .game-card p {
     color: #BFA8CD;
     margin-bottom: 10px;

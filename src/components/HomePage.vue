@@ -8,11 +8,11 @@
       <div class="info-container">
         <div class="info-section">
           <p class="info-label">Company:</p>
-          <p class="info-value"><a href="http://www.solution-source.net/">Solution Source</a></p>
+          <p class="info-value"><a class='links' href="http://www.solution-source.net/">Solution Source</a></p>
         </div>
         <div class="info-section">
           <p class="info-label">Alma Mater:</p>
-          <p class="info-value"><a href="https://www.northcentralcollege.edu/">North Central College</a></p>
+          <p class="info-value"><a class='links' href="https://www.northcentralcollege.edu/">North Central College</a></p>
         </div>
       </div>
       <div class="bio-container">
@@ -35,9 +35,9 @@
         <div class="frameworks">
           <p class="section-title">Top 3 Frameworks used</p>
           <ul class="framework-list">
-            <li><a href="https://vuejs.org">Vue</a></li>
-            <li><a href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API">SuiteScript</a></li>
-            <li><a href="https://jquery.org">jQuery</a></li>
+            <li><a class='links' href="https://vuejs.org">Vue</a></li>
+            <li><a class='links' href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API">SuiteScript</a></li>
+            <li><a class='links' href="https://jquery.org">jQuery</a></li>
           </ul>
         </div>
       </div>
@@ -99,7 +99,9 @@ export default {
   margin-right: 20px;
   text-align: center;
 }
-
+.links:visited {
+  color: #181825; 
+}
 .info-label {
   font-weight: bold;
   margin-bottom: 5px;

@@ -2,15 +2,15 @@
   <title>Contact</title>
   <body class="contact">
     <div class="contact-container">
-      <div class="form-head"><b>Get in touch</b></div>
+      <div class="form-head" style="color: #ffffff"><b>Get in touch</b></div>
       <form ref="form" @submit.prevent="submitForm">
         <div class="form-group">
           <br />
-          <label for="fullName" style="color: #000000">Name:</label>
+          <label for="fullName" style="color: #ffffff">Name:</label>
           <input type="text" id="first" v-model="fullName" /><br />
-          <label for="email" style="color: #000000">Email Address: </label>
+          <label for="email" style="color: #ffffff">Email Address: </label>
           <input type="text" id="email" v-model="reply_to" />
-          <label for="message" style="color: #000000">Message:</label>
+          <label for="message" style="color: #ffffff">Message:</label>
           <textarea class="textArea" type="text" id="message" v-model="message"></textarea>
         </div>
         <button type="submit">Submit</button><br /><br />
@@ -129,5 +129,8 @@ button:hover {
 
 button:active {
   background-color: #5c067d;
+}
+a:visited {
+  color: #181825; 
 }
 </style>
