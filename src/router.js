@@ -7,16 +7,18 @@ import ContactPage from "@/components/ContactPage.vue";
 import GamesPage from "@/components/GamesPage.vue";
 import ButtonMatch from "@/components/games/ButtonMatch.vue";
 import BattleShip from "@/components/games/BattleShip/BattleShipModel.vue";
+import TicTacToe from "@/components/games/TicTacToe.vue";
 
 const routes = [
   { path: "/", component: Home, name: "Home" },
   { path: "/resume", component: ResumePage, name: "Resume" },
-  { path: "/blog", component: BlogPage, name: "Blog" },
+  { path: "/blog", component: BlogPage, name: "blog" },
   { path: "/login", component: LoginPage, name: "login" },
   { path: "/contact", component: ContactPage, name: "contact" },
   { path: "/games", component: GamesPage, name: "games" },
   { path: "/games/match", component: ButtonMatch, name: "match" },
   { path: "/games/battleship", component: BattleShip, name: "battleship" },
+  { path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe" },
 ];
 
 const router = createRouter({
