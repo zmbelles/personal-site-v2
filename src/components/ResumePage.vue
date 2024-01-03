@@ -101,8 +101,8 @@
             <li>In collaboration with our exceptional team of eight developers, I played a pivotal role in orchestrating the generation of a substantial <b><u>$12,000</u></b> in development revenue per week within our pod.</li>
             <li>Implemented and improved existing <b>SuiteCommerce</b> sites, leveraging <b>jQuery</b> and <b>Vue.js</b> to seamlessly interact with the <b>SuiteCloud</b> database using the SuiteScript API.</li>
           </ul>
-          <p class="clarification"><b>*Any work history prior/unrelated to Software Development is available upon request.</b></p>
-          <p class="clarification"><b>*References also available by filling out the form on my Contact Me page.</b></p>
+          <p class="clarification"><i><b>*Any work history prior/unrelated to Software Development is available upon request.</b></i></p>
+          <p class="clarification"><i><b>*References also available by filling out the form on my Contact Me page.</b></i></p>
         </div>
       </div>
 
@@ -202,7 +202,7 @@
     text-align: left;
   }
   .clarification {
-    color:#9510d8;
+    color:#ffffff;
 
   }
   .job-title {
