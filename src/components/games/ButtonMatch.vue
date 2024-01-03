@@ -2,7 +2,7 @@
 	<title>Button Match</title>
 	<div class="button-match-container">
 		<h1 class="button-match-header">Button Match</h1>
-		<h3 class="button-match-description">
+		<h3 class="button-match-header">
 			Match all of the buttons to be the same color in the fastest
 			possible time
 		</h3>
@@ -127,27 +127,18 @@ export default {
 			// Flatten the 2D array
 			const flattenedButtons = this.buttons.flat();
 
-			if (flattenedButtons.every((button) => button.color === "blue")) {
-				if(this.minutes == 1){
-					if(this.seconds <= 5)
-					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}! elseif has 40 seconds to live.`;
+			if (flattenedButtons.every((button) => button.color === "blue") || flattenedButtons.every((button) => button.color === "orange")) {
+				if(this.minutes == 0 && this.seconds <= 56){
+					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds} and beat the author time of 0:56!`;
 				}
-				else if(this.minutes == 0){
-					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}! elseif has 40 seconds to live.`;
+				else{
+					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}! Author time is 0:56`;	
 				}
-				this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}!`;
 				this.showPopup = true;
 				this.stopTimer();
 				return true;
-			} else if (
-				flattenedButtons.every((button) => button.color === "orange")
-			) {
-				this.successMessage = `Congrats elseif! You matched all buttons in ${this.minutes}:${this.seconds}!`;
-				this.showPopup = true;
-				this.stopTimer();
-				return true;
-			} else {
-				console.log("The buttons are of mixed colors.");
+			}else {
+				alert("The buttons are of mixed colors. Every one must be the same color");
 				return false;
 			}
 		},
@@ -190,7 +181,9 @@ export default {
 	align-items: center;
 	height: 100vh;
 }
-
+.button-match-header {
+	color:#9510d8;
+}
 .button-match {
 	background-color: #f4f4f4;
 	padding: 20px;
