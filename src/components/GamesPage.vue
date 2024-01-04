@@ -2,14 +2,6 @@
   <title>Games</title>
   <div class="game-page">
     <div class="game-card">
-      <h2><router-link to="/games/match">Button Match</router-link></h2>
-      <p>
-        A fun and challenging matching game where you need to find matching
-        buttons.
-      </p>
-    </div>
-    <br /><br />
-    <div class="game-card">
       <!-- <h2><router-link to="/games/battleship">BattleShip</router-link></h2> -->
       <h2 class="coming-soon">BattleShip (coming soon)</h2>
       <p>
@@ -19,10 +11,19 @@
     </div>
     <br /><br />
     <div class="game-card">
-      <h2><router-link to="/games/tic-tac-toe">Tic Tac Toe</router-link></h2>
+      <h2><router-link to="/games/match">Button Match</router-link></h2>
       <p>
-        Take turns to outsmart your opponent by guessing the location of the
-        enemy's fleet, aiming to be the first to sink all opposing ships.
+        A fun and challenging matching game where you need to find matching
+        buttons.
+      </p>
+    </div>
+    <br /><br />
+    <div class="game-card">
+      <h2><router-link to="/games/tic-tac-toe">Tic-Tac-Toe 2 (The Sequel)</router-link></h2>
+      <p>
+        Take Tic-Tac-Toe Strategy to the next level! Instead of one game, you gotta win 
+        3 games of Tic-Tac-Toe, vertically, horizontally, or diagonally, to be crowned
+        the winner in this take on the classic playground game.
       </p>
     </div>
   </div>
@@ -41,7 +42,7 @@ export default {
   justify-content: center; /* Centers children vertically */
   align-items: center; /* Centers children horizontally */
   background-color: #181825;
-  height: 60vh;
+  height: 80vh;
   padding: 20px; /* Adds some space between the cards */
 }
 

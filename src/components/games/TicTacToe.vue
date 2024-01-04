@@ -32,7 +32,6 @@
             <div class="cell-container"></div>
           </div>
         </div>
-        <p class="mini-board-result" v-if="miniWinners[boardIndex]"></p>
       </div>
     </div>
     <br /><br />
