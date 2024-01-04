@@ -136,6 +136,7 @@ export default {
         .map(() => Array(9).fill(null));
       this.currentPlayer = "X";
       this.winner = null;
+      this.lastMove = null;
       this.miniWinners = Array(9).fill(null);
     },
     isBoardValid(boardIndex) {
