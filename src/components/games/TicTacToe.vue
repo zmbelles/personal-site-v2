@@ -48,16 +48,113 @@
 export default {
   data() {
     return {
+
+      // an array of arrays which stores the current game state
       boards: Array(9)
         .fill()
         .map(() => Array(9).fill(null)),
+      // since the classic game of Tic-Tac-Toe uses X's and O's, the same is true for each player
       currentPlayer: "X",
+
+      // stores a string of which player has won (null if game persists)
       winner: null,
+
+      // an Array of strings for each mini-board that has been won by each player.
       miniWinners: Array(9).fill(null),
+
+      // stores the index of the last move made. mostly used to check if the player has played a move 
+      // on a valid board according to the rules.
       lastMove: null,
+
+      // tracks the last board that was played on so the computer player can check
+      // if the player won on that board
+      thisBoard: -1,
+
+      //bool to track whether or not it is the computers turn. if so, do not allow button presses.
+      computerIsThinking: false,
     };
   },
   methods: {
+    fullBoardAnalysis(){
+
+      let validBoards = [];
+      for(let i=0; i<9; i++){
+        if(this.miniWinners[i] == null){
+          validBoards.push(i);
+        }
+      }
+      const randomIndex = validBoards[Math.floor(Math.random() * validBoards.length)];
+      this.thisBoard = randomIndex;
+      return this.narrowBoardAnalysis(randomIndex);
+    },
+    narrowBoardAnalysis(boardNumber){
+      const thisBoard = this.boards[boardNumber];
+
+      const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]             // Diagonals
+      ];
+      // Check if the human player has two in a row 
+      for (let combo of winningCombinations) {
+        const [a, b, c] = combo;
+        
+        if (thisBoard[a] === 'player-red' && thisBoard[b] === 'player-red' && !thisBoard[c]) {
+          return c; // Block at position c
+        }
+        if (thisBoard[a] === 'player-red' && !thisBoard[b] && thisBoard[c] === 'player-red') {
+          return b; // Block at position b
+        }
+        if (!thisBoard[a] && thisBoard[b] === 'player-red' && thisBoard[c] === 'player-red') {
+          return a; // Block at position a
+        }
+      }
+      // Check if the computer has two in a row
+      for (let combo of winningCombinations) {
+        const [a, b, c] = combo;
+
+        if (thisBoard[a] === 'player-blue' && thisBoard[b] === 'player-blue' && !thisBoard[c]) {
+          return c; // win at position c
+        }
+        if (thisBoard[a] === 'player-blue' && !thisBoard[b] && thisBoard[c] === 'player-blue') {
+          return b; // win at position b
+        }
+        if (!thisBoard[a] && thisBoard[b] === 'player-blue' && thisBoard[c] === 'player-blue') {
+          return a; // win at position a
+        }
+      }
+      // Collect all empty indices
+      const emptyIndices = [];
+      thisBoard.forEach((cell, index) => {
+        if (cell === null) {
+          emptyIndices.push(index);
+        }
+      });
+      // Select a random index from the empty cells
+      if (emptyIndices.length > 0) {
+        const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+        return randomIndex;
+      }
+      return -1;
+    },
+    AIPlayerMove(){
+      let computerMove = -1;
+      if(this.miniWinners[this.lastMove]){
+        computerMove = this.fullBoardAnalysis();
+      }
+      else{
+        computerMove = this.narrowBoardAnalysis(this.lastMove);
+        this.thisBoard = this.lastMove;
+      }
+      if(computerMove == -1){
+        alert("Something went wrong parsing the AI Moveset. Please contact the administrator.");
+        this.resetGame();
+      }
+      this.boards[this.thisBoard][computerMove] = "player-blue";
+      this.checkMiniWinner(this.thisBoard);
+      this.currentPlayer = "X";
+      this.lastMove = computerMove; // Update lastMove based on the mini-board for the next move
+    },
     makeMove(boardIndex, cellIndex) {
       if (!this.isBoardValid(boardIndex)) {
         // Show an alert if the player tries to play on an invalid board
@@ -65,16 +162,15 @@ export default {
         return;
       }
 
-      if (
-        !this.boards[boardIndex][cellIndex] &&
-        !this.miniWinners[boardIndex] &&
-        !this.winner
-      ) {
-        this.boards[boardIndex][cellIndex] =
-          this.currentPlayer === "X" ? "player-red" : "player-blue";
+      if (!this.boards[boardIndex][cellIndex]) {
+        this.boards[boardIndex][cellIndex] = "player-red";
         this.checkMiniWinner(boardIndex);
-        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+        this.currentPlayer = "O";
         this.lastMove = cellIndex; // Update lastMove based on the mini-board for the next move
+
+        this.computerIsThinking = true;
+        this.AIPlayerMove(cellIndex);
+        this.computerIsThinking = false;
       }
     },
     checkMiniWinner(boardIndex) {
@@ -231,7 +327,7 @@ export default {
 
 .game-result {
   font-size: 20px;
-  color: #333;
+  color: #9510d8;
   margin-top: 10px;
 }
 </style>
