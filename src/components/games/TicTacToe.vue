@@ -1,5 +1,36 @@
 <template>
+  <h1 class="game-header">Tic-Tac-Toe 2: The Sequel</h1>
+  
   <div class="tic-tac-toe">
+    <button class="rules" @click="toggleRules">Rules</button>
+    <!-- Rules div -->
+    <div class="rules-container" v-if="showRules">
+      <div class="rules-content">
+        <button class="close-rules" @click="toggleRules">X</button>
+            <p>The Basics:</p>
+            <ol>
+              <li>This game utilizes a 9x9 grid of Tic-Tac-Toe.</li>
+              <li>The grid is split up into 9 3x3 sub-games.</li>
+              <li>
+                You may only make a move in a sub-game if it corresponds with the position of the last move. For example, if the last move was on the top left position, the next move must be made on the top left sub-game.
+                <ol>
+                  <li>
+                    If the last position would force a player to make a move on an already completed sub-game, that player may make their move on any open space on the board.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+            <p style="align-items:start;">How to Play:</p>
+            <ol>
+              <li>When it's their turn, players select an empty space within one of the purple highlighted grids to make their move.</li>
+              <li>If a player's move would cause there to be three in a row of that player's color, vertically, horizontally, or diagonally, in that sub-game, that player is deemed the winner of that sub-game and it will be colored in for their color.</li>
+            </ol>
+            <p>Winning the Game:</p>
+            <ol>
+              <li>If a player wins 3 sub-games of Tic-Tac-toe in a row, vertically, horizontally, or diagonally, that player is considered the winner.</li>
+            </ol>
+      </div>
+    </div>
     <div class="main-board">
       <div
         v-for="(miniBoard, boardIndex) in boards"
@@ -72,6 +103,17 @@ export default {
 
       //bool to track whether or not it is the computers turn. if so, do not allow button presses.
       computerIsThinking: false,
+
+      // holds the state of the rules button being clicked to show rules
+      showRules: false,
+
+      // holds all possible winning combinations in tic-tac-toe
+      // for reuse
+      winningCombinations: [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]             // Diagonals
+      ],
     };
   },
   methods: {
@@ -89,14 +131,8 @@ export default {
     },
     narrowBoardAnalysis(boardNumber){
       const thisBoard = this.boards[boardNumber];
-
-      const winningCombinations = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-        [0, 4, 8], [2, 4, 6]             // Diagonals
-      ];
       // Check if the human player has two in a row 
-      for (let combo of winningCombinations) {
+      for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         
         if (thisBoard[a] === 'player-red' && thisBoard[b] === 'player-red' && !thisBoard[c]) {
@@ -110,7 +146,7 @@ export default {
         }
       }
       // Check if the computer has two in a row
-      for (let combo of winningCombinations) {
+      for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
 
         if (thisBoard[a] === 'player-blue' && thisBoard[b] === 'player-blue' && !thisBoard[c]) {
@@ -174,18 +210,8 @@ export default {
       }
     },
     checkMiniWinner(boardIndex) {
-      const winningCombinations = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8], // rows
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8], // columns
-        [0, 4, 8],
-        [2, 4, 6], // diagonals
-      ];
 
-      for (let combo of winningCombinations) {
+      for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (
           this.boards[boardIndex][a] &&
@@ -200,18 +226,8 @@ export default {
       this.checkWinner();
     },
     checkWinner() {
-      const winningCombinations = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8], // rows
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8], // columns
-        [0, 4, 8],
-        [2, 4, 6], // diagonals
-      ];
 
-      for (let combo of winningCombinations) {
+      for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (
           this.miniWinners[a] &&
@@ -245,6 +261,9 @@ export default {
       // Otherwise, the valid board is the one that corresponds to the last move
       return boardIndex === this.lastMove;
     },
+    toggleRules() {
+      this.showRules = !this.showRules;
+    },
   },
 };
 </script>
@@ -257,7 +276,12 @@ export default {
   justify-content: center;
   padding: 20px;
 }
-
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Take up the full width */
+}
 .main-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -278,6 +302,14 @@ export default {
   grid-gap: 5px;
 }
 
+.game-header {
+  display: contents;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
 .cell {
   background: #f0f0f0;
   padding: 10px;
@@ -291,6 +323,72 @@ export default {
   align-items: center;
   width: 30px; /* Fixed width to ensure consistent size */
   height: 30px; /* Fixed height to ensure consistent size */
+}
+
+.rules {
+  padding: 10px 15px;
+  background-color: #9510d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-left: auto; /* Push the button to the right */
+}
+
+.rules-container {
+  position: inherit; /* or absolute, depending on your layout */
+  width: 50vh; /* Adjust as needed */
+  background: #362E5F;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  animation: slide-in 0.3s ease-out;
+}
+
+.rules-content {
+  position: relative;
+  align-content: flex-start;
+  text-align: left;
+}
+
+.close-rules {
+  position: absolute;
+  top: -1vh;
+  right: .5vh;
+  background: #f0f0f0; /* Light background for the button */
+  color: #333; /* Darker text color for contrast */
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px; /* Padding around the X */
+  border-radius: 50%; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  width: 25px; /* Fixed width */
+  height: 25px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+}
+
+.close-rules:hover {
+  background-color: #858585; /* Slightly darker background on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+}
+
+
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .cell.player-red {
