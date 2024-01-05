@@ -31,7 +31,6 @@
       <div class="submit-container">
         <button class="submit" @click="checkColors">submit</button>
       </div>
-    </div>
   </div>
 </template>
 
