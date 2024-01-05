@@ -131,10 +131,10 @@ export default {
 				flattenedButtons.every((button) => button.color === "blue") ||
 				flattenedButtons.every((button) => button.color === "orange")
 			) {
-				if (this.minutes == 0 && this.seconds <= 56) {
-					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds} and beat the author time of 0:56!`;
+				if (this.minutes == 0 && this.seconds <= 48) {
+					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds} and beat the author time of 0:48!`;
 				} else {
-					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}! Author time is 0:56`;
+					this.successMessage = `Congrats! You matched all buttons in ${this.minutes}:${this.seconds}! Author time is 0:48`;
 				}
 				this.showPopup = true;
 				this.stopTimer();
