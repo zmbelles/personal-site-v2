@@ -146,64 +146,15 @@ export default {
      * @returns { Object } returns an Object containing the states of all adjacent cells (null if non-existant)
      */
     checkAdjacentCells(board, index) {
-      let left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight;
+      let left = index % 3 !== 0;
+      let right = index % 3 !== 2;
+      let top = index > 2;
+      let bottom = index < 6;
 
-      // Left check (not for left column)
-      if (index % 3 !== 0) {
-        left = true;
-      } else {
-        left = false;
-      }
-
-      // Right check (not for right column)
-      if (index % 3 !== 2) {
-        right = true;
-      } else {
-        right = false;
-      }
-
-      // Top check (not for top row)
-      if (index > 2) {
-        top = true;
-      } else {
-        top = false;
-      }
-
-      // Bottom check (not for bottom row)
-      if (index < 6) {
-        bottom = true;
-      } else {
-        bottom = false;
-      }
-
-      // Diagonal checks
-      // Top left
-      if (index !== 0 && index !== 2 && index !== 6 && index % 3 !== 0) {
-        topLeft = true;
-      } else {
-        topLeft = false;
-      }
-
-      // Top right
-      if (index !== 0 && index !== 2 && index !== 6 && index % 3 !== 2) {
-        topRight = true;
-      } else {
-        topRight = false;
-      }
-
-      // Bottom left
-      if (index !== 2 && index !== 6 && index !== 8 && index % 3 !== 0) {
-        bottomLeft = true;
-      } else {
-        bottomLeft = false;
-      }
-
-      // Bottom right
-      if (index !== 2 && index !== 6 && index !== 8 && index % 3 !== 2) {
-        bottomRight = true;
-      } else {
-        bottomRight = false;
-      }
+      let topLeft = top && left;
+      let topRight = top && right;
+      let bottomLeft = bottom && left;
+      let bottomRight = bottom && right;
 
       return {
         left,
@@ -236,7 +187,7 @@ export default {
     findBestMove(objects) {
       let highestViability = 0; // Initialize with a very low number
       let bestMove = null;
-
+      // TODO: add all equally viable moves to return
       objects.forEach((obj) => {
         if (obj.viability > highestViability) {
           highestViability = obj.viability;
@@ -267,7 +218,7 @@ export default {
         } else if (c == boardIndex) {
           if (
             this.miniWinners[b] == "player-red" &&
-            this.miniWinners[c] == "player-red"
+            this.miniWinners[a] == "player-red"
           ) {
             return true;
           }
@@ -281,51 +232,181 @@ export default {
      *                  the viability of making the move based on what the opponent is liable to do
      *                  (such as win a sub-game, or worse, win the game)
      */
-    viabilityAnalysis(proposedIndex) {
-      const thisBoard = this.boards[proposedIndex];
-      let viability = 100;
-      for (let combo of this.winningCombinations) {
-        const [a, b, c] = combo;
-        // check all winning combinations to see if the human player could win this sub-game
-        if (
-          thisBoard[a] === "player-red" &&
-          thisBoard[b] === "player-red" &&
-          !thisBoard[c]
-        ) {
-          viability -= 40;
-          if (this.wouldBeWin(proposedIndex)) {
-            // if this causes the human player to win the game
-            // return 0 as this move is not viable at all
-            return 0;
-          }
-        }
-        if (
-          thisBoard[a] === "player-red" &&
-          !thisBoard[b] &&
-          thisBoard[c] === "player-red"
-        ) {
-          viability -= 40;
-          if (this.wouldBeWin(proposedIndex)) {
-            // if this causes the human player to win the game
-            // return 0 as this move is not viable at all
-            return 0;
-          }
-        }
-        if (
-          !thisBoard[a] &&
-          thisBoard[b] === "player-red" &&
-          thisBoard[c] === "player-red"
-        ) {
-          viability -= 40;
-          if (this.wouldBeWin(proposedIndex)) {
-            // if this causes the human player to win the game
-            // return 0 as this move is not viable at all
-            return 0;
-          }
-        }
+    viabilityAnalysis(proposedIndex, thisBoardIndex) {
+      const futureBoard = this.boards[proposedIndex];
+      const thisBoard = this.boards[thisBoardIndex];
+      let viability = 50;
+      // Check if the move would result in the human player having to play on an empty board
+      const isNextBoardEmpty = (index) => {
+        const nextBoard = this.boards[index];
+        return nextBoard.every((cell) => cell === null);
+      };
+
+      // Boost viability if the human player's next board is empty
+      if (isNextBoardEmpty(proposedIndex)) {
+        viability += 5;
       }
 
-      return viability;
+      // Function to adjust viability for setting up a win
+      const adjustForSetup = (board, player) => {
+        for (let combo of this.winningCombinations) {
+          const [a, b, c] = combo;
+
+          // Check if the AI has a chance to set up two in a row, excluding false diagonals
+          if (combo.every((idx) => [0, 2, 4, 6, 8].includes(idx))) {
+            // Diagonal setup
+            if (
+              (board[a] === player &&
+                b == proposedIndex &&
+                board[c] === null) ||
+              (board[a] === null &&
+                b == proposedIndex &&
+                board[c] === player) ||
+              (board[a] === null &&
+                board[b] === player &&
+                c == proposedIndex) ||
+              (board[a] === player &&
+                board[b] === null &&
+                c == proposedIndex) ||
+              (a == proposedIndex &&
+                board[b] === null &&
+                board[c] === player) ||
+              (a == proposedIndex && board[b] === player && board[c] === null)
+            ) {
+              viability += 5; // Boost for setting up a win
+              break; // Only need one setup to justify the boost
+            }
+          } else {
+            // Horizontal or vertical setup
+
+            let indexInCombo = combo.indexOf(proposedIndex);
+            if (indexInCombo != -1) {
+              combo.slice(proposedIndex, 1);
+            }
+            if (
+              (board[a] === player &&
+                b == proposedIndex &&
+                board[c] === null) ||
+              (board[a] === null &&
+                b == proposedIndex &&
+                board[c] === player) ||
+              (board[a] === null &&
+                board[b] === player &&
+                c == proposedIndex) ||
+              (board[a] === player &&
+                board[b] === null &&
+                c == proposedIndex) ||
+              (a == proposedIndex &&
+                board[b] === null &&
+                board[c] === player) ||
+              (a == proposedIndex && board[b] === player && board[c] === null)
+            ) {
+              console.log(`setting up a win for index ${proposedIndex}`);
+              viability += 5; // Boost for setting up a win
+              console.log(`viability for ${proposedIndex}: ${viability}`);
+              break; // Only need one setup to justify the boost
+            }
+          }
+        }
+      };
+
+      // Function to adjust viability based on a player's potential win or block
+      const adjustViabilityForPlayer = (board, player, isFutureBoard) => {
+        for (let combo of this.winningCombinations) {
+          const [a, b, c] = combo;
+          const aComboWin =
+            board[a] === player && board[b] === player && board[c] === null;
+          const bComboWin =
+            board[a] === player && board[c] === player && board[b] === null;
+          const cComboWin =
+            board[b] === player && board[c] === player && board[a] === null;
+          if (aComboWin == true) {
+            console.log(
+              `cell ${a} and ${b} are taken. cell ${c} is needed. proposed move is ${proposedIndex}`
+            );
+            if (isFutureBoard) {
+              if (player == "player-red") {
+                if (this.wouldBeWin(proposedIndex)) {
+                  viability = 0;
+                }
+                viability -= 45;
+              } else {
+                viability -= 10;
+              }
+            } else {
+              if (player == "player-red") {
+                viability += 25;
+              } else {
+                if (c == proposedIndex) {
+                  viability += 40;
+                }
+              }
+            }
+          }
+          if (bComboWin == true) {
+            console.log(
+              `cell ${a} and ${c} are taken. cell ${b} is needed. proposed move is ${proposedIndex}`
+            );
+            if (isFutureBoard) {
+              if (player == "player-red") {
+                if (this.wouldBeWin(proposedIndex)) {
+                  viability = 0;
+                }
+                viability -= 45;
+              } else {
+                viability -= 10;
+              }
+            } else {
+              if (player == "player-red") {
+                viability += 25;
+              } else {
+                if (b == proposedIndex) {
+                  viability += 40;
+                }
+              }
+            }
+          }
+          if (cComboWin == true) {
+            console.log(
+              `cell ${b} and ${c} are taken. cell ${a} is needed. proposed move is ${proposedIndex}`
+            );
+            if (isFutureBoard) {
+              if (player == "player-red") {
+                if (this.wouldBeWin(proposedIndex)) {
+                  viability = 0;
+                }
+                viability -= 45;
+              } else {
+                viability -= 10;
+              }
+            } else {
+              if (a == proposedIndex) {
+                console.log(`true index for player ${player}`);
+                if (player == "player-red") {
+                  console.log(`increased viability for blocking opponent`);
+                  viability += 25;
+                } else {
+                  console.log(`increased viability for potential win`);
+                  viability += 40;
+                }
+              }
+            }
+          }
+        }
+      };
+
+      // Adjust viability for setting up a win on the current board
+      adjustForSetup(thisBoard, "player-blue");
+
+      // Adjust viability for the current board
+      adjustViabilityForPlayer(thisBoard, "player-blue", false);
+      adjustViabilityForPlayer(thisBoard, "player-red", false);
+
+      // Adjust viability for the future board
+      adjustViabilityForPlayer(futureBoard, "player-blue", true);
+      adjustViabilityForPlayer(futureBoard, "player-red", true);
+
+      return Math.max(0, viability); // Ensure viability doesn't go below 0
     },
 
     /**
@@ -397,210 +478,27 @@ export default {
      */
     narrowBoardAnalysis(boardNumber) {
       const thisBoard = this.boards[boardNumber];
-      // Check if the human player has two in a row
-      for (let combo of this.winningCombinations) {
-        const [a, b, c] = combo;
+      let computerMoves = [];
 
-        if (
-          thisBoard[a] === "player-red" &&
-          thisBoard[b] === "player-red" &&
-          !thisBoard[c]
-        ) {
-          return c; // Block at position c
-        }
-        if (
-          thisBoard[a] === "player-red" &&
-          !thisBoard[b] &&
-          thisBoard[c] === "player-red"
-        ) {
-          return b; // Block at position b
-        }
-        if (
-          !thisBoard[a] &&
-          thisBoard[b] === "player-red" &&
-          thisBoard[c] === "player-red"
-        ) {
-          return a; // Block at position a
-        }
-      }
-      // Check if the computer has two in a row
-      for (let combo of this.winningCombinations) {
-        const [a, b, c] = combo;
-
-        if (
-          thisBoard[a] === "player-blue" &&
-          thisBoard[b] === "player-blue" &&
-          !thisBoard[c]
-        ) {
-          return c; // win at position c
-        }
-        if (
-          thisBoard[a] === "player-blue" &&
-          !thisBoard[b] &&
-          thisBoard[c] === "player-blue"
-        ) {
-          return b; // win at position b
-        }
-        if (
-          !thisBoard[a] &&
-          thisBoard[b] === "player-blue" &&
-          thisBoard[c] === "player-blue"
-        ) {
-          return a; // win at position a
-        }
-      }
+      // Iterate over all cells in the board
       for (let i = 0; i < thisBoard.length; i++) {
-        if (thisBoard[i] == "player-blue") {
-          const {
-            left,
-            right,
-            top,
-            bottom,
-            topLeft,
-            topRight,
-            bottomLeft,
-            bottomRight,
-          } = this.checkAdjacentCells(thisBoard, i);
-          console.log(`for grid slot ${i}`);
-          console.log(
-            `left: ${left}, right: ${right}, top: ${top}, bottom: ${bottom} topLeft: ${topLeft} topRight: ${topRight} bottomLeft: ${bottomLeft} bottomRight: ${bottomRight}`
-          );
-          //TODO: add a toggle for easy or hard to enable/disable obstruction and viability analysis
-          let computerMoves = [];
-          // Check if the adjacent cells are empty and the path is not blocked
-          // and check if move will cause opponent to win next turn
-          if (left === true && thisBoard[i - 1] !== "player-red") {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i - 1);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i - 1);
-              const thisMoveObject = {
-                move: i - 1,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past left");
-          if (right === true && thisBoard[i + 1] !== "player-red") {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 1);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 1);
-              const thisMoveObject = {
-                move: i + 1,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past right");
-          if (top === true && thisBoard[i - 3] !== "player-red") {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i - 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i - 3);
-              const thisMoveObject = {
-                move: i - 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past top");
-          if (bottom === true && thisBoard[i + 3] !== "player-red") {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 3);
-              const thisMoveObject = {
-                move: i + 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past bottom");
-          if (
-            topLeft === true &&
-            (i == 4 || i == 8) &&
-            thisBoard[i - 4] !== "player-red"
-          ) {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 3);
-              const thisMoveObject = {
-                move: i + 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past topLeft");
-          if (
-            topRight === true &&
-            (i == 4 || i == 6) &&
-            thisBoard[i - 2] !== "player-red"
-          ) {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 3);
-              const thisMoveObject = {
-                move: i + 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past topRight");
-          if (
-            bottomLeft === true &&
-            (i == 4 || i == 2) &&
-            thisBoard[i + 2] !== "player-red"
-          ) {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 3);
-              const thisMoveObject = {
-                move: i + 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past bottomLeft");
-          if (
-            bottomRight === true &&
-            (i == 4 || i == 0) &&
-            thisBoard[i + 4] !== "player-red"
-          ) {
-            let isObstructed = this.obstructionAnalysis(thisBoard, i, i + 3);
-            if (!isObstructed) {
-              const viability = this.viabilityAnalysis(i + 3);
-              const thisMoveObject = {
-                move: i + 3,
-                viability: viability,
-              };
-              computerMoves.push(thisMoveObject);
-            }
-          }
-          console.log("Made it past bottomRight");
-          console.log(`number of viable moves: ${computerMoves.length}`);
-          console.log(`moves and viability: ${JSON.stringify(computerMoves)}`);
-          let bestMove = this.findBestMove(computerMoves);
-          console.log(`best move: ${bestMove}`);
-          return bestMove;
+        // Only consider empty cells
+        if (thisBoard[i] === null) {
+          // Evaluate the viability of this cell
+          const viability = this.viabilityAnalysis(i, boardNumber);
+          // If the cell is a potential move (i.e., not obstructed and viable), add it to the list
+          computerMoves.push({ move: i, viability: viability });
         }
       }
-      // Collect all empty indices
-      const emptyIndices = [];
-      thisBoard.forEach((cell, index) => {
-        if (cell === null) {
-          emptyIndices.push(index);
-        }
-      });
-      // Select a random index from the empty cells
-      if (emptyIndices.length > 0) {
-        const randomIndex =
-          emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-        return randomIndex;
+      console.log(`valid Moves: ${computerMoves.length}`);
+      console.log(`moves: ${JSON.stringify(computerMoves)}`);
+      // If there are any viable moves, find the best one
+      if (computerMoves.length > 0) {
+        let bestMove = this.findBestMove(computerMoves);
+        return bestMove;
       }
+
+      // If no viable moves are found, return -1 or handle as needed
       return -1;
     },
 
