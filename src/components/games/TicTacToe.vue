@@ -71,7 +71,7 @@
             v-for="(cell, cellIndex) in miniBoard"
             :key="cellIndex"
             :class="['cell', cell]"
-            @click="makeMove(boardIndex, cellIndex)"
+            @click="!isComputerThinking && makeMove(boardIndex, cellIndex)"
             :style="{
               visibility: miniWinners[boardIndex] ? 'hidden' : 'visible',
             }"
@@ -137,6 +137,9 @@ export default {
       aiPowerSwitch: true,
       // delay for computer player to mimic thinking
       aiDelay: 1000,
+
+      // if true, the AI is processing a best move between all boards
+      isFullBoardProcessing: false,
     };
   },
   methods: {
@@ -178,10 +181,31 @@ export default {
           validBoards.push(i);
         }
       }
-      const randomIndex =
-        validBoards[Math.floor(Math.random() * validBoards.length)];
-      this.thisBoard = randomIndex;
-      return this.narrowBoardAnalysis(randomIndex);
+      console.log(`valid boards: ${validBoards.length}`);
+      let potentialMoves = [];
+      this.isFullBoardProcessing = true;
+      for (let i = 0; i < validBoards.length; i++) {
+        let thisMove = this.narrowBoardAnalysis(validBoards[i]);
+        let thisPossibleMove = {
+          move: thisMove.move,
+          board: i,
+          viability: thisMove.viability,
+        };
+        potentialMoves.push(thisPossibleMove);
+      }
+      console.log(JSON.stringify(potentialMoves));
+      this.isFullBoardProcessing = false;
+
+      let highestViability = 0; // Initialize with a very low number
+      let bestMove = null;
+      potentialMoves.forEach((obj) => {
+        if (obj.viability > highestViability) {
+          highestViability = obj.viability;
+          bestMove = obj;
+        }
+      });
+      this.thisBoard = bestMove.board;
+      return bestMove;
     },
 
     findBestMove(objects) {
@@ -191,7 +215,7 @@ export default {
       objects.forEach((obj) => {
         if (obj.viability > highestViability) {
           highestViability = obj.viability;
-          bestMove = obj.move;
+          bestMove = obj;
         }
       });
 
@@ -248,7 +272,7 @@ export default {
       }
 
       // Function to adjust viability for setting up a win
-      const adjustForSetup = (board, player) => {
+      const adjustViabilityForSetup = (board, player) => {
         for (let combo of this.winningCombinations) {
           const [a, b, c] = combo;
 
@@ -311,7 +335,7 @@ export default {
       };
 
       // Function to adjust viability based on a player's potential win or block
-      const adjustViabilityForPlayer = (board, player, isFutureBoard) => {
+      const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
         for (let combo of this.winningCombinations) {
           const [a, b, c] = combo;
           const aComboWin =
@@ -329,17 +353,20 @@ export default {
                 if (this.wouldBeWin(proposedIndex)) {
                   viability = 0;
                 }
+                if (this.miniWinners[proposedIndex] != null) {
+                  viability -= 70;
+                }
                 viability -= 45;
               } else {
                 viability -= 10;
               }
             } else {
               if (player == "player-red") {
-                viability += 25;
+                console.log(`increased viability for blocking opponent`);
+                viability += 20;
               } else {
-                if (c == proposedIndex) {
-                  viability += 40;
-                }
+                console.log(`increased viability for potential win`);
+                viability += 50;
               }
             }
           }
@@ -352,17 +379,20 @@ export default {
                 if (this.wouldBeWin(proposedIndex)) {
                   viability = 0;
                 }
+                if (this.miniWinners[proposedIndex] != null) {
+                  viability -= 70;
+                }
                 viability -= 45;
               } else {
                 viability -= 10;
               }
             } else {
               if (player == "player-red") {
-                viability += 25;
+                console.log(`increased viability for blocking opponent`);
+                viability += 20;
               } else {
-                if (b == proposedIndex) {
-                  viability += 40;
-                }
+                console.log(`increased viability for potential win`);
+                viability += 50;
               }
             }
           }
@@ -375,6 +405,9 @@ export default {
                 if (this.wouldBeWin(proposedIndex)) {
                   viability = 0;
                 }
+                if (this.miniWinners[proposedIndex] != null) {
+                  viability -= 70;
+                }
                 viability -= 45;
               } else {
                 viability -= 10;
@@ -384,10 +417,10 @@ export default {
                 console.log(`true index for player ${player}`);
                 if (player == "player-red") {
                   console.log(`increased viability for blocking opponent`);
-                  viability += 25;
+                  viability += 20;
                 } else {
                   console.log(`increased viability for potential win`);
-                  viability += 40;
+                  viability += 50;
                 }
               }
             }
@@ -396,15 +429,15 @@ export default {
       };
 
       // Adjust viability for setting up a win on the current board
-      adjustForSetup(thisBoard, "player-blue");
+      adjustViabilityForSetup(thisBoard, "player-blue");
 
       // Adjust viability for the current board
-      adjustViabilityForPlayer(thisBoard, "player-blue", false);
-      adjustViabilityForPlayer(thisBoard, "player-red", false);
+      adjustViabilityForWinOrBlock(thisBoard, "player-blue", false);
+      adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
 
       // Adjust viability for the future board
-      adjustViabilityForPlayer(futureBoard, "player-blue", true);
-      adjustViabilityForPlayer(futureBoard, "player-red", true);
+      adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
+      adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
 
       return Math.max(0, viability); // Ensure viability doesn't go below 0
     },
@@ -495,34 +528,49 @@ export default {
       // If there are any viable moves, find the best one
       if (computerMoves.length > 0) {
         let bestMove = this.findBestMove(computerMoves);
-        return bestMove;
+        if (this.isFullBoardProcessing) {
+          return bestMove;
+        }
+        return bestMove.move;
       }
 
       // If no viable moves are found, return -1 or handle as needed
       return -1;
     },
 
-    AIPlayerMove() {
+    async AIPlayerMove() {
       setTimeout(() => {
-        let computerMove = -1;
+        let computerMove = {};
         if (this.miniWinners[this.lastMove]) {
           computerMove = this.fullBoardAnalysis();
+          if (computerMove.move == -1 || !computerMove.move) {
+            alert(
+              "Something went wrong parsing the AI Moveset. Please contact the administrator."
+            );
+            this.resetGame();
+          }
+          this.boards[computerMove.board][computerMove.move] = "player-blue";
+          this.checkMiniWinner(this.thisBoard);
+          this.currentPlayer = "X";
+          this.lastMove = computerMove.move; // Update lastMove based on the mini-board for the next move
+          // Increase the delay for the next move
+          this.aiDelay += 100;
         } else {
           computerMove = this.narrowBoardAnalysis(this.lastMove);
           this.thisBoard = this.lastMove;
+          if (computerMove == -1) {
+            alert(
+              "Something went wrong parsing the AI Moveset. Please contact the administrator."
+            );
+            this.resetGame();
+          }
+          this.boards[this.thisBoard][computerMove] = "player-blue";
+          this.checkMiniWinner(this.thisBoard);
+          this.currentPlayer = "X";
+          this.lastMove = computerMove; // Update lastMove based on the mini-board for the next move
+          // Increase the delay for the next move
+          this.aiDelay += 100;
         }
-        if (computerMove == -1) {
-          alert(
-            "Something went wrong parsing the AI Moveset. Please contact the administrator."
-          );
-          this.resetGame();
-        }
-        this.boards[this.thisBoard][computerMove] = "player-blue";
-        this.checkMiniWinner(this.thisBoard);
-        this.currentPlayer = "X";
-        this.lastMove = computerMove; // Update lastMove based on the mini-board for the next move
-        // Increase the delay for the next move
-        this.aiDelay += 100;
       }, this.aiDelay);
     },
 
@@ -530,7 +578,11 @@ export default {
      * @param { integer } boardIndex = the index of the board the player made a move on
      * @param { integer } cellIndex = the index of the cell the player made a move on
      */
-    makeMove(boardIndex, cellIndex) {
+    async makeMove(boardIndex, cellIndex) {
+      if (this.currentPlayer != "X") {
+        return;
+      }
+      this.computerIsThinking = true;
       if (!this.isBoardValid(boardIndex)) {
         // Show an alert if the player tries to play on an invalid board
         alert("Please make your move on one of the highlighted boards.");
@@ -543,11 +595,10 @@ export default {
         this.currentPlayer = "O";
         this.lastMove = cellIndex; // Update lastMove based on the mini-board for the next move
         if (this.aiPowerSwitch) {
-          this.computerIsThinking = true;
-          this.AIPlayerMove(cellIndex);
-          this.computerIsThinking = false;
+          await this.AIPlayerMove(cellIndex);
         }
       }
+      this.computerIsThinking = false;
     },
     checkMiniWinner(boardIndex) {
       for (let combo of this.winningCombinations) {
