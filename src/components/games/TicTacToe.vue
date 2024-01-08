@@ -265,7 +265,12 @@ export default {
         const nextBoard = this.boards[index];
         return nextBoard.every((cell) => cell === null);
       };
-
+      if (this.miniWinners[proposedIndex]) {
+        viability -= 70;
+      }
+      if (this.miniWinners[proposedIndex]) {
+        viability -= 70;
+      }
       // Boost viability if the human player's next board is empty
       if (isNextBoardEmpty(proposedIndex)) {
         viability += 5;
@@ -360,10 +365,12 @@ export default {
               } else {
                 viability -= 10;
               }
-            } else {
+            }
+            if (c == proposedIndex) {
+              console.log(`true index for player ${player}`);
               if (player == "player-red") {
                 console.log(`increased viability for blocking opponent`);
-                viability += 20;
+                viability += 60;
               } else {
                 console.log(`increased viability for potential win`);
                 viability += 50;
@@ -379,17 +386,16 @@ export default {
                 if (this.wouldBeWin(proposedIndex)) {
                   viability = 0;
                 }
-                if (this.miniWinners[proposedIndex] != null) {
-                  viability -= 70;
-                }
                 viability -= 45;
               } else {
                 viability -= 10;
               }
-            } else {
+            }
+            if (b == proposedIndex) {
+              console.log(`true index for player ${player}`);
               if (player == "player-red") {
                 console.log(`increased viability for blocking opponent`);
-                viability += 20;
+                viability += 60;
               } else {
                 console.log(`increased viability for potential win`);
                 viability += 50;
@@ -405,9 +411,6 @@ export default {
                 if (this.wouldBeWin(proposedIndex)) {
                   viability = 0;
                 }
-                if (this.miniWinners[proposedIndex] != null) {
-                  viability -= 70;
-                }
                 viability -= 45;
               } else {
                 viability -= 10;
@@ -415,9 +418,12 @@ export default {
             } else {
               if (a == proposedIndex) {
                 console.log(`true index for player ${player}`);
+                if (this.miniWinners[proposedIndex]) {
+                  viability -= 70;
+                }
                 if (player == "player-red") {
                   console.log(`increased viability for blocking opponent`);
-                  viability += 20;
+                  viability += 60;
                 } else {
                   console.log(`increased viability for potential win`);
                   viability += 50;
