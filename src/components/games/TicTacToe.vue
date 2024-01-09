@@ -59,11 +59,7 @@
           miniWinners[boardIndex] ? miniWinners[boardIndex] : '',
         ]"
         :style="{
-          backgroundColor: miniWinners[boardIndex]
-            ? miniWinners[boardIndex] === 'player-red'
-              ? 'red'
-              : 'blue'
-            : '',
+          backgroundColor: getBoardBackgroundColor(boardIndex),
         }"
       >
         <div class="board">
@@ -85,9 +81,14 @@
     <button class="reset-button" v-if="winner" @click="resetGame">
       Restart Game
     </button>
-    <p class="game-result" v-if="winner">
-      Winner: {{ winner === "player-red" ? "Red" : "Blue" }}
-    </p>
+    <div class="results-messages">
+      <p class="game-result" v-if="winner">
+        Winner: {{ winner === "player-red" ? "Red" : "Blue" }}
+      </p>
+      <p class="game-result" v-if="isDraw">
+        {{ drawMessage }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -140,6 +141,9 @@ export default {
 
       // if true, the AI is processing a best move between all boards
       isFullBoardProcessing: false,
+
+      isDraw: false,
+      drawMessage: "No Players Win! Please try again.",
     };
   },
   methods: {
@@ -621,6 +625,41 @@ export default {
       }
       this.checkWinner();
     },
+    isMiniBoardDraw(miniBoard) {
+      return (
+        miniBoard.every((cell) => cell !== null) &&
+        !this.checkMiniWinner(miniBoard)
+      );
+    },
+    isGameDraw() {
+      // Check if any winning combination is still possible
+      for (let combo of this.winningCombinations) {
+        const [a, b, c] = combo;
+        // Check if any combination can still be won
+        if (
+          !this.miniWinners[a] ||
+          !this.miniWinners[b] ||
+          !this.miniWinners[c]
+        ) {
+          // At least one mini-board in the combination is still active or drawn
+          // Check if this combination is winnable
+          if (
+            !(
+              this.miniWinners[a] &&
+              this.miniWinners[b] &&
+              this.miniWinners[c] &&
+              this.miniWinners[a] !== this.miniWinners[b] &&
+              this.miniWinners[b] !== this.miniWinners[c]
+            )
+          ) {
+            return false; // This combination is still winnable, so the game is not a draw
+          }
+        }
+      }
+      // No winning combinations are possible, the game is a draw
+      this.isDraw = true;
+      return true;
+    },
     checkWinner() {
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
@@ -633,6 +672,11 @@ export default {
           this.aiPowerSwitch = false;
           return; // Winner found, exit the loop
         }
+      }
+      if (this.isGameDraw()) {
+        this.winner = "player-draw";
+        this.aiPowerSwitch = false;
+        return; // Winner found, exit the loop
       }
 
       // No winner found, continue the game
@@ -666,6 +710,17 @@ export default {
     },
     toggleRules() {
       this.showRules = !this.showRules;
+    },
+    getBoardBackgroundColor(boardIndex) {
+      if (this.miniWinners[boardIndex] === "player-red") {
+        return "red";
+      } else if (this.miniWinners[boardIndex] === "player-blue") {
+        return "blue";
+      } else if (this.miniWinners[boardIndex] === "player-draw") {
+        return "grey"; // Grey color for draw
+      } else {
+        return ""; // Default background color for active boards
+      }
     },
   },
 };
