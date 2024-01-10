@@ -181,26 +181,33 @@ export default {
     fullBoardAnalysis() {
       let validBoards = [];
       for (let i = 0; i < 9; i++) {
-        if (this.miniWinners[i] == null) {
+        if (!this.miniWinners[i]) {
+          // Checks for null, undefined, empty string, etc.
           validBoards.push(i);
         }
       }
       console.log(`valid boards: ${validBoards.length}`);
       let potentialMoves = [];
       this.isFullBoardProcessing = true;
+
       for (let i = 0; i < validBoards.length; i++) {
         let thisMove = this.narrowBoardAnalysis(validBoards[i]);
-        let thisPossibleMove = {
-          move: thisMove.move,
-          board: i,
-          viability: thisMove.viability,
-        };
-        potentialMoves.push(thisPossibleMove);
-      }
-      console.log(JSON.stringify(potentialMoves));
-      this.isFullBoardProcessing = false;
 
-      let highestViability = 0; // Initialize with a very low number
+        // Check if thisMove is valid before adding it to potentialMoves
+        if (thisMove !== -1 && thisMove !== null && thisMove !== undefined) {
+          let thisPossibleMove = {
+            move: thisMove.move,
+            board: validBoards[i],
+            viability: this.viabilityAnalysis(thisMove, validBoards[i]),
+          };
+          potentialMoves.push(thisPossibleMove);
+        }
+      }
+
+      this.isFullBoardProcessing = false;
+      console.log(JSON.stringify(potentialMoves));
+
+      let highestViability = 0;
       let bestMove = null;
       potentialMoves.forEach((obj) => {
         if (obj.viability > highestViability) {
@@ -208,22 +215,39 @@ export default {
           bestMove = obj;
         }
       });
-      this.thisBoard = bestMove.board;
-      return bestMove;
+      console.log(`best move: ${JSON.stringify(bestMove)}`);
+      if (bestMove) {
+        this.thisBoard = bestMove.board;
+        return bestMove;
+      } else {
+        // Handle case where no valid move is found
+        // This might need further handling based on your game logic
+        return { move: -1, board: -1 };
+      }
     },
 
     findBestMove(objects) {
-      let highestViability = 0; // Initialize with a very low number
-      let bestMove = null;
-      // TODO: add all equally viable moves to return
+      let highestViability = 0;
+      let bestMoves = [];
+
+      // First, find the highest viability score
       objects.forEach((obj) => {
         if (obj.viability > highestViability) {
           highestViability = obj.viability;
-          bestMove = obj;
         }
       });
 
-      return bestMove;
+      // Next, collect all moves that have this highest viability score
+      bestMoves = objects.filter((obj) => obj.viability === highestViability);
+
+      // Finally, if there are multiple best moves, pick one randomly
+      if (bestMoves.length > 1) {
+        const randomIndex = Math.floor(Math.random() * bestMoves.length);
+        return bestMoves[randomIndex];
+      } else {
+        // If there's only one best move, return it
+        return bestMoves[0];
+      }
     },
 
     wouldBeWin(boardIndex) {
@@ -264,192 +288,71 @@ export default {
       const futureBoard = this.boards[proposedIndex];
       const thisBoard = this.boards[thisBoardIndex];
       let viability = 50;
+
       // Check if the move would result in the human player having to play on an empty board
-      const isNextBoardEmpty = (index) => {
-        const nextBoard = this.boards[index];
-        return nextBoard.every((cell) => cell === null);
-      };
+      const isBoardEmpty = (board) => board.every((cell) => cell === null);
       if (this.miniWinners[proposedIndex]) {
         viability -= 70;
       }
-      if (this.miniWinners[proposedIndex]) {
-        viability -= 70;
-      }
-      // Boost viability if the human player's next board is empty
-      if (isNextBoardEmpty(proposedIndex)) {
+      if (thisBoard && isBoardEmpty(thisBoard)) {
         viability += 5;
       }
 
       // Function to adjust viability for setting up a win
       const adjustViabilityForSetup = (board, player) => {
-        for (let combo of this.winningCombinations) {
-          const [a, b, c] = combo;
+        if (!board) return;
 
-          // Check if the AI has a chance to set up two in a row, excluding false diagonals
-          if (combo.every((idx) => [0, 2, 4, 6, 8].includes(idx))) {
-            // Diagonal setup
-            if (
-              (board[a] === player &&
-                b == proposedIndex &&
-                board[c] === null) ||
-              (board[a] === null &&
-                b == proposedIndex &&
-                board[c] === player) ||
-              (board[a] === null &&
-                board[b] === player &&
-                c == proposedIndex) ||
-              (board[a] === player &&
-                board[b] === null &&
-                c == proposedIndex) ||
-              (a == proposedIndex &&
-                board[b] === null &&
-                board[c] === player) ||
-              (a == proposedIndex && board[b] === player && board[c] === null)
-            ) {
-              viability += 5; // Boost for setting up a win
-              break; // Only need one setup to justify the boost
-            }
-          } else {
-            // Horizontal or vertical setup
+        this.winningCombinations.forEach((combo) => {
+          const playerCells = combo.filter(
+            (idx) => board[idx] === player
+          ).length;
+          const emptyCells = combo.filter((idx) => board[idx] === null).length;
 
-            let indexInCombo = combo.indexOf(proposedIndex);
-            if (indexInCombo != -1) {
-              combo.slice(proposedIndex, 1);
-            }
-            if (
-              (board[a] === player &&
-                b == proposedIndex &&
-                board[c] === null) ||
-              (board[a] === null &&
-                b == proposedIndex &&
-                board[c] === player) ||
-              (board[a] === null &&
-                board[b] === player &&
-                c == proposedIndex) ||
-              (board[a] === player &&
-                board[b] === null &&
-                c == proposedIndex) ||
-              (a == proposedIndex &&
-                board[b] === null &&
-                board[c] === player) ||
-              (a == proposedIndex && board[b] === player && board[c] === null)
-            ) {
-              console.log(`setting up a win for index ${proposedIndex}`);
-              viability += 5; // Boost for setting up a win
-              console.log(`viability for ${proposedIndex}: ${viability}`);
-              break; // Only need one setup to justify the boost
-            }
+          // Boost for setting up a win
+          if (
+            playerCells === 1 &&
+            emptyCells === 2 &&
+            combo.includes(proposedIndex)
+          ) {
+            viability += 10;
           }
-        }
+        });
       };
 
       // Function to adjust viability based on a player's potential win or block
       const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
-        for (let combo of this.winningCombinations) {
-          const [a, b, c] = combo;
-          const aComboWin =
-            board[a] === player && board[b] === player && board[c] === null;
-          const bComboWin =
-            board[a] === player && board[c] === player && board[b] === null;
-          const cComboWin =
-            board[b] === player && board[c] === player && board[a] === null;
-          if (aComboWin == true) {
-            console.log(
-              `cell ${a} and ${b} are taken. cell ${c} is needed. proposed move is ${proposedIndex}`
-            );
-            if (isFutureBoard) {
-              if (player == "player-red") {
-                if (this.wouldBeWin(proposedIndex)) {
+        if (!board) return;
+
+        this.winningCombinations.forEach((combo) => {
+          const playerCells = combo.filter(
+            (idx) => board[idx] === player
+          ).length;
+          const emptyCells = combo.filter((idx) => board[idx] === null).length;
+
+          if (playerCells === 2 && emptyCells === 1) {
+            const winningCell = combo.find((idx) => board[idx] === null);
+            if (winningCell === proposedIndex) {
+              if (player === "player-red") {
+                viability += isFutureBoard ? -45 : 60;
+                if (isFutureBoard && this.wouldBeWin(proposedIndex))
                   viability = 0;
-                }
-                if (this.miniWinners[proposedIndex] != null) {
-                  viability -= 70;
-                }
-                viability -= 45;
               } else {
-                viability -= 10;
-              }
-            }
-            if (c == proposedIndex) {
-              console.log(`true index for player ${player}`);
-              if (player == "player-red") {
-                console.log(`increased viability for blocking opponent`);
-                viability += 60;
-              } else {
-                console.log(`increased viability for potential win`);
-                viability += 50;
+                viability += isFutureBoard ? -10 : 50;
               }
             }
           }
-          if (bComboWin == true) {
-            console.log(
-              `cell ${a} and ${c} are taken. cell ${b} is needed. proposed move is ${proposedIndex}`
-            );
-            if (isFutureBoard) {
-              if (player == "player-red") {
-                if (this.wouldBeWin(proposedIndex)) {
-                  viability = 0;
-                }
-                viability -= 45;
-              } else {
-                viability -= 10;
-              }
-            }
-            if (b == proposedIndex) {
-              console.log(`true index for player ${player}`);
-              if (player == "player-red") {
-                console.log(`increased viability for blocking opponent`);
-                viability += 60;
-              } else {
-                console.log(`increased viability for potential win`);
-                viability += 50;
-              }
-            }
-          }
-          if (cComboWin == true) {
-            console.log(
-              `cell ${b} and ${c} are taken. cell ${a} is needed. proposed move is ${proposedIndex}`
-            );
-            if (isFutureBoard) {
-              if (player == "player-red") {
-                if (this.wouldBeWin(proposedIndex)) {
-                  viability = 0;
-                }
-                viability -= 45;
-              } else {
-                viability -= 10;
-              }
-            } else {
-              if (a == proposedIndex) {
-                console.log(`true index for player ${player}`);
-                if (this.miniWinners[proposedIndex]) {
-                  viability -= 70;
-                }
-                if (player == "player-red") {
-                  console.log(`increased viability for blocking opponent`);
-                  viability += 60;
-                } else {
-                  console.log(`increased viability for potential win`);
-                  viability += 50;
-                }
-              }
-            }
-          }
-        }
+        });
       };
 
-      // Adjust viability for setting up a win on the current board
+      // Adjust viability for the current and future board
       adjustViabilityForSetup(thisBoard, "player-blue");
-
-      // Adjust viability for the current board
       adjustViabilityForWinOrBlock(thisBoard, "player-blue", false);
       adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
-
-      // Adjust viability for the future board
       adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
       adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
-
-      return Math.max(0, viability); // Ensure viability doesn't go below 0
+      const randomBoost = Math.random() * 5; // Small random boost
+      viability += randomBoost.toFixed(2);
+      return Math.max(0, viability);
     },
 
     /**
