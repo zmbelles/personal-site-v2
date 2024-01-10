@@ -1,7 +1,7 @@
 <template>
   <div class="blog-page">
     <h1>Using Times New Roman in NetSuite Advanced PDF's</h1>
-
+    <p class="publication-date">Published on: December 18, 2024 at 8:45pm CST</p> <!-- Publication date -->
     <section class="introduction">
       <h2>Introduction</h2>
       <p>
@@ -42,14 +42,14 @@
         <strong>Step 2:</strong> To include Noto Serif in your PDFs, use the
         following link in your template's head section:
       </p>
-      <pre><code>
+      <pre><code class="language-markup">
         &lt;link name="NotoSerif" type="font" subtype="opentype" src="${nsfont.notoserif_regular}" bytes="2"&gt;&lt;/link&gt;
       </code></pre>
       <p>
         <strong>Step 3:</strong> Once Noto Serif is included, use it in your
         template. For example, to apply Noto Serif to a table cell (&lt;td&gt;):
       </p>
-      <pre><code>
+      <pre><code class="language-markup">
         &lt;td align="center" colspan="6" style="padding-top: 10px; padding-bottom: 10px;" class="headerinfo"&gt;
           &lt;span style="font-family: 'NotoSerif'; font-size: 11pt;"&gt;${ordernum}&lt;/span&gt;
         &lt;/td&gt;
@@ -78,8 +78,14 @@
 </template>
 
 <script>
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css'; // Or your preferred theme
+import 'prismjs/components/prism-markup'; // For HTML
 export default {
   name: "CustomFontsPage",
+  mounted() {
+    Prism.highlightAll();
+  },
 };
 </script>
 
@@ -116,7 +122,11 @@ h2 {
   padding: 15px;
   margin-bottom: 20px;
 }
-
+.publication-date {
+    font-size: 0.9em;
+    color: #a8a8a8; /* Choose a suitable color */
+    margin-bottom: 20px;
+  }
 p,
 pre {
   color: #bf8cbe; /* Slightly lighter text color for contrast */

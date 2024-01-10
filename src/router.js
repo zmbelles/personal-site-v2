@@ -9,6 +9,7 @@ import ButtonMatch from "@/components/games/ButtonMatch.vue";
 import BattleShip from "@/components/games/BattleShip/BattleShipModel.vue";
 import AdvPdf from "@/components/blog/posts/TimesInNetSuite.vue";
 import TicTacToe from "@/components/games/TicTacToe.vue";
+import PromisesInNetSuite from "@/components/blog/posts/PromisesInNetSuite";
 
 const routes = [
   { path: "/", component: Home, name: "Home" },
@@ -59,6 +60,55 @@ const routes = [
           name: "twitter:description",
           content:
             "Learn how to enhance your NetSuite documents with NoToSerif fonts. Click to learn how",
+        },
+      ],
+    },
+  },
+  {
+    path: "/blog/promises-in-netsuite",
+    component: PromisesInNetSuite,
+    name: "Using Promises in Your SuiteScripts",
+    meta: {
+      title: "Using Promises in NetSuite SuiteScripts",
+      metaTags: [
+        { charset: "UTF-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+        {
+          name: "description",
+          content:
+            "Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.",
+        },
+        {
+          name: "keywords",
+          content:
+            "NetSuite, SuiteScript, JavaScript, Promises, Asynchronous Programming, Coding, Scripting, ERP, SuiteScripts Best Practices",
+        },
+        { name: "author", content: "Zachary Belles" },
+        { name: "robots", content: "index, follow" },
+        {
+          property: "og:title",
+          content: "Using Promises in NetSuite SuiteScripts",
+        },
+        {
+          property: "og:description",
+          content:
+            "Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.",
+        },
+        {
+          property: "og:url",
+          content: "https://zacharybelles.com//blog/promises-in-netsuite/",
+        },
+        { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "zacharybelles.com/" },
+        {
+          name: "twitter:title",
+          content: "Using Promises in NetSuite SuiteScripts",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Learn how to use Promises in JavaScript for efficient SuiteScript development in NetSuite.",
         },
       ],
     },

@@ -250,27 +250,27 @@ export default {
       }
     },
 
-    wouldBeWin(boardIndex) {
+    wouldBeWin(boardIndex, player) {
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (a == boardIndex) {
           if (
-            this.miniWinners[b] == "player-red" &&
-            this.miniWinners[c] == "player-red"
+            this.miniWinners[b] == player &&
+            this.miniWinners[c] == player
           ) {
             return true;
           }
         } else if (b == boardIndex) {
           if (
-            this.miniWinners[a] == "player-red" &&
-            this.miniWinners[c] == "player-red"
+            this.miniWinners[a] == player &&
+            this.miniWinners[c] == player
           ) {
             return true;
           }
         } else if (c == boardIndex) {
           if (
-            this.miniWinners[b] == "player-red" &&
-            this.miniWinners[a] == "player-red"
+            this.miniWinners[b] == player &&
+            this.miniWinners[a] == player
           ) {
             return true;
           }
@@ -334,9 +334,11 @@ export default {
             if (winningCell === proposedIndex) {
               if (player === "player-red") {
                 viability += isFutureBoard ? -45 : 60;
-                if (isFutureBoard && this.wouldBeWin(proposedIndex))
+                if (isFutureBoard && this.wouldBeWin(proposedIndex, 'player-red'))
                   viability = 0;
               } else {
+                if (!isFutureBoard && this.wouldBeWin(proposedIndex, 'player-blue'))
+                  viability += 30;
                 viability += isFutureBoard ? -10 : 50;
               }
             }
@@ -350,8 +352,6 @@ export default {
       adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
       adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
       adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
-      const randomBoost = Math.random() * 5; // Small random boost
-      viability += randomBoost.toFixed(2);
       return Math.max(0, viability);
     },
 
