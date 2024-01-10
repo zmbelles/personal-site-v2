@@ -107,6 +107,9 @@ label {
   max-width: 360px;
   max-height: 200px;
 }
+.response {
+  color: #ffffff
+}
 input {
   width: 80%;
   padding: 8px;

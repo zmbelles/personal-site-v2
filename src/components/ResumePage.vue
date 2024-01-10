@@ -22,7 +22,7 @@
       <h3 class="section-title">Core Competencies</h3>
       <ul class="competencies">
         <li>NetSuite ERP (SuiteCloud, SuiteCommerce, SuiteScript, SuiteAnalytics, SuiteFlow, SuiteQL)</li>
-        <li>Object Oriented Software Design</li>
+        <li>Database Management (SQL and NoSQL)</li>
         <li>MERN Stack Development</li>
         <li>API Creation and Management</li>
       </ul>
@@ -31,41 +31,48 @@
       <ul class="projects">
         <li>
           <strong>DDS SFTP INTEGRATION FOR PIM DATA</strong>
-          <span class="tech-stack">(JavaScript)</span>
+          <span class="tech-stack"> (JavaScript)</span>
           <ul class="project-details">
-            <li>Created GET and POST scripts to handle SFTP requests for PIM Data to a DDS Server</li>
+            <li>Created GET and POST scripts to handle SFTP requests for PIM Data to a Data Distribution Service (DDS) Server.</li>
             <ul>
-              <li>Developed a reusable class for <b>SFTP</b> connection in <b>NetSuite</b>, one of the leading ERP providers in the world</li>
-              <li>Conceived a script to send POST request to DDS server with Item Data CSV parsed from a <b>NetSuite Saved Search</b></li>
-              <li>Designed a script which downloads files from SFTP site and updates item fields in NetSuite</li>
-              <li>Assisted with design of front end for <b>SuiteCommerce</b> website when needed</li>
-              <li>Successfully worked in a duo to provide <b>$40,000</b> in development revenue for the company</li>
+              <li>Developed a reusable class for <b>SFTP</b> connection in <b>NetSuite</b>, one of the leading ERP providers in the world.</li>
+              <li>Conceived a script to send POST request to DDS server with Item Data CSV parsed from a <b>NetSuite Saved Search</b>.</li>
+              <li>Designed a script which downloads files from SFTP site and updates item fields in NetSuite.</li>
+              <li>Assisted with design of front end for <b>SuiteCommerce</b> website when needed.</li>
+              <li>Successfully worked in a duo to provide <b>$40,000</b> in development revenue for the company.</li>
             </ul>
           </ul>
         </li>
         <li>
           <strong>OPTIMIZED DELIVERY ROUTE SOLUTION</strong>
-          <span class="tech-stack">Vue.js, JavaScript, OracleSQL, NextBillionAPI</span>
+          <span class="tech-stack"> (Vue.js, JavaScript, OracleSQL, NextBillionAPI)</span>
           <ul class="project-details">
-            <li>Developed an application for a client in <b>Vue.js</b> and <b>JavaScript</b> that found optimal route to deliver each delivery tickets</li>
+            <li>Developed an application to extend <i>Solution Source's</i> IP utilizing <b>Vue.js</b> and <b>JavaScript</b> inside a <b>NetSuite SuiteApp </b>that allows users to select sales orders that need to be delivered (called delivery Tickets), and recieve the most optimized route to take to deliver them.</li>
             <ul>
-              <li>Allowed end user to select multiple delivery tickets from NetSuite, select all, and filter by route</li>
-              <li>used <b>JavaScript Promises</b> with the problem Object to wait for the solution from <b>NextBillion</b></li>
-              <li>Highlight all deliveries on the optimized route and gives a list of delivery locations, and the time to get there</li>
-              <li>Provided <b>$10,000</b> in development revenue for our company</li>
-              <li>Examples of application before and after optimization can be found below</li>
+              <li>Allowed end user to select multiple delivery tickets from NetSuite, select all, and filter by route, truck, or location.</li>
+              <li>Uses <b>JavaScript Promises</b> with the problem object to wait for the solution from <b>NextBillion.</b></li>
+              <li>Created custom records for the Optimization solution, the trip, and each stop in NetSuite.</li>
+              <li>Allows users to select tickets to not include in the optimization and be forcefully delivered first</li>
+              <li>Added a feature to highlight all deliveries on the optimized route and gives a list of delivery locations, and the time to get there.</li>
+              <li>Allows users to save the route they created to custom trip and stop records in NetSuite</li>
+              <li>Added a custom plugin type which allows each client to implement their own logic for what happens when the trip and stops are saved to NetSuite</li>
+              <li>Highlights map markers pre-optimization if those tickets already exist on a trip record.</li>
+              <li>Allows users to manually add their own delivery tickets to the list by entering its ID</li>
+              <li>Provides <b>$6,500</b> per year per client in recurring revenue for the company.</li>
+              <li>Examples of application before and after optimization can be found below.</li>
             </ul>
           </ul>
           <div class="image-container">
             <img src="../assets/pre-optimized.png" alt="Picture of NetSuite customization for finding optimal delivery route prior to opimizing and selecting tickets" class="example-image">
           </div>
+          <br><br>
           <div class="image-container">
             <img src="../assets/optimized.png" alt="Picture of NetSuite customization for finding optimal delivery route after opimizing and selecting tickets" class="example-image">
           </div>  
         </li>
         <li>
           <strong>DICTIONARY</strong>
-          <span class="tech-stack">(Kotlin)</span>
+          <span class="tech-stack"> (Kotlin)</span>
           <ul class="project-details">
             <li>Utilized <b>Android Visual Studio</b> to implement Webster's API in a dictionary mobile app through <b>Database Access Objects</b>.</li>
             <li>Applied <b>RESTful</b> architecture for reliability and performance.</li>
@@ -91,11 +98,11 @@
             <li>Provided Oracle NetSuite Solutions using <b>SuiteScript API, SuiteQL, and Vue.js.</b></li>
             <li>Conducted thorough code reviews with colleagues to ensure only the best written and documented code is deployed to the client account.</li>
             <li>Ensured 30 hours a week dedicated towards client-facing tasks and improvements.</li>
-            <li>Helped the team bring in <b><u>$10,000</u></b> of development revenue per week in our “pod” of eight developers.</li>
+            <li>In collaboration with our exceptional team of eight developers, I played a pivotal role in orchestrating the generation of a substantial <b><u>$12,000</u></b> in development revenue per week within our pod.</li>
             <li>Implemented and improved existing <b>SuiteCommerce</b> sites, leveraging <b>jQuery</b> and <b>Vue.js</b> to seamlessly interact with the <b>SuiteCloud</b> database using the SuiteScript API.</li>
           </ul>
-          <p class="clarification"><b>*Any work history prior/unrelated to Software Development is available upon request.</b></p>
-          <p class="clarification"><b>*References also available by filling out the form on my Contact Me page.</b></p>
+          <p class="clarification"><i><b>*Any work history prior/unrelated to Software Development is available upon request.</b></i></p>
+          <p class="clarification"><i><b>*References also available by filling out the form on my Contact Me page.</b></i></p>
         </div>
       </div>
 
@@ -195,7 +202,7 @@
     text-align: left;
   }
   .clarification {
-    color:#181825;
+    color:#ffffff;
 
   }
   .job-title {
