@@ -52,7 +52,7 @@
           })
         </code></pre>
         <p>
-          Here, we see how a SuiteQL query is executed after the initial search, with the subsequent processing of its results.
+          Here, we will see how a SuiteQL query is executed after the initial search, with the subsequent processing of its results.
         </p>
         <pre><code class="language-javascript">
           // Loading a record
