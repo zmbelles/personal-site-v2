@@ -10,6 +10,16 @@
         Learn how to enhance your NetSuite documents with NoToSerif fonts.
       </p>
     </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
+        <router-link to="/blog/promises-in-netsuite" class="post-link">
+          Using Promises in Your SuiteScripts
+        </router-link>
+      </h2>
+      <p class="blog-post-body">
+        Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.
+      </p>
+    </div>
     <!-- Add more blog posts here -->
   </div>
 </template>

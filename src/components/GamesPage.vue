@@ -7,6 +7,11 @@
     </div>
     <br><br>
     <div class="game-card">
+      <h2><router-link to="/games/tic-tac-toe">Hyper Tic-Tac-Toe</router-link></h2>
+      <p>Challenge the computer to a 9x9 game of Tic-Tac-Toe. More Strategy than it seems!</p>
+    </div>
+    <br><br>
+    <div class="game-card">
       <!-- <h2><router-link to="/games/battleship">BattleShip</router-link></h2> -->
       <h2 class="coming-soon">BattleShip (coming soon)</h2>
       <p>Take turns to outsmart your opponent by guessing the location of the enemy's fleet, aiming to be the first to sink all opposing ships.</p>
@@ -27,7 +32,7 @@
     justify-content: center; /* Centers children vertically */
     align-items: center; /* Centers children horizontally */
     background-color: #181825;
-    height: 48vh;
+    height: 56vh;
     padding: 20px; /* Adds some space between the cards */
   }
   
@@ -39,7 +44,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     text-align: center;
-    max-width: 400px;
+    max-width: 40vh;
     width: 100%;
   }
   

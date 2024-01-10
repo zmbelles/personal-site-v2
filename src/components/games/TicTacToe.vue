@@ -1,34 +1,50 @@
 <template>
   <h1 class="game-header">Tic-Tac-Toe 2: The Sequel</h1>
-  
+
   <div class="tic-tac-toe">
     <button class="rules" @click="toggleRules">Rules</button>
     <!-- Rules div -->
     <div class="rules-container" v-if="showRules">
       <div class="rules-content">
         <button class="close-rules" @click="toggleRules">X</button>
-            <p>The Basics:</p>
+        <p>The Basics:</p>
+        <ol>
+          <li>This game utilizes a 9x9 grid of Tic-Tac-Toe.</li>
+          <li>The grid is split up into 9 3x3 sub-games.</li>
+          <li>
+            You may only make a move in a sub-game if it corresponds with the
+            position of the last move. For example, if the last move was on the
+            top left position, the next move must be made on the top left
+            sub-game.
             <ol>
-              <li>This game utilizes a 9x9 grid of Tic-Tac-Toe.</li>
-              <li>The grid is split up into 9 3x3 sub-games.</li>
               <li>
-                You may only make a move in a sub-game if it corresponds with the position of the last move. For example, if the last move was on the top left position, the next move must be made on the top left sub-game.
-                <ol>
-                  <li>
-                    If the last position would force a player to make a move on an already completed sub-game, that player may make their move on any open space on the board.
-                  </li>
-                </ol>
+                If the last position would force a player to make a move on an
+                already completed sub-game, that player may make their move on
+                any open space on the board.
               </li>
             </ol>
-            <p style="align-items:start;">How to Play:</p>
-            <ol>
-              <li>When it's their turn, players select an empty space within one of the purple highlighted grids to make their move.</li>
-              <li>If a player's move would cause there to be three in a row of that player's color, vertically, horizontally, or diagonally, in that sub-game, that player is deemed the winner of that sub-game and it will be colored in for their color.</li>
-            </ol>
-            <p>Winning the Game:</p>
-            <ol>
-              <li>If a player wins 3 sub-games of Tic-Tac-toe in a row, vertically, horizontally, or diagonally, that player is considered the winner.</li>
-            </ol>
+          </li>
+        </ol>
+        <p style="align-items: start">How to Play:</p>
+        <ol>
+          <li>
+            When it's their turn, players select an empty space within one of
+            the purple highlighted grids to make their move.
+          </li>
+          <li>
+            If a player's move would cause there to be three in a row of that
+            player's color, vertically, horizontally, or diagonally, in that
+            sub-game, that player is deemed the winner of that sub-game and it
+            will be colored in for their color.
+          </li>
+        </ol>
+        <p>Winning the Game:</p>
+        <ol>
+          <li>
+            If a player wins 3 sub-games of Tic-Tac-toe in a row, vertically,
+            horizontally, or diagonally, that player is considered the winner.
+          </li>
+        </ol>
       </div>
     </div>
     <div class="main-board">
@@ -43,11 +59,7 @@
           miniWinners[boardIndex] ? miniWinners[boardIndex] : '',
         ]"
         :style="{
-          backgroundColor: miniWinners[boardIndex]
-            ? miniWinners[boardIndex] === 'player-red'
-              ? 'red'
-              : 'blue'
-            : '',
+          backgroundColor: getBoardBackgroundColor(boardIndex),
         }"
       >
         <div class="board">
@@ -55,7 +67,7 @@
             v-for="(cell, cellIndex) in miniBoard"
             :key="cellIndex"
             :class="['cell', cell]"
-            @click="makeMove(boardIndex, cellIndex)"
+            @click="!isComputerThinking && makeMove(boardIndex, cellIndex)"
             :style="{
               visibility: miniWinners[boardIndex] ? 'hidden' : 'visible',
             }"
@@ -69,9 +81,14 @@
     <button class="reset-button" v-if="winner" @click="resetGame">
       Restart Game
     </button>
-    <p class="game-result" v-if="winner">
-      Winner: {{ winner === "player-red" ? "Red" : "Blue" }}
-    </p>
+    <div class="results-messages">
+      <p class="game-result" v-if="winner">
+        Winner: {{ winner === "player-red" ? "Red" : "Blue" }}
+      </p>
+      <p class="game-result" v-if="isDraw">
+        {{ drawMessage }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -79,7 +96,6 @@
 export default {
   data() {
     return {
-
       // an array of arrays which stores the current game state
       boards: Array(9)
         .fill()
@@ -93,7 +109,7 @@ export default {
       // an Array of strings for each mini-board that has been won by each player.
       miniWinners: Array(9).fill(null),
 
-      // stores the index of the last move made. mostly used to check if the player has played a move 
+      // stores the index of the last move made. mostly used to check if the player has played a move
       // on a valid board according to the rules.
       lastMove: null,
 
@@ -110,88 +126,376 @@ export default {
       // holds all possible winning combinations in tic-tac-toe
       // for reuse
       winningCombinations: [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-        [0, 4, 8], [2, 4, 6]             // Diagonals
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8], // Rows
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8], // Columns
+        [0, 4, 8],
+        [2, 4, 6], // Diagonals
       ],
+      aiPowerSwitch: true,
+      // delay for computer player to mimic thinking
+      aiDelay: 1000,
+
+      // if true, the AI is processing a best move between all boards
+      isFullBoardProcessing: false,
+
+      isDraw: false,
+      drawMessage: "No Players Win! Please try again.",
     };
   },
   methods: {
-    fullBoardAnalysis(){
+    /**
+     * @param { Array } board - an array of all positions in the board and their current state
+     * @param { integer } index = the index of the cell being checked
+     * @returns { Object } returns an Object containing the states of all adjacent cells (null if non-existant)
+     */
+    checkAdjacentCells(board, index) {
+      let left = index % 3 !== 0;
+      let right = index % 3 !== 2;
+      let top = index > 2;
+      let bottom = index < 6;
 
+      let topLeft = top && left;
+      let topRight = top && right;
+      let bottomLeft = bottom && left;
+      let bottomRight = bottom && right;
+
+      return {
+        left,
+        right,
+        top,
+        bottom,
+        topLeft,
+        topRight,
+        bottomLeft,
+        bottomRight,
+      };
+    },
+
+    /**
+     * @returns { integer } Returns the index on the board the computers move will be made on
+     */
+    fullBoardAnalysis() {
       let validBoards = [];
-      for(let i=0; i<9; i++){
-        if(this.miniWinners[i] == null){
+      for (let i = 0; i < 9; i++) {
+        if (!this.miniWinners[i]) {
+          // Checks for null, undefined, empty string, etc.
           validBoards.push(i);
         }
       }
-      const randomIndex = validBoards[Math.floor(Math.random() * validBoards.length)];
-      this.thisBoard = randomIndex;
-      return this.narrowBoardAnalysis(randomIndex);
-    },
-    narrowBoardAnalysis(boardNumber){
-      const thisBoard = this.boards[boardNumber];
-      // Check if the human player has two in a row 
-      for (let combo of this.winningCombinations) {
-        const [a, b, c] = combo;
-        
-        if (thisBoard[a] === 'player-red' && thisBoard[b] === 'player-red' && !thisBoard[c]) {
-          return c; // Block at position c
-        }
-        if (thisBoard[a] === 'player-red' && !thisBoard[b] && thisBoard[c] === 'player-red') {
-          return b; // Block at position b
-        }
-        if (!thisBoard[a] && thisBoard[b] === 'player-red' && thisBoard[c] === 'player-red') {
-          return a; // Block at position a
-        }
-      }
-      // Check if the computer has two in a row
-      for (let combo of this.winningCombinations) {
-        const [a, b, c] = combo;
+      console.log(`valid boards: ${validBoards.length}`);
+      let potentialMoves = [];
+      this.isFullBoardProcessing = true;
 
-        if (thisBoard[a] === 'player-blue' && thisBoard[b] === 'player-blue' && !thisBoard[c]) {
-          return c; // win at position c
-        }
-        if (thisBoard[a] === 'player-blue' && !thisBoard[b] && thisBoard[c] === 'player-blue') {
-          return b; // win at position b
-        }
-        if (!thisBoard[a] && thisBoard[b] === 'player-blue' && thisBoard[c] === 'player-blue') {
-          return a; // win at position a
+      for (let i = 0; i < validBoards.length; i++) {
+        let thisMove = this.narrowBoardAnalysis(validBoards[i]);
+
+        // Check if thisMove is valid before adding it to potentialMoves
+        if (thisMove !== -1 && thisMove !== null && thisMove !== undefined) {
+          let thisPossibleMove = {
+            move: thisMove.move,
+            board: validBoards[i],
+            viability: this.viabilityAnalysis(thisMove, validBoards[i]),
+          };
+          potentialMoves.push(thisPossibleMove);
         }
       }
-      // Collect all empty indices
-      const emptyIndices = [];
-      thisBoard.forEach((cell, index) => {
-        if (cell === null) {
-          emptyIndices.push(index);
+
+      this.isFullBoardProcessing = false;
+      console.log(JSON.stringify(potentialMoves));
+
+      let highestViability = 0;
+      let bestMove = null;
+      potentialMoves.forEach((obj) => {
+        if (obj.viability > highestViability) {
+          highestViability = obj.viability;
+          bestMove = obj;
         }
       });
-      // Select a random index from the empty cells
-      if (emptyIndices.length > 0) {
-        const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-        return randomIndex;
+      console.log(`best move: ${JSON.stringify(bestMove)}`);
+      if (bestMove) {
+        this.thisBoard = bestMove.board;
+        return bestMove;
+      } else {
+        // Handle case where no valid move is found
+        // This might need further handling based on your game logic
+        return { move: -1, board: -1 };
       }
+    },
+
+    findBestMove(objects) {
+      let highestViability = 0;
+      let bestMoves = [];
+
+      // First, find the highest viability score
+      objects.forEach((obj) => {
+        if (obj.viability > highestViability) {
+          highestViability = obj.viability;
+        }
+      });
+
+      // Next, collect all moves that have this highest viability score
+      bestMoves = objects.filter((obj) => obj.viability === highestViability);
+
+      // Finally, if there are multiple best moves, pick one randomly
+      if (bestMoves.length > 1) {
+        const randomIndex = Math.floor(Math.random() * bestMoves.length);
+        return bestMoves[randomIndex];
+      } else {
+        // If there's only one best move, return it
+        return bestMoves[0];
+      }
+    },
+
+    wouldBeWin(boardIndex, player) {
+      for (let combo of this.winningCombinations) {
+        const [a, b, c] = combo;
+        if (a == boardIndex) {
+          if (
+            this.miniWinners[b] == player &&
+            this.miniWinners[c] == player
+          ) {
+            return true;
+          }
+        } else if (b == boardIndex) {
+          if (
+            this.miniWinners[a] == player &&
+            this.miniWinners[c] == player
+          ) {
+            return true;
+          }
+        } else if (c == boardIndex) {
+          if (
+            this.miniWinners[b] == player &&
+            this.miniWinners[a] == player
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+    /**
+     * @param {integer} proposedIndex - the index of the proposed move to make for the computer player
+     * @returns {float} Returns a number between 0 (will lose the game) and 100(will win the game) for
+     *                  the viability of making the move based on what the opponent is liable to do
+     *                  (such as win a sub-game, or worse, win the game)
+     */
+    viabilityAnalysis(proposedIndex, thisBoardIndex) {
+      const futureBoard = this.boards[proposedIndex];
+      const thisBoard = this.boards[thisBoardIndex];
+      let viability = 50;
+
+      // Check if the move would result in the human player having to play on an empty board
+      const isBoardEmpty = (board) => board.every((cell) => cell === null);
+      if (this.miniWinners[proposedIndex]) {
+        viability -= 70;
+      }
+      if (thisBoard && isBoardEmpty(thisBoard)) {
+        viability += 5;
+      }
+
+      // Function to adjust viability for setting up a win
+      const adjustViabilityForSetup = (board, player) => {
+        if (!board) return;
+
+        this.winningCombinations.forEach((combo) => {
+          const playerCells = combo.filter(
+            (idx) => board[idx] === player
+          ).length;
+          const emptyCells = combo.filter((idx) => board[idx] === null).length;
+
+          // Boost for setting up a win
+          if (
+            playerCells === 1 &&
+            emptyCells === 2 &&
+            combo.includes(proposedIndex)
+          ) {
+            viability += 10;
+          }
+        });
+      };
+
+      // Function to adjust viability based on a player's potential win or block
+      const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
+        if (!board) return;
+
+        this.winningCombinations.forEach((combo) => {
+          const playerCells = combo.filter(
+            (idx) => board[idx] === player
+          ).length;
+          const emptyCells = combo.filter((idx) => board[idx] === null).length;
+
+          if (playerCells === 2 && emptyCells === 1) {
+            const winningCell = combo.find((idx) => board[idx] === null);
+            if (winningCell === proposedIndex) {
+              if (player === "player-red") {
+                viability += isFutureBoard ? -45 : 60;
+                if (isFutureBoard && this.wouldBeWin(proposedIndex, 'player-red'))
+                  viability = 0;
+              } else {
+                if (!isFutureBoard && this.wouldBeWin(proposedIndex, 'player-blue'))
+                  viability += 30;
+                viability += isFutureBoard ? -10 : 50;
+              }
+            }
+          }
+        });
+      };
+
+      // Adjust viability for the current and future board
+      adjustViabilityForSetup(thisBoard, "player-blue");
+      adjustViabilityForWinOrBlock(thisBoard, "player-blue", false);
+      adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
+      adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
+      adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
+      return Math.max(0, viability);
+    },
+
+    /**
+     * @param { Array } board - an array of all positions in the board and their current state
+     * @param { integer } currentIndex = the index of the initial checked cell
+     * @param { integer } proposedIndex = the index of the proposed move to make on the board
+     * @returns { Object } returns an Object containing the states of all adjacent cells (null if non-existant)
+     */
+    obstructionAnalysis(board, currentIndex, proposedIndex) {
+      // Determine the direction
+      let direction;
+      if (Math.floor(currentIndex / 3) === Math.floor(proposedIndex / 3)) {
+        direction = "horizontal";
+      } else if (currentIndex % 3 === proposedIndex % 3) {
+        direction = "vertical";
+      } else {
+        if (currentIndex === 0 || currentIndex === 8) {
+          direction = "left-diagonal";
+        } else if (currentIndex === 2 || currentIndex === 6) {
+          direction = "right-diagonal";
+        } else if (currentIndex === 4) {
+          // Index 4 can be part of either diagonal
+          if (proposedIndex === 0 || proposedIndex === 8) {
+            direction = "left-diagonal";
+          } else if (proposedIndex === 2 || proposedIndex === 6) {
+            direction = "right-diagonal";
+          }
+        }
+      }
+
+      // Check for obstructions based on direction
+      switch (direction) {
+        case "horizontal": {
+          const rowStart = Math.floor(currentIndex / 3) * 3;
+          for (let i = rowStart; i < rowStart + 3; i++) {
+            if (board[i] === "player-red") return true; // Obstructed
+          }
+          break;
+        }
+        case "vertical": {
+          const col = currentIndex % 3;
+          for (let i = col; i <= col + 6; i += 3) {
+            if (board[i] === "player-red") return true; // Obstructed
+          }
+          break;
+        }
+        case "left-diagonal": {
+          if ([0, 4, 8].includes(currentIndex)) {
+            if ([0, 4, 8].some((index) => board[index] === "player-red")) {
+              return true; // Obstructed
+            }
+          }
+          break;
+        }
+        case "right-diagonal": {
+          if ([2, 4, 6].includes(currentIndex)) {
+            if ([2, 4, 6].some((index) => board[index] === "player-red")) {
+              return true; // Obstructed
+            }
+          }
+          break;
+        }
+      }
+    },
+
+    /**
+     * @param { integer } boardNumber - the index of the board to analyze
+     * @returns { integer } returns the index on the board the computer player will be making
+     */
+    narrowBoardAnalysis(boardNumber) {
+      const thisBoard = this.boards[boardNumber];
+      let computerMoves = [];
+
+      // Iterate over all cells in the board
+      for (let i = 0; i < thisBoard.length; i++) {
+        // Only consider empty cells
+        if (thisBoard[i] === null) {
+          // Evaluate the viability of this cell
+          const viability = this.viabilityAnalysis(i, boardNumber);
+          // If the cell is a potential move (i.e., not obstructed and viable), add it to the list
+          computerMoves.push({ move: i, viability: viability });
+        }
+      }
+      console.log(`valid Moves: ${computerMoves.length}`);
+      console.log(`moves: ${JSON.stringify(computerMoves)}`);
+      // If there are any viable moves, find the best one
+      if (computerMoves.length > 0) {
+        let bestMove = this.findBestMove(computerMoves);
+        if (this.isFullBoardProcessing) {
+          return bestMove;
+        }
+        return bestMove.move;
+      }
+
+      // If no viable moves are found, return -1 or handle as needed
       return -1;
     },
-    AIPlayerMove(){
-      let computerMove = -1;
-      if(this.miniWinners[this.lastMove]){
-        computerMove = this.fullBoardAnalysis();
-      }
-      else{
-        computerMove = this.narrowBoardAnalysis(this.lastMove);
-        this.thisBoard = this.lastMove;
-      }
-      if(computerMove == -1){
-        alert("Something went wrong parsing the AI Moveset. Please contact the administrator.");
-        this.resetGame();
-      }
-      this.boards[this.thisBoard][computerMove] = "player-blue";
-      this.checkMiniWinner(this.thisBoard);
-      this.currentPlayer = "X";
-      this.lastMove = computerMove; // Update lastMove based on the mini-board for the next move
+
+    async AIPlayerMove() {
+      setTimeout(() => {
+        let computerMove = {};
+        if (this.miniWinners[this.lastMove]) {
+          computerMove = this.fullBoardAnalysis();
+          if (computerMove.move == -1 || !computerMove.move) {
+            alert(
+              "Something went wrong parsing the AI Moveset. Please contact the administrator."
+            );
+            this.resetGame();
+          }
+          this.boards[computerMove.board][computerMove.move] = "player-blue";
+          this.checkMiniWinner(this.thisBoard);
+          this.currentPlayer = "X";
+          this.lastMove = computerMove.move; // Update lastMove based on the mini-board for the next move
+          // Increase the delay for the next move
+          this.aiDelay += 100;
+        } else {
+          computerMove = this.narrowBoardAnalysis(this.lastMove);
+          this.thisBoard = this.lastMove;
+          if (computerMove == -1) {
+            alert(
+              "Something went wrong parsing the AI Moveset. Please contact the administrator."
+            );
+            this.resetGame();
+          }
+          this.boards[this.thisBoard][computerMove] = "player-blue";
+          this.checkMiniWinner(this.thisBoard);
+          this.currentPlayer = "X";
+          this.lastMove = computerMove; // Update lastMove based on the mini-board for the next move
+          // Increase the delay for the next move
+          this.aiDelay += 100;
+        }
+      }, this.aiDelay);
     },
-    makeMove(boardIndex, cellIndex) {
+
+    /**
+     * @param { integer } boardIndex = the index of the board the player made a move on
+     * @param { integer } cellIndex = the index of the cell the player made a move on
+     */
+    async makeMove(boardIndex, cellIndex) {
+      if (this.currentPlayer != "X") {
+        return;
+      }
+      this.computerIsThinking = true;
       if (!this.isBoardValid(boardIndex)) {
         // Show an alert if the player tries to play on an invalid board
         alert("Please make your move on one of the highlighted boards.");
@@ -203,14 +507,13 @@ export default {
         this.checkMiniWinner(boardIndex);
         this.currentPlayer = "O";
         this.lastMove = cellIndex; // Update lastMove based on the mini-board for the next move
-
-        this.computerIsThinking = true;
-        this.AIPlayerMove(cellIndex);
-        this.computerIsThinking = false;
+        if (this.aiPowerSwitch) {
+          await this.AIPlayerMove(cellIndex);
+        }
       }
+      this.computerIsThinking = false;
     },
     checkMiniWinner(boardIndex) {
-
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (
@@ -225,8 +528,42 @@ export default {
       }
       this.checkWinner();
     },
+    isMiniBoardDraw(miniBoard) {
+      return (
+        miniBoard.every((cell) => cell !== null) &&
+        !this.checkMiniWinner(miniBoard)
+      );
+    },
+    isGameDraw() {
+      // Check if any winning combination is still possible
+      for (let combo of this.winningCombinations) {
+        const [a, b, c] = combo;
+        // Check if any combination can still be won
+        if (
+          !this.miniWinners[a] ||
+          !this.miniWinners[b] ||
+          !this.miniWinners[c]
+        ) {
+          // At least one mini-board in the combination is still active or drawn
+          // Check if this combination is winnable
+          if (
+            !(
+              this.miniWinners[a] &&
+              this.miniWinners[b] &&
+              this.miniWinners[c] &&
+              this.miniWinners[a] !== this.miniWinners[b] &&
+              this.miniWinners[b] !== this.miniWinners[c]
+            )
+          ) {
+            return false; // This combination is still winnable, so the game is not a draw
+          }
+        }
+      }
+      // No winning combinations are possible, the game is a draw
+      this.isDraw = true;
+      return true;
+    },
     checkWinner() {
-
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (
@@ -235,8 +572,14 @@ export default {
           this.miniWinners[a] === this.miniWinners[c]
         ) {
           this.winner = this.miniWinners[a];
+          this.aiPowerSwitch = false;
           return; // Winner found, exit the loop
         }
+      }
+      if (this.isGameDraw()) {
+        this.winner = "player-draw";
+        this.aiPowerSwitch = false;
+        return; // Winner found, exit the loop
       }
 
       // No winner found, continue the game
@@ -248,9 +591,16 @@ export default {
         .map(() => Array(9).fill(null));
       this.currentPlayer = "X";
       this.winner = null;
+      this.aiDelay = 1000;
       this.lastMove = null;
       this.miniWinners = Array(9).fill(null);
+      this.aiPowerSwitch = true;
     },
+
+    /**
+     * @param { integer } boardIndex = the index of the board the player made a move on
+     * @returns { boolean } true if the player has made a move on a valid voard
+     */
     isBoardValid(boardIndex) {
       // First move can be anywhere
       if (this.lastMove === null) return true;
@@ -263,6 +613,17 @@ export default {
     },
     toggleRules() {
       this.showRules = !this.showRules;
+    },
+    getBoardBackgroundColor(boardIndex) {
+      if (this.miniWinners[boardIndex] === "player-red") {
+        return "red";
+      } else if (this.miniWinners[boardIndex] === "player-blue") {
+        return "blue";
+      } else if (this.miniWinners[boardIndex] === "player-draw") {
+        return "grey"; // Grey color for draw
+      } else {
+        return ""; // Default background color for active boards
+      }
     },
   },
 };
@@ -308,6 +669,7 @@ export default {
   align-items: center;
   padding: 10px;
   background-color: #f0f0f0;
+  color: #ffffff;
 }
 
 .cell {
@@ -340,10 +702,10 @@ export default {
 .rules-container {
   position: inherit; /* or absolute, depending on your layout */
   width: 50vh; /* Adjust as needed */
-  background: #362E5F;
+  background: #362e5f;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: slide-in 0.3s ease-out;
 }
 
@@ -356,7 +718,7 @@ export default {
 .close-rules {
   position: absolute;
   top: -1vh;
-  right: .5vh;
+  right: 0.5vh;
   background: #f0f0f0; /* Light background for the button */
   color: #333; /* Darker text color for contrast */
   border: none;
@@ -377,8 +739,6 @@ export default {
   background-color: #858585; /* Slightly darker background on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
 }
-
-
 
 @keyframes slide-in {
   from {
