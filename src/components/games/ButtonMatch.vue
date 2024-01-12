@@ -179,122 +179,155 @@ export default {
 
 <style scoped>
 .content-box {
-	background-color: #362e5f; /* Your desired background color */
-	border-radius: 15px; /* Rounded corners */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow for depth */
-	width: 100%; /* Full width */
-	max-width: 800px; /* Maximum width */
-	margin: auto; /* Center the box */
+    background-color: #362e5f;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
 }
+
 .button-match-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Changed to min-height */
+    padding: 10px; /* Added padding */
 }
+
 .button-match-header {
-	color: #9510d8;
+    color: #9510d8;
+    text-align: center; /* Center the headers */
+    margin: 10px 0; /* Added margin */
 }
+
 .button-match {
-	background-color: #f4f4f4;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	width: 400px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* Adjusted width for responsiveness */
+    margin: 10px; /* Added margin */
 }
 
 .grid-row {
-	display: flex;
-	margin-bottom: 4px;
+    display: flex;
+    justify-content: center; /* Center buttons in row */
+    flex-wrap: wrap; /* Wrap buttons for smaller screens */
 }
 
 .grid {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .submit-container {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .submit {
-	padding: 10px 20px;
-	background-color: #9510d8;
-	color: #ffffff;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
+    padding: 10px 20px;
+    background-color: #9510d8;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
+
 .button {
-	width: 30px;
-	height: 30px;
-	border: none;
-	margin-right: 4px;
-	box-shadow: 1 2px 4px rgba(1, 1, 0, 0.6); /* Initial box shadow */
+    width: 30px;
+    height: 30px;
+    border: none;
+    margin: 2px; /* Reduced margin */
+    box-shadow: 1px 2px 4px rgba(1, 1, 0, 0.6);
 }
 
 .button:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
-	transform: translateY(2px); /* Depress inward on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
 }
+
 .timer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #2b00ff;
-	color: rgb(255, 255, 20);
-	font-family: "Courier New", Courier, monospace;
-	font-size: 24px;
-	letter-spacing: 3px;
-	padding: 15px;
-	border-radius: 8px;
-	margin-bottom: 20px;
-	width: 100px;
-	box-shadow: 1 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2b00ff;
+    color: rgb(255, 255, 20);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 24px;
+    letter-spacing: 3px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .popup-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background: rgba(0, 0, 0, 0.7);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup {
-	background-color: #ffffff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-	max-width: 90%;
-	text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    text-align: center;
 }
 
 .popup button {
-	margin-top: 10px;
-	padding: 5px 15px;
-	cursor: pointer;
-	border: none;
-	border-radius: 5px;
-	background-color: #9510d8;
-	color: white;
+    margin-top: 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #9510d8;
+    color: white;
 }
 
 @keyframes blink {
-	0%,
-	49% {
-		opacity: 1;
-	}
-	50%,
-	100% {
-		opacity: 0;
-	}
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
 }
+
 .blinking {
-	animation: blink 1s infinite;
+    animation: blink 1s infinite;
+}
+
+/* Media Queries for different screen sizes */
+@media (max-width: 768px) {
+    .button-match {
+        width: 95%; /* Increase width for smaller screens */
+    }
+
+    .button {
+        width: 25px; /* Adjust button size */
+        height: 25px;
+    }
+
+    .timer, .popup button {
+        font-size: 20px; /* Adjust font size for readability */
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-row {
+        flex-direction: column; /* Stack buttons vertically on very small screens */
+    }
 }
 </style>
+
