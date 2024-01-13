@@ -189,7 +189,7 @@ export default {
       console.log(`valid boards: ${validBoards.length}`);
       let potentialMoves = [];
       this.isFullBoardProcessing = true;
-
+      console.log(`valid boards: ${validBoards}`);
       for (let i = 0; i < validBoards.length; i++) {
         let thisMove = this.narrowBoardAnalysis(validBoards[i]);
 
@@ -198,7 +198,7 @@ export default {
           let thisPossibleMove = {
             move: thisMove.move,
             board: validBoards[i],
-            viability: this.viabilityAnalysis(thisMove, validBoards[i]),
+            viability: thisMove.viability,
           };
           potentialMoves.push(thisPossibleMove);
         }
@@ -285,16 +285,47 @@ export default {
      *                  (such as win a sub-game, or worse, win the game)
      */
     viabilityAnalysis(proposedIndex, thisBoardIndex) {
+<<<<<<< Updated upstream
+=======
+      if (
+        typeof this.boards[proposedIndex] === "undefined" ||
+        typeof this.boards[thisBoardIndex] === "undefined"
+      ) {
+        console.error(
+          `This board index: ${thisBoardIndex} with the proposed move ${JSON.stringify(
+            proposedIndex
+          )} are invalid.`
+        );
+        throw new Error("Invalid board indices");
+      }
+
+>>>>>>> Stashed changes
       const futureBoard = this.boards[proposedIndex];
       const thisBoard = this.boards[thisBoardIndex];
       let viability = 50;
 
+<<<<<<< Updated upstream
       // Check if the move would result in the human player having to play on an empty board
       const isBoardEmpty = (board) => board.every((cell) => cell === null);
       if (this.miniWinners[proposedIndex]) {
         viability -= 70;
       }
       if (thisBoard && isBoardEmpty(thisBoard)) {
+=======
+      // Check for already won board or empty future board
+      if (
+        this.miniWinners[proposedIndex] == "player-red" ||
+        this.miniWinners[proposedIndex] == "player-blue"
+      ) {
+        // console.log(`board: ${proposedIndex} has already been won. -70 points Griffindoor.`);
+        viability -= 40;
+      }
+      if (
+        thisBoard &&
+        this.isBoardEmpty(futureBoard) &&
+        proposedIndex != thisBoardIndex
+      ) {
+>>>>>>> Stashed changes
         viability += 5;
       }
 
@@ -331,6 +362,7 @@ export default {
 
           if (playerCells === 2 && emptyCells === 1) {
             const winningCell = combo.find((idx) => board[idx] === null);
+<<<<<<< Updated upstream
             if (winningCell === proposedIndex) {
               if (player === "player-red") {
                 viability += isFutureBoard ? -45 : 60;
@@ -344,6 +376,51 @@ export default {
             }
           }
         });
+=======
+
+            ///////////////////////////////////
+            ///// logic for current board /////
+            ///////////////////////////////////
+            if (winningCell === proposedIndex && !isFutureBoard) {
+              console.log(`${player} wins with ${winningCell}`);
+              // if the move blocks a player on the current board
+              if (player === "player-red") {
+                newViability += 25;
+              } else if (player == "player-blue") {
+                newViability += 30;
+              }
+              ///////////////////////////////////
+              //// logic for future board ///////
+              ///////////////////////////////////
+
+              // see if this move would allow human to block a computer win on next board
+              // or if the human player can win on next board
+            } else if (isFutureBoard) {
+              if (player == "player-red") {
+                console.log(
+                  `potential win on board ${thisBoardIndex} for human player`
+                );
+                newViability -= 40;
+              } else {
+                console.log(
+                  `potential block on board ${thisBoardIndex} for human player`
+                );
+                newViability -= 15;
+              }
+            }
+          }
+
+          // Check if the proposed move could enable player-red to win immediately
+          if (this.wouldBeWin(proposedIndex, "player-red")) {
+            newViability -= 100; // Significantly reduce viability for such moves
+          }
+          // check if move would allow human to block a computer game win on next board
+          if (this.wouldBeWin(proposedIndex, "player-blue")) {
+            newViability -= 50;
+          }
+        }
+        return newViability;
+>>>>>>> Stashed changes
       };
 
       // Adjust viability for the current and future board
@@ -423,6 +500,11 @@ export default {
      * @returns { integer } returns the index on the board the computer player will be making
      */
     narrowBoardAnalysis(boardNumber) {
+      if (this.isFullBoardProcessing) {
+        console.log(
+          `for full board analysis, the board number is ${boardNumber}`
+        );
+      }
       const thisBoard = this.boards[boardNumber];
       let computerMoves = [];
 
@@ -442,6 +524,7 @@ export default {
       if (computerMoves.length > 0) {
         let bestMove = this.findBestMove(computerMoves);
         if (this.isFullBoardProcessing) {
+          console.log(`best Move: ${JSON.stringify(bestMove)}`);
           return bestMove;
         }
         return bestMove.move;
