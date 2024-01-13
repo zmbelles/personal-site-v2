@@ -254,24 +254,15 @@ export default {
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (a == boardIndex) {
-          if (
-            this.miniWinners[b] == player &&
-            this.miniWinners[c] == player
-          ) {
+          if (this.miniWinners[b] == player && this.miniWinners[c] == player) {
             return true;
           }
         } else if (b == boardIndex) {
-          if (
-            this.miniWinners[a] == player &&
-            this.miniWinners[c] == player
-          ) {
+          if (this.miniWinners[a] == player && this.miniWinners[c] == player) {
             return true;
           }
         } else if (c == boardIndex) {
-          if (
-            this.miniWinners[b] == player &&
-            this.miniWinners[a] == player
-          ) {
+          if (this.miniWinners[b] == player && this.miniWinners[a] == player) {
             return true;
           }
         }
@@ -285,8 +276,6 @@ export default {
      *                  (such as win a sub-game, or worse, win the game)
      */
     viabilityAnalysis(proposedIndex, thisBoardIndex) {
-<<<<<<< Updated upstream
-=======
       if (
         typeof this.boards[proposedIndex] === "undefined" ||
         typeof this.boards[thisBoardIndex] === "undefined"
@@ -298,20 +287,11 @@ export default {
         );
         throw new Error("Invalid board indices");
       }
-
->>>>>>> Stashed changes
+      const isBoardEmpty = (board) => board.every((cell) => cell === null);
       const futureBoard = this.boards[proposedIndex];
       const thisBoard = this.boards[thisBoardIndex];
       let viability = 50;
 
-<<<<<<< Updated upstream
-      // Check if the move would result in the human player having to play on an empty board
-      const isBoardEmpty = (board) => board.every((cell) => cell === null);
-      if (this.miniWinners[proposedIndex]) {
-        viability -= 70;
-      }
-      if (thisBoard && isBoardEmpty(thisBoard)) {
-=======
       // Check for already won board or empty future board
       if (
         this.miniWinners[proposedIndex] == "player-red" ||
@@ -322,17 +302,16 @@ export default {
       }
       if (
         thisBoard &&
-        this.isBoardEmpty(futureBoard) &&
+        isBoardEmpty(futureBoard) &&
         proposedIndex != thisBoardIndex
       ) {
->>>>>>> Stashed changes
         viability += 5;
       }
 
       // Function to adjust viability for setting up a win
       const adjustViabilityForSetup = (board, player) => {
         if (!board) return;
-
+        let newViability = 0;
         this.winningCombinations.forEach((combo) => {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
@@ -345,15 +324,16 @@ export default {
             emptyCells === 2 &&
             combo.includes(proposedIndex)
           ) {
-            viability += 10;
+            newViability += 10;
           }
         });
+        return newViability;
       };
 
       // Function to adjust viability based on a player's potential win or block
       const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
-        if (!board) return;
-
+        if (!board) return 0;
+        let newViability = 0;
         this.winningCombinations.forEach((combo) => {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
@@ -362,21 +342,6 @@ export default {
 
           if (playerCells === 2 && emptyCells === 1) {
             const winningCell = combo.find((idx) => board[idx] === null);
-<<<<<<< Updated upstream
-            if (winningCell === proposedIndex) {
-              if (player === "player-red") {
-                viability += isFutureBoard ? -45 : 60;
-                if (isFutureBoard && this.wouldBeWin(proposedIndex, 'player-red'))
-                  viability = 0;
-              } else {
-                if (!isFutureBoard && this.wouldBeWin(proposedIndex, 'player-blue'))
-                  viability += 30;
-                viability += isFutureBoard ? -10 : 50;
-              }
-            }
-          }
-        });
-=======
 
             ///////////////////////////////////
             ///// logic for current board /////
@@ -418,81 +383,29 @@ export default {
           if (this.wouldBeWin(proposedIndex, "player-blue")) {
             newViability -= 50;
           }
-        }
+        });
         return newViability;
->>>>>>> Stashed changes
       };
 
       // Adjust viability for the current and future board
-      adjustViabilityForSetup(thisBoard, "player-blue");
-      adjustViabilityForWinOrBlock(thisBoard, "player-blue", false);
-      adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
-      adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
-      adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
+      viability += adjustViabilityForSetup(thisBoard, "player-blue");
+      viability += adjustViabilityForWinOrBlock(
+        thisBoard,
+        "player-blue",
+        false
+      );
+      viability += adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
+      viability += adjustViabilityForWinOrBlock(
+        futureBoard,
+        "player-blue",
+        true
+      );
+      viability += adjustViabilityForWinOrBlock(
+        futureBoard,
+        "player-red",
+        true
+      );
       return Math.max(0, viability);
-    },
-
-    /**
-     * @param { Array } board - an array of all positions in the board and their current state
-     * @param { integer } currentIndex = the index of the initial checked cell
-     * @param { integer } proposedIndex = the index of the proposed move to make on the board
-     * @returns { Object } returns an Object containing the states of all adjacent cells (null if non-existant)
-     */
-    obstructionAnalysis(board, currentIndex, proposedIndex) {
-      // Determine the direction
-      let direction;
-      if (Math.floor(currentIndex / 3) === Math.floor(proposedIndex / 3)) {
-        direction = "horizontal";
-      } else if (currentIndex % 3 === proposedIndex % 3) {
-        direction = "vertical";
-      } else {
-        if (currentIndex === 0 || currentIndex === 8) {
-          direction = "left-diagonal";
-        } else if (currentIndex === 2 || currentIndex === 6) {
-          direction = "right-diagonal";
-        } else if (currentIndex === 4) {
-          // Index 4 can be part of either diagonal
-          if (proposedIndex === 0 || proposedIndex === 8) {
-            direction = "left-diagonal";
-          } else if (proposedIndex === 2 || proposedIndex === 6) {
-            direction = "right-diagonal";
-          }
-        }
-      }
-
-      // Check for obstructions based on direction
-      switch (direction) {
-        case "horizontal": {
-          const rowStart = Math.floor(currentIndex / 3) * 3;
-          for (let i = rowStart; i < rowStart + 3; i++) {
-            if (board[i] === "player-red") return true; // Obstructed
-          }
-          break;
-        }
-        case "vertical": {
-          const col = currentIndex % 3;
-          for (let i = col; i <= col + 6; i += 3) {
-            if (board[i] === "player-red") return true; // Obstructed
-          }
-          break;
-        }
-        case "left-diagonal": {
-          if ([0, 4, 8].includes(currentIndex)) {
-            if ([0, 4, 8].some((index) => board[index] === "player-red")) {
-              return true; // Obstructed
-            }
-          }
-          break;
-        }
-        case "right-diagonal": {
-          if ([2, 4, 6].includes(currentIndex)) {
-            if ([2, 4, 6].some((index) => board[index] === "player-red")) {
-              return true; // Obstructed
-            }
-          }
-          break;
-        }
-      }
     },
 
     /**
