@@ -186,7 +186,6 @@ export default {
           validBoards.push(i);
         }
       }
-      console.log(`valid boards: ${validBoards.length}`);
       let potentialMoves = [];
       this.isFullBoardProcessing = true;
 
@@ -254,24 +253,15 @@ export default {
       for (let combo of this.winningCombinations) {
         const [a, b, c] = combo;
         if (a == boardIndex) {
-          if (
-            this.miniWinners[b] == player &&
-            this.miniWinners[c] == player
-          ) {
+          if (this.miniWinners[b] == player && this.miniWinners[c] == player) {
             return true;
           }
         } else if (b == boardIndex) {
-          if (
-            this.miniWinners[a] == player &&
-            this.miniWinners[c] == player
-          ) {
+          if (this.miniWinners[a] == player && this.miniWinners[c] == player) {
             return true;
           }
         } else if (c == boardIndex) {
-          if (
-            this.miniWinners[b] == player &&
-            this.miniWinners[a] == player
-          ) {
+          if (this.miniWinners[b] == player && this.miniWinners[a] == player) {
             return true;
           }
         }
@@ -285,45 +275,49 @@ export default {
      *                  (such as win a sub-game, or worse, win the game)
      */
     viabilityAnalysis(proposedIndex, thisBoardIndex) {
+      if (
+        typeof this.boards[proposedIndex] === "undefined" ||
+        typeof this.boards[thisBoardIndex] === "undefined"
+      ) {
+        throw new Error("Invalid board indices");
+      }
+
       const futureBoard = this.boards[proposedIndex];
       const thisBoard = this.boards[thisBoardIndex];
       let viability = 50;
 
-      // Check if the move would result in the human player having to play on an empty board
-      const isBoardEmpty = (board) => board.every((cell) => cell === null);
+      // Check for already won board or empty future board
       if (this.miniWinners[proposedIndex]) {
+        // console.log(`board: ${proposedIndex} has already been won. -70 points Griffindoor.`);
         viability -= 70;
       }
-      if (thisBoard && isBoardEmpty(thisBoard)) {
+      if (thisBoard && this.isBoardEmpty(futureBoard)) {
         viability += 5;
       }
 
       // Function to adjust viability for setting up a win
       const adjustViabilityForSetup = (board, player) => {
-        if (!board) return;
-
-        this.winningCombinations.forEach((combo) => {
+        let newViability = 0;
+        for (const combo of this.winningCombinations) {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
           ).length;
           const emptyCells = combo.filter((idx) => board[idx] === null).length;
-
-          // Boost for setting up a win
           if (
             playerCells === 1 &&
             emptyCells === 2 &&
             combo.includes(proposedIndex)
           ) {
-            viability += 10;
+            newViability += 20;
           }
-        });
+        }
+        return newViability;
       };
 
       // Function to adjust viability based on a player's potential win or block
       const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
-        if (!board) return;
-
-        this.winningCombinations.forEach((combo) => {
+        let newViability = 0;
+        for (const combo of this.winningCombinations) {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
           ).length;
@@ -331,91 +325,55 @@ export default {
 
           if (playerCells === 2 && emptyCells === 1) {
             const winningCell = combo.find((idx) => board[idx] === null);
-            if (winningCell === proposedIndex) {
+            if (winningCell === proposedIndex && !isFutureBoard) {
+              console.log(`${player} wins with ${winningCell}`);
               if (player === "player-red") {
-                viability += isFutureBoard ? -45 : 60;
-                if (isFutureBoard && this.wouldBeWin(proposedIndex, 'player-red'))
-                  viability = 0;
-              } else {
-                if (!isFutureBoard && this.wouldBeWin(proposedIndex, 'player-blue'))
-                  viability += 30;
-                viability += isFutureBoard ? -10 : 50;
+                newViability += 30;
+              } else if (this.wouldBeWin(proposedIndex, "player-blue")) {
+                newViability += 60;
               }
+            } else if (isFutureBoard && player == "player-red") {
+              newViability -= 40;
+            }
+            // Check if the proposed move could enable player-red to win immediately
+            if (
+              !isFutureBoard &&
+              player === "player-blue" &&
+              this.wouldBeWin(proposedIndex, "player-red")
+            ) {
+              newViability -= 100; // Significantly reduce viability for such moves
             }
           }
-        });
+        }
+        return newViability;
       };
 
       // Adjust viability for the current and future board
-      adjustViabilityForSetup(thisBoard, "player-blue");
-      adjustViabilityForWinOrBlock(thisBoard, "player-blue", false);
-      adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
-      adjustViabilityForWinOrBlock(futureBoard, "player-blue", true);
-      adjustViabilityForWinOrBlock(futureBoard, "player-red", true);
+      viability += adjustViabilityForSetup(thisBoard, "player-blue");
+      viability += adjustViabilityForWinOrBlock(
+        thisBoard,
+        "player-blue",
+        false
+      );
+      viability += adjustViabilityForWinOrBlock(thisBoard, "player-red", false);
+      viability += adjustViabilityForWinOrBlock(
+        futureBoard,
+        "player-blue",
+        true
+      );
+      viability += adjustViabilityForWinOrBlock(
+        futureBoard,
+        "player-red",
+        true
+      );
+
+      // console.log(`final viability = ${viability}`);
       return Math.max(0, viability);
     },
 
-    /**
-     * @param { Array } board - an array of all positions in the board and their current state
-     * @param { integer } currentIndex = the index of the initial checked cell
-     * @param { integer } proposedIndex = the index of the proposed move to make on the board
-     * @returns { Object } returns an Object containing the states of all adjacent cells (null if non-existant)
-     */
-    obstructionAnalysis(board, currentIndex, proposedIndex) {
-      // Determine the direction
-      let direction;
-      if (Math.floor(currentIndex / 3) === Math.floor(proposedIndex / 3)) {
-        direction = "horizontal";
-      } else if (currentIndex % 3 === proposedIndex % 3) {
-        direction = "vertical";
-      } else {
-        if (currentIndex === 0 || currentIndex === 8) {
-          direction = "left-diagonal";
-        } else if (currentIndex === 2 || currentIndex === 6) {
-          direction = "right-diagonal";
-        } else if (currentIndex === 4) {
-          // Index 4 can be part of either diagonal
-          if (proposedIndex === 0 || proposedIndex === 8) {
-            direction = "left-diagonal";
-          } else if (proposedIndex === 2 || proposedIndex === 6) {
-            direction = "right-diagonal";
-          }
-        }
-      }
-
-      // Check for obstructions based on direction
-      switch (direction) {
-        case "horizontal": {
-          const rowStart = Math.floor(currentIndex / 3) * 3;
-          for (let i = rowStart; i < rowStart + 3; i++) {
-            if (board[i] === "player-red") return true; // Obstructed
-          }
-          break;
-        }
-        case "vertical": {
-          const col = currentIndex % 3;
-          for (let i = col; i <= col + 6; i += 3) {
-            if (board[i] === "player-red") return true; // Obstructed
-          }
-          break;
-        }
-        case "left-diagonal": {
-          if ([0, 4, 8].includes(currentIndex)) {
-            if ([0, 4, 8].some((index) => board[index] === "player-red")) {
-              return true; // Obstructed
-            }
-          }
-          break;
-        }
-        case "right-diagonal": {
-          if ([2, 4, 6].includes(currentIndex)) {
-            if ([2, 4, 6].some((index) => board[index] === "player-red")) {
-              return true; // Obstructed
-            }
-          }
-          break;
-        }
-      }
+    // Helper function to check if a board is empty
+    isBoardEmpty(board) {
+      return board.every((cell) => cell === null);
     },
 
     /**
