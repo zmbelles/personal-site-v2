@@ -205,7 +205,9 @@ export default {
       }
 
       this.isFullBoardProcessing = false;
-      console.log(JSON.stringify(potentialMoves));
+      console.log(
+        `all full board potential moves: (${JSON.stringify(potentialMoves)})`
+      );
 
       let highestViability = 0;
       let bestMove = null;
@@ -216,13 +218,13 @@ export default {
         }
       });
       console.log(`best move: ${JSON.stringify(bestMove)}`);
-      if (bestMove) {
-        this.thisBoard = bestMove.board;
-        return bestMove;
-      } else {
+      if (!bestMove) {
         // Handle case where no valid move is found
         // This might need further handling based on your game logic
         return { move: -1, board: -1 };
+      } else {
+        this.thisBoard = bestMove.board;
+        return bestMove;
       }
     },
 
@@ -452,12 +454,7 @@ export default {
         let computerMove = {};
         if (this.miniWinners[this.lastMove]) {
           computerMove = this.fullBoardAnalysis();
-          if (computerMove.move == -1 || !computerMove.move) {
-            alert(
-              "Something went wrong parsing the AI Moveset. Please contact the administrator."
-            );
-            this.resetGame();
-          }
+          console.log(`computerMove: ${JSON.stringify(computerMove)}`);
           this.boards[computerMove.board][computerMove.move] = "player-blue";
           this.checkMiniWinner(this.thisBoard);
           this.currentPlayer = "X";
