@@ -94,6 +94,70 @@
 
 <script>
 export default {
+  metaInfo: {
+    title: "Tic-Tac-Toe 2: The Sequel",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Play the advanced version of the classic Tic-Tac-Toe game with new strategies and more fun.",
+      },
+      { property: "og:title", content: "Tic-Tac-Toe 2: The Sequel" },
+      {
+        property: "og:description",
+        content:
+          "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
+      },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://www.zacharybelles.com/games/tic-tac-toe",
+      },
+      { property: "og:image", content: "@/assets/logo.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Tic-Tac-Toe 2: The Sequel" },
+      {
+        name: "twitter:description",
+        content:
+          "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
+      },
+      { name: "twitter:image", content: "@/assets/tic-tac-toe-thumbnail.png" },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "robots", content: "index, follow" },
+    ],
+    link: [
+      {
+        rel: "canonical",
+        href: "https://www.zacharybelles.com/games/tic-tac-toe",
+      },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "alternate",
+        hreflang: "en",
+        href: "http://www.zacharybelles.com/games/tic-tac-toe",
+      },
+      {
+        rel: "alternate",
+        hreflang: "es",
+        href: "https://zacharybelles.com/games/tic-tac-toe",
+      },
+    ],
+    script: [
+      {
+        type: "application/ld+json",
+        json: {
+          "@context": "https://schema.org",
+          "@type": "Game",
+          name: "Tic-Tac-Toe 2: The Sequel",
+          description:
+            "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
+          image: "@/assets/tic-tac-toe-thumbnail.png",
+          url: "https://www.zacharybelles.com/games/tic-tac-toe",
+        },
+      },
+    ],
+  },
   data() {
     return {
       // an array of arrays which stores the current game state
