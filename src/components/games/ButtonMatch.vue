@@ -54,10 +54,13 @@ export default {
           "Engage in a fun and challenging color matching game. Test your speed and accuracy in Button Match.",
       },
       { property: "og:type", content: "game" },
-      { property: "og:url", content: "https://www.yoursite.com/button-match" },
+      {
+        property: "og:url",
+        content: "https://www.zacharybelles.com/button-match",
+      },
       {
         property: "og:image",
-        content: "https://www.yoursite.com/images/button-match-thumbnail.jpg",
+        content: "@/assets/logo.png",
       },
       { name: "twitter:card", content: "summary_large_image" },
       {
@@ -71,7 +74,7 @@ export default {
       },
       {
         name: "twitter:image",
-        content: "https://www.yoursite.com/images/button-match-thumbnail.jpg",
+        content: "@/assets/logo.png",
       },
     ],
   },

@@ -48,10 +48,10 @@ export default {
           "A collection of engaging and challenging online games including Button Match, Hyper Tic-Tac-Toe, and Battleship.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.yourwebsite.com/games" },
+      { property: "og:url", content: "https://www.zacharybelles.com/games" },
       {
         property: "og:image",
-        content: "https://www.yourwebsite.com/images/games-thumbnail.jpg",
+        content: "@/assets/logo.png",
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Exciting Online Games - Play Now" },
@@ -62,7 +62,7 @@ export default {
       },
       {
         name: "twitter:image",
-        content: "https://www.yourwebsite.com/images/games-thumbnail.jpg",
+        content: "@/assets/logo.png",
       },
     ],
   },
