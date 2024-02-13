@@ -1,6 +1,7 @@
 <template>
   <div class="blog-page">
     <h1>{{ title }}</h1>
+    <h2>{{ subHeader }}</h2>
     <p class="publication-date">Published on: February 12, 2024 at 9:05pm CST</p> <!-- Publication date -->
     <div class="introduction">
       <p>{{ intro }}</p>
@@ -24,7 +25,8 @@ export default {
   name: 'BlogPost',
   data() {
     return {
-      title: "The N/GPT Module: Navigating SuiteScript with OpenAI’s GPT-4 engine",
+      title: "The N/GPT Module",
+      subHeader: "Navigating SuiteScript with OpenAI’s GPT-4 engine",
       intro: `In my role as a NetSuite developer over the past year, I have frequently utilized 
               ChatGPT for generating quick templates for User Event scripts, where my primary task 
               was to substitute a template field ID with the actual field ID from a client record. 

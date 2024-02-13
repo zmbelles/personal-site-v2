@@ -29,67 +29,46 @@ export default {
 <style scoped>
 /* Component-specific styles */
 .banner-image {
-  width: 100%; /* Makes the image stretch to cover the header's width */
-  height: auto; /* Maintains the aspect ratio */
-  display: block; /* Removes any extra space below the image */
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 header {
   background-color: #181825;
-  padding: 20px;
-}
-
-.nav-left {
-  flex: 1;
-  align-items: right;
-  text-align: right;
-  color: #ffffff;
-}
-
-.nav-left a {
-  color: #ffffff;
-}
-
-.nav-left a:visited {
-  color: #9510d8;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  max-width: 960px;
-  align-items: center;
-}
-
-.name {
-  color: #ffffff;
-  margin: 4;
-  text-align: center;
-  padding: 2;
-  font-size: 72px;
+  padding: 1rem 0; /* Remains unchanged, already using relative unit */
 }
 
 .nav-links {
   display: flex;
-  color: #dadada; /* Keeps the text color the same */
-  background-color: #362E5F; /* New background color */
-  box-shadow: 0 2px 4px #DFA8CD;
-  justify-content: space-between;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.quote {
-  color: #ffffff;
-  max-width: 400px;
-  text-align: center;
-  margin: 0 auto; /* Add this line to center the quote */
+  justify-content: center; /* Center links for a balanced look */
+  flex-wrap: wrap; /* Allow the nav items to wrap on smaller screens */
+  color: #dadada;
+  background-color: #362E5F;
+  box-shadow: 0 2px 4px rgba(223, 168, 205, 0.5);
+  padding: 0.5rem 1rem; /* Adjusted to rem */
 }
 
 .nav-links a {
   text-decoration: none;
   color: #dadada;
-  padding: 10px;
+  padding: 0.5rem 0.75rem; /* Use rem for scalable padding */
+  margin: 0 3rem; /* Use rem to ensure consistent spacing */
+  white-space: nowrap; /* Prevents the text from wrapping */
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-links {
+    justify-content: space-around; /* Ensures even spacing on smaller screens */
+    padding: 0.5rem; /* Adjust padding for smaller screens */
+  }
+
+  .nav-links a {
+    padding: 0.5rem; /* Adjust link padding on smaller screens */
+    margin: 0.25rem; /* Reduce margin on smaller screens */
+    font-size: 0.9rem; /* Smaller font size for smaller screens */
+  }
+}
+
 </style>
