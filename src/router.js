@@ -288,7 +288,7 @@ const routes = [
 ];
 
 const router = createRouter({
-	hash: createWebHistory(),
+	history: createWebHistory(),
 	routes,
 });
 router.afterEach((to) => {
