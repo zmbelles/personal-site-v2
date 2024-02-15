@@ -7,7 +7,6 @@ import router from './router';
 
 const app = createApp(App);
 app.use(router);
-app.use(require('prerender-node').set('prerenderToken', 'AmdTG5do8VyKNtVFk2OI'));
 app.mount('#app');
 
 
