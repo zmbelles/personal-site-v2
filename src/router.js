@@ -294,6 +294,7 @@ const router = createRouter({
 router.afterEach((to) => {
 	nextTick(() => {
 		document.title = to.meta.title || "Zachary Belles"; // Fallback title if no meta title is set
+		document.description = to.meta.description || "Personal Site of Zachary Belles";
 	});
 });
 export default router;
