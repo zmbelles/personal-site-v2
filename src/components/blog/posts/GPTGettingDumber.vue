@@ -34,7 +34,7 @@ export default {
               This raises several questions: Is leveraging ChatGPT in this manner appropriate? What 
               about using it to debug an entire Client Script file? And, more broadly, should the 
               potential of AI to perform developer tasks justify reducing the human workforce? This
-              last thought seems extreme but it is a case I have heard from a panel at SuiteWorld. 
+              last thought seems extreme but it is a case a coworker heard from a panel at SuiteWorld. 
               With the advent of GPT-4, such practices have become more common, prompting a discussion 
               on the ethical and logical implications of integrating AI into SuiteScript development. 
               This post aims to explore three major concerns related to the use of GPT-4 in SuiteScript 
