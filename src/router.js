@@ -124,13 +124,13 @@ const routes = [
         { name: "viewport", content: "width=device-width, initial-scale=1.0" },
         { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
         { name: "description", content: "Explore ethical and practical implications of using OpenAI's GPT-4 for SuiteScript development. Maximize productivity while ensuring data privacy." },
-        { name: "keywords", content: "NetSuite, SuiteScript, GPT-4, OpenAI, AI Ethics, Data Privacy, Software Development" },
+        { name: "keywords", content: "NetSuite, SuiteScript, ChatGPT, SuiteApps, Automated Intelligence, Large Language Model, LLM, Data Mining, GPT-4, OpenAI, AI Ethics, Data Privacy, Software Development" },
         { name: "author", content: "Zachary Belles" },
         { name: "robots", content: "index, follow" },
         { name: "geo.region", content: "US-IL" }, // Example for local optimization
-        { name: "geo.placename", content: "Chicago" },
-        { name: "geo.position", content: "41.714956;-88.428169" },
-        { name: "ICBM", content: "41.714956, -88.428169" },
+        { name: "geo.placename", content: "Naperville" },
+        { name: "geo.position", content: "41.7508;-88.1535" },
+        { name: "ICBM", content: "41.7508, -88.1535" },
         // Social media and open graph tags
         { property: "og:title", content: "The N/GPT Module: Navigating SuiteScript with OpenAI’s GPT-4 Engine" },
         { property: "og:type", content: "article" },

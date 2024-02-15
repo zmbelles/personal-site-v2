@@ -28,8 +28,9 @@ export default {
       title: "The N/GPT Module",
       subHeader: "Navigating SuiteScript with OpenAI’s GPT-4 engine",
       intro: `In my role as a NetSuite developer over the past year, I have frequently utilized 
-              ChatGPT for generating quick templates for User Event scripts, where my primary task 
-              was to substitute a template field ID with the actual field ID from a client record. 
+              ChatGPT for generating quick templates for different script types. In the beginning,
+              I tried to have ChatGPT do solution design for me, asking it to write specific code
+              related to a clients NetSuite Implimentation; exposing it to code that is company property. 
               This raises several questions: Is leveraging ChatGPT in this manner appropriate? What 
               about using it to debug an entire Client Script file? And, more broadly, should the 
               potential of AI to perform developer tasks justify reducing the human workforce? This
@@ -41,10 +42,17 @@ export default {
       concerns: [
         {
           title: "Ethical/Logical Concern 1: Mined Data",
-          description: `ChatGPT by default mines all of the data from the conversations you have with it and 
-                        can potentially use your companies Intellectual Property (your code, SuiteApp, 
-                        SuiteCommerce Extension, etc), to help another company build the exact thing you are 
-                        already trying to market.`,
+          description: `ChatGPT as a Large Language Model (LLM) gets better through being trained on real
+                        world data. The best place for OpenAI to mine this data is from the conversations
+                        it has with its users. This in theory allows OpenAI to use your Intelectual Property
+                        if you do not use it properly. 
+                        
+                        Example: You are have a SuiteApp published on the SuiteApp marketplace, an app that
+                        makes your company $4500 per year per client. You decide to make a new version but
+                        have run into a bug that you cannot figure out. You give ChatGPT your entire file 
+                        and voila! your bug has been fixed. However, now ChatGPT, when retraining occurs, 
+                        can enable all of your clients the tools to make a SuiteApp of their own because it
+                        was able to train off of the data you gave it from your own SuiteApp.`,
           link: {
             url: "https://openai.com/chatgpt/team",
             text: "Learn more about ChatGPT Team"
@@ -52,16 +60,16 @@ export default {
         },
         {
           title: "Ethical/Logical Concern 2: Hallucination scales with complexity",
-          description: `Hallucinations have always been a concern with Large Language Models 
-                        (LLMs) and this problem is confounded when you attempt to have one attempt 
+          description: `Hallucinations have always been a concern with LLMs and this problem is 
+                        confounded if you attempt to use an LLM to do something along the lines of
                         solution design. From my experience, GPT-4 can reduce development time when 
                         used to create boiler-plate templates, however, that time saved can be wiped 
-                        away if you are trying to ask an LLM to connect to a 3rd party API using the 
+                        away if you are, say, trying to ask an LLM to connect to a 3rd party API with the 
                         N/https module using data from a custom configuration record with the lowest 
-                        possible Big-O Notation. Been there done that.`
+                        possible Big-O Notation. Been there, done that.`
         },
         {
-          title: "Ethical/Logical Concern 3: you don’t retain nearly as much information",
+          title: "Ethical/Logical Concern 3: Retention of Information",
           description: `When I first started using SuiteScript professionally, I would often find myself 
                         trying to get ChatGPT to write everything for me. After several months of doing 
                         this, AI had really become a crutch to my entire style of coding and I was not 
@@ -74,7 +82,7 @@ export default {
                       carefully. While ChatGPT has shown to me that it can and will always get the right 
                       answer eventually, the time spent to finish a single client case will tend to be 
                       quite high on average as opposed to trusting your skills as a developer to get the 
-                      answer yourself.`
+                      answer yourself or reaching out to a coworker.`
     };
   }
 }
