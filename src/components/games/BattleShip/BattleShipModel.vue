@@ -12,7 +12,6 @@
           <button class="close-button" @click="toggleRules">Close</button>
         </div>
       </div>
-      <h3 class="current-step">{{ stepMessage }}</h3>
       <div class="grid-container">
       <div class="grid-header">
         <div class="grid-label corner"></div> <!-- Empty corner cell -->
@@ -44,19 +43,8 @@ export default {
   name: 'BattleShip',
   data() {
     return {
-      currentStep: 0,
       showRules: false, // Controls the visibility of the rules modal
-      hoveredCell: null, // To store the hovered cell info 
-      stepMessageObject: {
-        placecarrier: "Admiral, please place your Aircraft Carrier",
-        placeSub: "Admiral, please place your Submarine",
-        placeDestroyer: "Admiral, please place your Destroyer",
-        placeBattleship: "Admiral, please place your Battleship",
-        placeCruiser: "Admiral, please place your Cruiser",
-        computerThink: "Our enemy is making their move!",
-        humanTurn: "Missiles armed, Admiral. Awaiting your coordinates.",
-      },
-      stepMessage: stepMessageObject.placecarrier,
+      hoveredCell: null, // To store the hovered cell info
     };
   },
   methods: {
@@ -73,11 +61,6 @@ export default {
     handleClick() {
       // Existing click handler logic
     }
-  },
-  watch: {
-    currentStep(oldStep, newStep){
-
-    },
   }
 };
 </script>
