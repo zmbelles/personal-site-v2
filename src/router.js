@@ -10,72 +10,12 @@ import BattleShip from "@/components/games/BattleShip/BattleShipModel.vue";
 import AdvPdf from "@/components/blog/posts/TimesInNetSuite.vue";
 import TicTacToe from "@/components/games/TicTacToe.vue";
 import PromisesInNetSuite from "@/components/blog/posts/PromisesInNetSuite";
-import GPTInNetSuite from "@/components/blog/posts/GPTGettingDumber";
-import { nextTick } from "vue"; // Import nextTick from Vue
+import GPTInNetSuite from '@/components/blog/posts/GPTGettingDumber';
+import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
-	{
-		path: "/",
-		component: Home,
-		name: "Home",
-		meta: {
-			title: "Home",
-			metaTags: [
-				{ charset: "UTF-8" },
-				{
-					name: "viewport",
-					content: "width=device-width, initial-scale=1.0",
-				},
-				{ "http-equiv": "X-UA-Compatible", content: "IE=edge" },
-				{
-					name: "description",
-					content:
-						"Zachary is a professional NetSuite Developer specializing in SuiteScript design and implementation with JavaScript and underlying frameworks.",
-				},
-				{
-					name: "keywords",
-					content:
-						"NetSuite, Advanced PDF, Custom Fonts, NetSuite Fonts, PDF Templates, Business Customization, Document Design, Times New Roman, Times, ERP, Formula 1, GPT, LLM, SuiteScript, BattleShip, TicTacToe, Tic-Tac-Toe, Tic Tac Toe",
-				},
-				{ name: "author", content: "Zachary Belles" },
-				{ name: "robots", content: "index, follow" },
-				{
-					property: "og:title",
-					content: "Home",
-				},
-				{
-					property: "og:description",
-					content:
-						"Zachary is a professional NetSuite Developer specializing in SuiteScript design and implementation with JavaScript and underlying frameworks.",
-				},
-				{
-					property: "og:url",
-					content: "https://zacharybelles.com/",
-				},
-				{ property: "og:site_name", content: "zacharybelles.com" },
-				{
-					name: "twitter:title",
-					content: "Home",
-				},
-				{
-					name: "twitter:description",
-					content:
-						"Zachary is a professional NetSuite Developer specializing in SuiteScript design and implementation with JavaScript and underlying frameworks.",
-				},
-			],
-		},
-	},
-	{
-		path: "/resume",
-		component: ResumePage,
-		name: "Resume",
-		meta: { title: "Resume" },
-	},
-	{
-		path: "/blog",
-		component: BlogPage,
-		name: "Blog",
-		meta: { title: "Blog" },
-	},
+	{ path: "/", component: Home, name: "Home",meta:{title:"Home"} },
+	{ path: "/resume", component: ResumePage, name: "Resume",meta:{title:"Resume"}},
+	{ path: "/blog", component: BlogPage, name: "Blog",meta:{title:"Blog"} },
 	{
 		path: "/blog/times-in-netsuite",
 		component: AdvPdf,
@@ -249,51 +189,21 @@ const routes = [
 			],
 		},
 	},
-	{
-		path: "/login",
-		component: LoginPage,
-		name: "login",
-		meta: { title: "Login" },
-	},
-	{
-		path: "/contact",
-		component: ContactPage,
-		name: "contact",
-		meta: { title: "Contact Me" },
-	},
-	{
-		path: "/games",
-		component: GamesPage,
-		name: "games",
-		meta: { title: "Games" },
-	},
-	{
-		path: "/games/match",
-		component: ButtonMatch,
-		name: "match",
-		meta: { title: "Match Game" },
-	},
-	{
-		path: "/games/battleship",
-		component: BattleShip,
-		name: "battleship",
-		meta: { title: "Battleship" },
-	},
-	{
-		path: "/games/tic-tac-toe",
-		component: TicTacToe,
-		name: "tictactoe",
-		meta: { title: "Hyper TicTacToe" },
-	},
+	{ path: "/login", component: LoginPage, name: "login", meta:{title:"Login"}},
+	{ path: "/contact", component: ContactPage, name: "contact", meta:{title:"Contact Me"}},
+	{ path: "/games", component: GamesPage, name: "games", meta:{title:"Games"}},
+	{ path: "/games/match", component: ButtonMatch, name: "match", meta:{title:"Match Game"}},
+	{ path: "/games/battleship", component: BattleShip, name: "battleship", meta:{title:"Battleship"}},
+	{ path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta:{title:"Hyper TicTacToe"}},
 ];
 
 const router = createRouter({
-	history: createWebHistory(),
-	routes,
+  history: createWebHistory(),
+  routes,
 });
 router.afterEach((to) => {
-	nextTick(() => {
-		document.title = to.meta.title || "Zachary Belles"; // Fallback title if no meta title is set
-	});
+  nextTick(() => {
+    document.title = to.meta.title || 'Zachary Belles'; // Fallback title if no meta title is set
+  });
 });
 export default router;
