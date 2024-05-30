@@ -11,11 +11,12 @@ import AdvPdf from "@/components/blog/posts/TimesInNetSuite.vue";
 import TicTacToe from "@/components/games/TicTacToe.vue";
 import PromisesInNetSuite from "@/components/blog/posts/PromisesInNetSuite";
 import GPTInNetSuite from '@/components/blog/posts/GPTGettingDumber';
+import FirstYearLessons from '@/components/blog/posts/FirstYearLessons';
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
-	{ path: "/", component: Home, name: "Home",meta:{title:"Home"} },
-	{ path: "/resume", component: ResumePage, name: "Resume",meta:{title:"Resume"}},
-	{ path: "/blog", component: BlogPage, name: "Blog",meta:{title:"Blog"} },
+	{ path: "/", component: Home, name: "Home", meta: { title: "Home" } },
+	{ path: "/resume", component: ResumePage, name: "Resume", meta: { title: "Resume" } },
+	{ path: "/blog", component: BlogPage, name: "Blog", meta: { title: "Blog" } },
 	{
 		path: "/blog/times-in-netsuite",
 		component: AdvPdf,
@@ -189,21 +190,86 @@ const routes = [
 			],
 		},
 	},
-	{ path: "/login", component: LoginPage, name: "login", meta:{title:"Login"}},
-	{ path: "/contact", component: ContactPage, name: "contact", meta:{title:"Contact Me"}},
-	{ path: "/games", component: GamesPage, name: "games", meta:{title:"Games"}},
-	{ path: "/games/match", component: ButtonMatch, name: "match", meta:{title:"Match Game"}},
-	{ path: "/games/battleship", component: BattleShip, name: "battleship", meta:{title:"Battleship"}},
-	{ path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta:{title:"Hyper TicTacToe"}},
+	{
+		path: "/blog/first-year-lessons",
+		component: FirstYearLessons,
+		name: "Lessons from My First Year as a NetSuite Developer",
+		meta: {
+			title: "Lessons from My First Year as a NetSuite Developer: Trials, Triumphs, and Takeaways",
+			metaTags: [
+				{ charset: "UTF-8" },
+				{
+					name: "viewport",
+					content: "width=device-width, initial-scale=1.0",
+				},
+				{ "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+				{
+					name: "description",
+					content:
+						"Discover key insights and valuable lessons learned during my first year as a NetSuite developer, including handling mistakes, work-life balance, and career satisfaction.",
+				},
+				{
+					name: "keywords",
+					content:
+						"NetSuite, Developer, Professional Development, Career Lessons, ERP, SuiteScript, Work-Life Balance, Software Development, Mistakes, Career Advice",
+				},
+				{ name: "author", content: "Zachary Belles" },
+				{ name: "robots", content: "index, follow" },
+				{
+					property: "og:title",
+					content: "Lessons from My First Year as a NetSuite Developer: Trials, Triumphs, and Takeaways",
+				},
+				{
+					property: "og:description",
+					content:
+						"Discover key insights and valuable lessons learned during my first year as a NetSuite developer, including handling mistakes, work-life balance, and career satisfaction.",
+				},
+				{
+					property: "og:url",
+					content: "https://zacharybelles.com/blog/first-year-lessons/",
+				},
+				{ property: "og:type", content: "article" },
+				{ property: "og:site_name", content: "zacharybelles.com" },
+				{
+					property: "og:image",
+					content: "@/assets/first-year-lessons.png",
+				},
+				{ name: "twitter:card", content: "summary_large_image" },
+				{
+					name: "twitter:title",
+					content: "Lessons from My First Year as a NetSuite Developer",
+				},
+				{
+					name: "twitter:description",
+					content:
+						"Discover key insights and valuable lessons learned during my first year as a NetSuite developer, including handling mistakes, work-life balance, and career satisfaction.",
+				},
+				{
+					name: "twitter:image",
+					content: "@/assets/first-year-lessons.png",
+				},
+				{ name: "geo.region", content: "US-IL" },
+				{ name: "geo.placename", content: "Naperville" },
+				{ name: "geo.position", content: "41.7508;-88.1535" },
+				{ name: "ICBM", content: "41.7508, -88.1535" },
+			],
+		},
+	},
+	{ path: "/login", component: LoginPage, name: "login", meta: { title: "Login" } },
+	{ path: "/contact", component: ContactPage, name: "contact", meta: { title: "Contact Me" } },
+	{ path: "/games", component: GamesPage, name: "games", meta: { title: "Games" } },
+	{ path: "/games/match", component: ButtonMatch, name: "match", meta: { title: "Match Game" } },
+	{ path: "/games/battleship", component: BattleShip, name: "battleship", meta: { title: "Battleship" } },
+	{ path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta: { title: "Hyper TicTacToe" } },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+	history: createWebHistory(),
+	routes,
 });
 router.afterEach((to) => {
-  nextTick(() => {
-    document.title = to.meta.title || 'Zachary Belles'; // Fallback title if no meta title is set
-  });
+	nextTick(() => {
+		document.title = to.meta.title || 'Zachary Belles'; // Fallback title if no meta title is set
+	});
 });
 export default router;

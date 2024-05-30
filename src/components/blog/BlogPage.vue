@@ -2,6 +2,16 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
+        <router-link to="/blog/first-year-lessons" class="post-link">
+          Triumphs&#44; Trials&#44; and Takeaways
+        </router-link>
+      </h2>
+      <p class="blog-post-body">
+        What I&#39;ve learned in my First Year as a Professional Developer
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
         <router-link to="/blog/gpt-in-netsuite" class="post-link">
           The N/GPT Module
         </router-link>

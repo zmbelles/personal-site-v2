@@ -706,6 +706,7 @@ export default {
   position: relative;
   align-content: flex-start;
   text-align: left;
+  color: #FFFFFF
 }
 
 .close-rules {
