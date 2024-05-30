@@ -35,7 +35,7 @@ export default {
           not what you want them to do. First starting off in professional development, especially working with such a 
           robust Enterprise Resource Planning (ERP) software such as NetSuite, you’re going to make mistakes. 
           A lot of them, actually. Naturally, accidentally uploading untested code to a clients live production account is 
-          never a situation anyone wants to deal with it is a thing that can happen, and did happen once or 
+          never a situation anyone wants to deal with but it is a thing that can happen, and did happen once or 
           twice to me. The key takeaway from when things go wrong is being able to consciously look back 
           to understand and learn from your mistake. Was a rollout note forgotten so a field wasn’t uploaded? 
           Was a coworker working in the same file as me? Did I not compare to the production account to make sure only my 
@@ -50,17 +50,22 @@ export default {
           and allowed, understanding this give and take is important. If you want the company to invest in you, you have to 
           invest yourself in the company. There could also be work adjacent tasks, such as studying and training for 
           certificates that will stick with you throughout your professional career, that you may need to work on after your 
-          average 9-5 work hours.`
+          average 9-5 work hours. As I will mention in the next section, this work-life balance is something that can be 
+          some what of a luxury today depending on your employer. It is essential to your own mental well-being that you do not
+          choose a job that will negatively impact your work-life balance that you stay with purely because of a paycheck. After
+          bonus and student loan reimbusements I personally make well within the average for an entry level Developer. Could I make 
+          more somewhere else? Possibly, but I will not find the culture, competance, and work-life balance like I have at
+          Solution Source anywhere else.`
         },
         {
           title: "It's Not All About the Money",
           description: `I’ve said long before I graduated with my B.S in Computer Science that I will never work for a FAANG 
-          company because while I’d be making well over $100,000 a year before bonus and stock options, they will make you work 
+          company because while I can be making well over $100,000 a year before bonus and stock options, they will make me work 
           for every penny. As someone who experienced burnout my first time through college as an Instrumental Music Education 
           major, that is something I would like to distance myself from as much as humanly possible. I still make more than 
           enough to get by at Solution Source and it is a place where I feel happy to log onto work every day knowing that my 
           voice is heard when there is an issue, and I am surrounded by some very intelligent peers who I can go to if I ever 
-          feel overwhelmed. While it may be everyones first choice to go with the offer that has the highest base pay there must 
+          feel overwhelmed. While it may be everyones first choice to go with the offer that has the highest base pay, there must 
           be ample consideration given to work-life balance, bonus potential, and of course programming languages used. If you 
           hate JavaScript, don’t put yourself into a position where you have to use it every day for the foreseeable future just 
           because it pays the most.`
@@ -70,7 +75,10 @@ export default {
       of the opportunities I have been given so far by Solution Source. From the projects I have been able to will to life, to the community 
       contributions Solution Source has given on my behalf to my favorite non-profits. I will continue to keep an open mind to anything
       and everything that comes my way in my next year of professional development. Next up for me is co-authoring a large project with
-      one of my coworkers and studying for my SuiteFoundations certificate.`
+      one of my coworkers and studying for my SuiteFoundations certificate. For those of you reading that are just starting your first year
+      of professional development: be curious, ask questions, and don't be afraid to make mistakes (provided they aren't in a clients production
+      account).`
+      
     };
   }
 }
