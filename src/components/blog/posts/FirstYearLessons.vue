@@ -25,7 +25,7 @@ export default {
     return {
       title: "What I’ve Learned in my First Year as a Professional Developer",
       intro: `It's officially been a year since I started my professional development journey. I graduated with my BS in
-      Computer Science from North Central College in May of last year and after a quick trip to florida with my girlfriend,
+      Computer Science from North Central College in May of last year and after a quick trip to Florida with my girlfriend,
       I was on my way to Goshen, Indiana for my training. Here are my main takeaways after this wonderful ride of a first year.`,
       lessons: [
         {
