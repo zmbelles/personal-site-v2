@@ -1,7 +1,7 @@
 <template>
   <div class="blog-page">
     <h1>Using Times New Roman in NetSuite Advanced PDF's</h1>
-    <p class="publication-date">Published on: December 18, 2024 at 8:45pm CST</p> <!-- Publication date -->
+    <p class="publication-date">Published on: December 18, 2023 at 8:45pm CST</p> <!-- Publication date -->
     <section class="introduction">
       <h2>Introduction</h2>
       <p>

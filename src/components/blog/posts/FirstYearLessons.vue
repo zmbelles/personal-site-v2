@@ -64,7 +64,7 @@ export default {
           for every penny. As someone who experienced burnout my first time through college as an Instrumental Music Education 
           major, that is something I would like to distance myself from as much as humanly possible. I still make more than 
           enough to get by at Solution Source and it is a place where I feel happy to log onto work every day knowing that my 
-          voice is heard when there is an issue, and I am surrounded by some very intelligent peers who I can go to if I ever 
+          voice is heard when there is an issue, and I am surrounded by a group of brilliant peers who I can go to if I ever 
           feel overwhelmed. While it may be everyones first choice to go with the offer that has the highest base pay, there must 
           be ample consideration given to work-life balance, bonus potential, and of course programming languages used. If you 
           hate JavaScript, don’t put yourself into a position where you have to use it every day for the foreseeable future just 
