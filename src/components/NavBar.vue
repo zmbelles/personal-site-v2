@@ -12,6 +12,7 @@
             <router-link to="/contact">Contact Me</router-link>
             <router-link to="/games">Games</router-link>
             <router-link to="/blog">Blog</router-link>
+            <router-link to="/Forms">Forms</router-link>
         </div>
       </nav>
     </div>

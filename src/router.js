@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/components/HomePage.vue";
 import ResumePage from "@/components/ResumePage.vue";
 import BlogPage from "@/components/blog/BlogPage.vue";
+import FormPage from "@/components/forms/FormPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import ContactPage from "@/components/ContactPage.vue";
 import GamesPage from "@/components/GamesPage.vue";
@@ -12,6 +13,7 @@ import TicTacToe from "@/components/games/TicTacToe.vue";
 import PromisesInNetSuite from "@/components/blog/posts/PromisesInNetSuite";
 import GPTInNetSuite from '@/components/blog/posts/GPTGettingDumber';
 import FirstYearLessons from '@/components/blog/posts/FirstYearLessons';
+import SalesOrder from '@/components/forms/sales_order/SalesOrder_View.vue';
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
 	{ path: "/", component: Home, name: "Home", meta: { title: "Home" } },
@@ -261,6 +263,8 @@ const routes = [
 	{ path: "/games/match", component: ButtonMatch, name: "match", meta: { title: "Match Game" } },
 	{ path: "/games/battleship", component: BattleShip, name: "battleship", meta: { title: "Battleship" } },
 	{ path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta: { title: "Hyper TicTacToe" } },
+	{ path: "/forms", component: FormPage, name: "forms", meta: { title: "Forms" } },
+	{ path: "/forms/sales-order", component: SalesOrder, name: "sales-order", meta: { title: "sales-order" } },
 ];
 
 const router = createRouter({
