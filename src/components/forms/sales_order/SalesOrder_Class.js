@@ -33,7 +33,7 @@ class SalesOrder {
     setDocumentNumber(documentNumber) {
         this.documentNumber = documentNumber;
     }
-
+    
     setBillto(billto) {
         let billToParts = billto.split('\n');
         let length = billToParts.length;
@@ -54,12 +54,33 @@ class SalesOrder {
         }
     }
 
+    setShipto(shipto) {
+        let shipToParts = shipto.split('\n');
+        let length = shipToParts.length;
+        if(length == 3) {
+            this.shipto = {
+                name: shipToParts[0],
+                addr1: shipToParts[1],
+                cityStateZip: shipToParts[2]
+            }
+        }
+        else if(length == 4) {
+            this.shipto = {
+                name: shipToParts[0],
+                addr1: shipToParts[1],
+                addr2: shipToParts[2],
+                cityStateZip: shipToParts[3]
+            }
+        }
+    }
+
     getBillto() {
         return this.billto;
     }
 
     getFullSalesOrder() {
         return {
+            
             companyName: this.companyName,
             documentNumber: this.documentNumber,
             billto: JSON.stringify(this.billto),
@@ -70,6 +91,6 @@ class SalesOrder {
             memo: this.memo
         }
     }
-
 }
-return SalesOrder
+
+export default SalesOrder;

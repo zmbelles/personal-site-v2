@@ -1,6 +1,5 @@
 <template>
   <div class="sales-order-form">
-    <h1>Hey, you're not supposed to be here!&#128517;</h1>
     <h1>Open-Source Sales Order</h1>
     <button class="json-button" @click="toggleJsonPopup">Paste JSON</button>
     <form @submit.prevent="submitForm">
@@ -24,7 +23,7 @@
           Bill To Name and Address: <span class="required">*</span>
           <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('billTo')" alt="info">
         </label>
-        <textarea id="billTo" v-model="salesOrder.billTo" required></textarea>
+        <textarea id="billTo" v-model="billToInput" @input="updateBillTo"></textarea>
       </div>
 
       <div class="form-group">
@@ -32,7 +31,7 @@
           Ship To Name and Address: <span class="required">*</span>
           <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('shipTo')" alt="info">
         </label>
-        <textarea id="shipTo" v-model="salesOrder.shipTo" required></textarea>
+        <textarea id="shipTo" v-model="shipToInput" @input="updateShipTo"></textarea>
       </div>
 
       <div class="form-group">
@@ -53,6 +52,35 @@
         <textarea id="memo" v-model="salesOrder.memo"></textarea>
       </div>
 
+      <div class="items-section">
+        <h2>Items</h2>
+        <button type="button" @click="addItem" class="add-button">Add New Item</button>
+        <div class="item-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Unit of Measure</th>
+                <th>Price per Item</th>
+                <th>Weight</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in salesOrder.items" :key="index" class="item-entry">
+                <td><input type="text" v-model="item.name" /></td>
+                <td><input type="number" v-model="item.quantity" /></td>
+                <td><input type="text" v-model="item.unit" /></td>
+                <td><input type="number" v-model="item.price" /></td>
+                <td><input type="number" v-model="item.weight" /></td>
+                <td><button type="button" @click="removeItem(index)" class="remove-button">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br><br><br>
       <div class="button-container">
         <button type="submit">Get printable template</button>
       </div>
@@ -65,28 +93,26 @@
 
     <div v-if="jsonPopupVisible" class="json-popup">
       <h2>Paste JSON</h2>
-      <textarea v-model="jsonInput" placeholder="Paste JSON here"></textarea>
-      <button @click="populateFromJson">Populate</button>
+      <button @click="copyExampleJson">Copy Example Object</button>
       <button @click="jsonPopupVisible = false">Close</button>
+      <div class="json-editor" contenteditable="true" @input="onJsonInput" ref="jsonEditor"></div>
+      <button @click="populateFromJson">Populate</button>
     </div>
   </div>
 </template>
 
-
-
 <script>
+import SalesOrder from './SalesOrder_Class.js';
+import Prism from 'prismjs';
+import '@/themes/prism-night-owl.css';
+import 'prismjs/components/prism-json';
+
 export default {
   data() {
     return {
-      salesOrder: {
-        companyName: '',
-        documentNumber: '',
-        billTo: '',
-        shipTo: '',
-        total: null,
-        shipDate: '',
-        memo: ''
-      },
+      salesOrder: new SalesOrder(),
+      billToInput: '',
+      shipToInput: '',
       infoText: '',
       infoPanelVisible: false,
       jsonPopupVisible: false,
@@ -95,8 +121,7 @@ export default {
   },
   methods: {
     submitForm() {
-      // Handle the form submission, e.g., make an API call or process the data
-      console.log("Submitted data:", this.salesOrder);
+      console.log("Submitted data:", this.salesOrder.getFullSalesOrder());
     },
     showInfo(field) {
       const infoTexts = {
@@ -124,40 +149,136 @@ export default {
     },
     toggleJsonPopup() {
       this.jsonPopupVisible = !this.jsonPopupVisible;
+      this.$nextTick(() => {
+        this.highlightJson();
+      });
     },
     populateFromJson() {
       try {
         const data = JSON.parse(this.jsonInput);
-        this.salesOrder = { ...this.salesOrder, ...data };
+        this.salesOrder = Object.assign(new SalesOrder(), data);
+        this.billToInput = `${this.salesOrder.billto.name}\n${this.salesOrder.billto.addr1}\n${this.salesOrder.billto.cityStateZip}`;
+        this.shipToInput = `${this.salesOrder.shipto.name}\n${this.salesOrder.shipto.addr1}\n${this.salesOrder.shipto.cityStateZip}`;
         this.jsonPopupVisible = false;
       } catch (e) {
         alert("Invalid JSON");
       }
     },
-    exampleObject() {
+    copyExampleJson() {
+      const exampleJson = JSON.stringify({
+        companyName: 'Example Company',
+        documentNumber: '123456',
+        billto: {
+          name: 'Example Customer',
+          addr1: '456 Example Ave',
+          cityStateZip: 'Example City, EX 78910'
+        },
+        shipto: {
+          name: 'Example Receiver',
+          addr1: '789 Receiver Blvd',
+          cityStateZip: 'Receiver City, RE 11223'
+        },
+        total: 1000.00,
+        items: [
+          { name: 'Item 1', quantity: 2, price: 50.00 },
+          { name: 'Item 2', quantity: 1, price: 900.00 }
+        ],
+        shipDate: '2024-01-01',
+        memo: 'Example memo'
+      }, null, 2);
+      this.jsonInput = exampleJson;
+      this.$nextTick(() => {
+        this.highlightJson();
+      });
+    },
+    updateBillTo() {
+      this.salesOrder.setBillto(this.billToInput);
+    },
+    updateShipTo() {
+      this.salesOrder.setShipto(this.shipToInput);
+    },
+    addItem() {
+      this.salesOrder.items.push({ name: '', quantity: 1, unit: 'EA', price: 0, weight: 0 });
+    },
+    removeItem(index) {
+      this.salesOrder.items.splice(index, 1);
+    },
+    highlightJson() {
+      const element = this.$refs.jsonEditor;
+      const cursorPosition = this.saveCursorPosition(element);
+      element.innerHTML = Prism.highlight(this.jsonInput, Prism.languages.json, 'json');
+      this.restoreCursorPosition(element, cursorPosition);
+    },
+    onJsonInput(event) {
+      this.jsonInput = event.target.innerText;
+      this.highlightJson();
+    },
+    saveCursorPosition(element) {
+      const selection = window.getSelection();
+      if (selection.rangeCount === 0) {
+        return null;
+      }
+      const range = selection.getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(element);
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+      const start = preCaretRange.toString().length;
+      return { start, end: start };
+    },
+    restoreCursorPosition(element, position) {
+      if (!position) return;
+      const selection = window.getSelection();
+      const range = document.createRange();
+      let charIndex = 0;
+      const nodeStack = [element];
+      let node, foundStart = false, stop = false;
+
+      while (!stop && (node = nodeStack.pop())) {
+        if (node.nodeType === 3) {
+          const nextCharIndex = charIndex + node.length;
+          if (!foundStart && position.start >= charIndex && position.start <= nextCharIndex) {
+            range.setStart(node, position.start - charIndex);
+            foundStart = true;
+          }
+          if (foundStart && position.end >= charIndex && position.end <= nextCharIndex) {
+            range.setEnd(node, position.end - charIndex);
+            stop = true;
+          }
+          charIndex = nextCharIndex;
+        } else {
+          let i = node.childNodes.length;
+          while (i--) {
+            nodeStack.push(node.childNodes[i]);
+          }
+        }
+      }
+
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  },
+  watch: {
+    jsonInput() {
+      this.highlightJson();
     }
   }
 }
 </script>
-
-
-
-
 
 <style scoped>
 .sales-order-form {
   font-family: "Segoe UI", Arial, sans-serif;
   color: #bf8cbe;
   background-color: #181825;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 8px;
   position: relative;
 }
 
-/* .sales-order-form  */h1 {
-  color: #ffffff;
+.sales-order-form h1 {
+  color: #dfa8cd;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -181,8 +302,8 @@ textarea {
   padding: 8px;
   border-radius: 4px;
   border: none;
-  background-color: #362e5f;
-  color: white;
+  background-color: rgb(201, 201, 201);
+  color: black;
 }
 
 textarea {
@@ -276,17 +397,133 @@ button:active {
   text-align: center;
 }
 
-.json-popup textarea {
+.json-popup .json-editor {
   width: 100%;
-  height: 100px;
+  height: 200px;
   margin-bottom: 20px;
   border-radius: 4px;
   border: none;
   background-color: #362e5f;
   color: white;
   padding: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.items-section {
+  margin-top: 30px;
+}
+
+.items-section h2 {
+  color: #dfa8cd;
+  margin-bottom: 15px;
+}
+
+.item-list {
+  background-color: #362e5f;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.item-entry {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #504073;
+  padding-bottom: 10px;
+}
+
+.item-entry:last-child {
+  border-bottom: none;
+}
+
+.remove-button {
+  background-color: #b700ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.remove-button:hover {
+  background-color: #d200ff;
+}
+
+.remove-button:active {
+  background-color: #5c067d;
+}
+
+.add-button {
+  background-color: #4a4e69;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
+  text-align: left;
+}
+
+.add-button:hover {
+  background-color: #6c757d;
+}
+
+.add-button:active {
+  background-color: #343a40;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+/* Existing styles omitted for brevity */
+
+thead th {
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 10px;
+}
+
+tbody input {
+  width: 90%;
+  text-align: left;
+}
+
+/* New styles for column widths */
+thead th:nth-child(1), /* Item Name */
+tbody td:nth-child(1) {
+  width: 30%;
+  position: relative;
+}
+
+thead th:nth-child(1)::before {
+  content: " ";
+  white-space: pre; /* Ensure the space is respected */
+}
+
+thead th:nth-child(2), /* Quantity */
+tbody td:nth-child(2),
+thead th:nth-child(3), /* Unit of Measure */
+tbody td:nth-child(3),
+thead th:nth-child(4), /* Price per Item */
+tbody td:nth-child(4),
+thead th:nth-child(5), /* Weight */
+tbody td:nth-child(5),
+thead th:nth-child(6), /* Actions */
+tbody td:nth-child(6) {
+  width: 14%;
+  text-align: center; /* Center-align the header cells */
 }
 </style>
-
 
 

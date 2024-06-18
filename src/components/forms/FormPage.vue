@@ -2,9 +2,9 @@
     <div class="form-page">
       <div class="form-entry">
         <h2 class="form-entry-title" :disabled="true">
-          <!-- <router-link to="/forms/sales-order" class="entry-link"> -->
+          <router-link to="/forms/sales-order" class="entry-link">
             Sales Order (coming soon)
-          <!-- </router-link> -->
+          </router-link>
         </h2>
         <p class="form-entry-body">
           Completely open source template for your company's sales orders. Also Accepts JSON.
