@@ -1,7 +1,7 @@
 <template>
   <div class="blog-page">
     <h1>Using Times New Roman in NetSuite Advanced PDF's</h1>
-    <p class="publication-date">Published on: December 18, 2024 at 8:45pm CST</p> <!-- Publication date -->
+    <p class="publication-date">Published on: December 18, 2023 at 8:45pm CST</p> <!-- Publication date -->
     <section class="introduction">
       <h2>Introduction</h2>
       <p>
@@ -79,7 +79,7 @@
 
 <script>
 import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css'; // Or your preferred theme
+import '@/themes/prism-night-owl.css';
 import 'prismjs/components/prism-markup'; // For HTML
 export default {
   name: "CustomFontsPage",
@@ -127,26 +127,6 @@ h2 {
     color: #a8a8a8; /* Choose a suitable color */
     margin-bottom: 20px;
   }
-p,
-pre {
-  color: #bf8cbe; /* Slightly lighter text color for contrast */
-}
-pre,
-code {
-  text-align: left; /* Aligns text to the left */
-  white-space: pre-wrap; /* Ensures the formatting is preserved */
-}
-pre {
-  background-color: #7163ac; /* Different shade for code blocks */
-  padding: 15px;
-  border-radius: 5px;
-  overflow-x: auto;
-}
-
-code {
-  color: #fff; /* White text for code */
-  font-family: "Courier New", monospace;
-}
 
 /* Additional styling and responsiveness can be added as needed */
 </style>

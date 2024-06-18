@@ -52,7 +52,7 @@
           })
         </code></pre>
         <p>
-          Here, we see how a SuiteQL query is executed after the initial search, with the subsequent processing of its results.
+          Here, we will see how a SuiteQL query is executed after the initial search, with the subsequent processing of its results.
         </p>
         <pre><code class="language-javascript">
           // Loading a record
@@ -86,7 +86,7 @@
   
   <script>
   import Prism from 'prismjs';
-	import 'prismjs/themes/prism-tomorrow.css'; // Choose the theme you prefer
+  import '@/themes/prism-night-owl.css';
 	import 'prismjs/components/prism-javascript';
   export default {
     name: "PromisesInSuiteScriptsPage",
@@ -133,26 +133,7 @@ h2 {
     font-size: 0.9em;
     color: #a8a8a8; /* Choose a suitable color */
     margin-bottom: 20px;
-  }
-p,
-pre {
-  color: #bf8cbe; /* Slightly lighter text color for contrast */
-}
-pre,
-code {
-  text-align: left; /* Aligns text to the left */
-  white-space: pre-wrap; /* Ensures the formatting is preserved */
-}
-pre {
-  background-color: #7163ac; /* Different shade for code blocks */
-  padding: 15px;
-  border-radius: 5px;
-  overflow-x: auto;
-}
-
-code {
-  color: #fff; /* White text for code */
-  font-family: "Courier New", monospace;
+  -family: "Courier New", monospace;
 }
   </style>
   

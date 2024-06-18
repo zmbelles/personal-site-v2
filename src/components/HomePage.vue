@@ -8,19 +8,28 @@
       <div class="info-container">
         <div class="info-section">
           <p class="info-label">Company:</p>
-          <p class="info-value"><a class='links' href="http://www.solution-source.net/">Solution Source</a></p>
+          <p class="info-value">
+            <a class="links" href="http://www.solution-source.net/"
+              >Solution Source</a
+            >
+          </p>
         </div>
         <div class="info-section">
           <p class="info-label">Alma Mater:</p>
-          <p class="info-value"><a class='links' href="https://www.northcentralcollege.edu/">North Central College</a></p>
+          <p class="info-value">
+            <a class="links" href="https://www.northcentralcollege.edu/"
+              >North Central College</a
+            >
+          </p>
         </div>
       </div>
       <div class="bio-container">
         <p class="bio">
           I graduated with a Bachelors of Science in Computer Science from North
-          Central College in May of 2023. I currently work as a NetSuite Solution
-          Provider and Application Development Engineer at Solution Source in
-          Goshen, Indiana. Check out my github down below or send me an email from my Contact Me page.
+          Central College in May of 2023. I currently work as a NetSuite
+          Solution Provider and Application Development Engineer at Solution
+          Source in Goshen, Indiana. Check out my github down below or send me
+          an email from my Contact Me page.
         </p>
       </div>
       <div class="languages-frameworks-container">
@@ -35,18 +44,24 @@
         <div class="frameworks">
           <p class="section-title">Top 3 Frameworks used</p>
           <ul class="framework-list">
-            <li><a class='links' href="https://vuejs.org">Vue</a></li>
-            <li><a class='links' href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API">SuiteScript</a></li>
-            <li><a class='links' href="https://jquery.org">jQuery</a></li>
+            <li><a class="links" href="https://vuejs.org">Vue</a></li>
+            <li>
+              <a
+                class="links"
+                href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API"
+                >SuiteScript</a
+              >
+            </li>
+            <li><a class="links" href="https://jquery.org">jQuery</a></li>
           </ul>
         </div>
       </div>
       <h2 class="didyouknow">Did you know...</h2>
-      <br>
+      <br />
       <div class="funFacts">
         <FunFacts />
       </div>
-      <br><br><br>
+      <br /><br /><br />
     </div>
   </div>
 </template>
@@ -55,6 +70,50 @@
 import FunFacts from "@/components/FunFacts.vue";
 
 export default {
+  name: "HomePage",
+  metaInfo() {
+    return {
+      title: "Zachary Belles - NetSuite Solution Expert",
+      meta: [
+        {
+          name: "description",
+          content:
+            "Zachary Belles, NetSuite Solution Provider and Application Development Engineer. Explore my professional portfolio and get in touch!",
+        },
+        // Open Graph / Facebook Meta Tags
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: "https://www.zacharybelles.com/",
+        },
+        {
+          property: "og:title",
+          content: "Zachary Belles - NetSuite Solution Expert",
+        },
+        {
+          property: "og:description",
+          content:
+            "Zachary Belles, a NetSuite Solution Provider and Application Development Engineer. Discover my professional journey and projects.",
+        },
+        {
+          property: "og:image",
+          content: "@/assetsoh pre/logo.png", // Provide the absolute URL to the image
+        },
+        // Add more meta tags as needed
+      ],
+      link: [
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/path-to-your-public-folder/logo.png", // The path should be relative to the public folder in your Vue project
+        },
+        // Add more links as needed, e.g., Apple touch icons
+      ],
+    };
+  },
   components: {
     FunFacts,
   },
@@ -75,7 +134,7 @@ export default {
 .home-content {
   max-width: 650px;
   padding: 20px;
-  background-color: #362E5F;
+  background-color: #362e5f;
 }
 
 .headshot-container {
@@ -100,7 +159,10 @@ export default {
   text-align: center;
 }
 .links:visited {
-  color: #181825; 
+  color: #dfa8cd;
+}
+.links {
+  color: #ee00e2;
 }
 .info-label {
   font-weight: bold;
@@ -146,7 +208,7 @@ export default {
 .framework-list {
   padding-left: 0;
   margin: 0;
-  color:#ffffff;
+  color: #ffffff;
   list-style-type: none;
 }
 
@@ -158,10 +220,10 @@ export default {
 }
 
 .info-value a {
-  color: #9510D8;
+  color: #9510d8;
 }
 
 .section-title {
-  color: #9510D8;
+  color: #9510d8;
 }
 </style>

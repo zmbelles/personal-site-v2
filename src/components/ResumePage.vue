@@ -58,7 +58,7 @@
               <li>Added a custom plugin type which allows each client to implement their own logic for what happens when the trip and stops are saved to NetSuite</li>
               <li>Highlights map markers pre-optimization if those tickets already exist on a trip record.</li>
               <li>Allows users to manually add their own delivery tickets to the list by entering its ID</li>
-              <li>Provides <b>$6,500</b> per year per client in recurring revenue for the company.</li>
+              <li>Provides <b>$15,000</b> per year per client in recurring revenue for the company.</li>
               <li>Examples of application before and after optimization can be found below.</li>
             </ul>
           </ul>

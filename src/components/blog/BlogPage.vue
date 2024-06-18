@@ -2,12 +2,22 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
-        <router-link to="/blog/times-in-netsuite" class="post-link"
-          >Upgrade your Advanced PDF's</router-link
-        >
+        <router-link to="/blog/first-year-lessons" class="post-link">
+          Triumphs&#44; Trials&#44; and Takeaways
+        </router-link>
       </h2>
       <p class="blog-post-body">
-        Learn how to enhance your NetSuite documents with NoToSerif fonts.
+        What I&#39;ve learned in my First Year as a Professional Developer
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
+        <router-link to="/blog/gpt-in-netsuite" class="post-link">
+          The N/GPT Module
+        </router-link>
+      </h2>
+      <p class="blog-post-body">
+        Navigating SuiteScript with OpenAI&#39;s GPT-4 engine
       </p>
     </div>
     <div class="blog-post">
@@ -18,6 +28,16 @@
       </h2>
       <p class="blog-post-body">
         Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
+        <router-link to="/blog/times-in-netsuite" class="post-link"
+          >Upgrade your Advanced PDF&#39;s</router-link
+        >
+      </h2>
+      <p class="blog-post-body">
+        Learn how to enhance your NetSuite documents with NoToSerif fonts.
       </p>
     </div>
     <!-- Add more blog posts here -->

@@ -94,70 +94,6 @@
 
 <script>
 export default {
-  metaInfo: {
-    title: "Tic-Tac-Toe 2: The Sequel",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Play the advanced version of the classic Tic-Tac-Toe game with new strategies and more fun.",
-      },
-      { property: "og:title", content: "Tic-Tac-Toe 2: The Sequel" },
-      {
-        property: "og:description",
-        content:
-          "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
-      },
-      { property: "og:type", content: "website" },
-      {
-        property: "og:url",
-        content: "https://www.zacharybelles.com/games/tic-tac-toe",
-      },
-      { property: "og:image", content: "@/assets/logo.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Tic-Tac-Toe 2: The Sequel" },
-      {
-        name: "twitter:description",
-        content:
-          "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
-      },
-      { name: "twitter:image", content: "@/assets/tic-tac-toe-thumbnail.png" },
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "robots", content: "index, follow" },
-    ],
-    link: [
-      {
-        rel: "canonical",
-        href: "https://www.zacharybelles.com/games/tic-tac-toe",
-      },
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "alternate",
-        hreflang: "en",
-        href: "http://www.zacharybelles.com/games/tic-tac-toe",
-      },
-      {
-        rel: "alternate",
-        hreflang: "es",
-        href: "https://zacharybelles.com/games/tic-tac-toe",
-      },
-    ],
-    script: [
-      {
-        type: "application/ld+json",
-        json: {
-          "@context": "https://schema.org",
-          "@type": "Game",
-          name: "Tic-Tac-Toe 2: The Sequel",
-          description:
-            "An enhanced version of Tic-Tac-Toe with new rules and strategies.",
-          image: "@/assets/tic-tac-toe-thumbnail.png",
-          url: "https://www.zacharybelles.com/games/tic-tac-toe",
-        },
-      },
-    ],
-  },
   data() {
     return {
       // an array of arrays which stores the current game state
@@ -250,9 +186,10 @@ export default {
           validBoards.push(i);
         }
       }
+      console.log(`valid boards: ${validBoards.length}`);
       let potentialMoves = [];
       this.isFullBoardProcessing = true;
-
+      console.log(`valid boards: ${validBoards}`);
       for (let i = 0; i < validBoards.length; i++) {
         let thisMove = this.narrowBoardAnalysis(validBoards[i]);
 
@@ -261,14 +198,16 @@ export default {
           let thisPossibleMove = {
             move: thisMove.move,
             board: validBoards[i],
-            viability: this.viabilityAnalysis(thisMove, validBoards[i]),
+            viability: thisMove.viability,
           };
           potentialMoves.push(thisPossibleMove);
         }
       }
 
       this.isFullBoardProcessing = false;
-      console.log(JSON.stringify(potentialMoves));
+      console.log(
+        `all full board potential moves: (${JSON.stringify(potentialMoves)})`
+      );
 
       let highestViability = 0;
       let bestMove = null;
@@ -279,13 +218,13 @@ export default {
         }
       });
       console.log(`best move: ${JSON.stringify(bestMove)}`);
-      if (bestMove) {
-        this.thisBoard = bestMove.board;
-        return bestMove;
-      } else {
+      if (!bestMove) {
         // Handle case where no valid move is found
         // This might need further handling based on your game logic
         return { move: -1, board: -1 };
+      } else {
+        this.thisBoard = bestMove.board;
+        return bestMove;
       }
     },
 
@@ -343,45 +282,61 @@ export default {
         typeof this.boards[proposedIndex] === "undefined" ||
         typeof this.boards[thisBoardIndex] === "undefined"
       ) {
+        console.error(
+          `This board index: ${thisBoardIndex} with the proposed move ${JSON.stringify(
+            proposedIndex
+          )} are invalid.`
+        );
         throw new Error("Invalid board indices");
       }
-
+      const isBoardEmpty = (board) => board.every((cell) => cell === null);
       const futureBoard = this.boards[proposedIndex];
       const thisBoard = this.boards[thisBoardIndex];
       let viability = 50;
 
       // Check for already won board or empty future board
-      if (this.miniWinners[proposedIndex]) {
+      if (
+        this.miniWinners[proposedIndex] == "player-red" ||
+        this.miniWinners[proposedIndex] == "player-blue"
+      ) {
         // console.log(`board: ${proposedIndex} has already been won. -70 points Griffindoor.`);
-        viability -= 70;
+        viability -= 40;
       }
-      if (thisBoard && this.isBoardEmpty(futureBoard)) {
+      if (
+        thisBoard &&
+        isBoardEmpty(futureBoard) &&
+        proposedIndex != thisBoardIndex
+      ) {
         viability += 5;
       }
 
       // Function to adjust viability for setting up a win
       const adjustViabilityForSetup = (board, player) => {
+        if (!board) return;
         let newViability = 0;
-        for (const combo of this.winningCombinations) {
+        this.winningCombinations.forEach((combo) => {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
           ).length;
           const emptyCells = combo.filter((idx) => board[idx] === null).length;
+
+          // Boost for setting up a win
           if (
             playerCells === 1 &&
             emptyCells === 2 &&
             combo.includes(proposedIndex)
           ) {
-            newViability += 20;
+            newViability += 10;
           }
-        }
+        });
         return newViability;
       };
 
       // Function to adjust viability based on a player's potential win or block
       const adjustViabilityForWinOrBlock = (board, player, isFutureBoard) => {
+        if (!board) return 0;
         let newViability = 0;
-        for (const combo of this.winningCombinations) {
+        this.winningCombinations.forEach((combo) => {
           const playerCells = combo.filter(
             (idx) => board[idx] === player
           ).length;
@@ -389,26 +344,48 @@ export default {
 
           if (playerCells === 2 && emptyCells === 1) {
             const winningCell = combo.find((idx) => board[idx] === null);
+
+            ///////////////////////////////////
+            ///// logic for current board /////
+            ///////////////////////////////////
             if (winningCell === proposedIndex && !isFutureBoard) {
               console.log(`${player} wins with ${winningCell}`);
+              // if the move blocks a player on the current board
               if (player === "player-red") {
+                newViability += 25;
+              } else if (player == "player-blue") {
                 newViability += 30;
-              } else if (this.wouldBeWin(proposedIndex, "player-blue")) {
-                newViability += 60;
               }
-            } else if (isFutureBoard && player == "player-red") {
-              newViability -= 40;
-            }
-            // Check if the proposed move could enable player-red to win immediately
-            if (
-              !isFutureBoard &&
-              player === "player-blue" &&
-              this.wouldBeWin(proposedIndex, "player-red")
-            ) {
-              newViability -= 100; // Significantly reduce viability for such moves
+              ///////////////////////////////////
+              //// logic for future board ///////
+              ///////////////////////////////////
+
+              // see if this move would allow human to block a computer win on next board
+              // or if the human player can win on next board
+            } else if (isFutureBoard) {
+              if (player == "player-red") {
+                console.log(
+                  `potential win on board ${thisBoardIndex} for human player`
+                );
+                newViability -= 40;
+              } else {
+                console.log(
+                  `potential block on board ${thisBoardIndex} for human player`
+                );
+                newViability -= 15;
+              }
             }
           }
-        }
+
+          // Check if the proposed move could enable player-red to win immediately
+          if (this.wouldBeWin(proposedIndex, "player-red")) {
+            newViability -= 100; // Significantly reduce viability for such moves
+          }
+          // check if move would allow human to block a computer game win on next board
+          if (this.wouldBeWin(proposedIndex, "player-blue")) {
+            newViability -= 50;
+          }
+        });
         return newViability;
       };
 
@@ -430,14 +407,7 @@ export default {
         "player-red",
         true
       );
-
-      // console.log(`final viability = ${viability}`);
       return Math.max(0, viability);
-    },
-
-    // Helper function to check if a board is empty
-    isBoardEmpty(board) {
-      return board.every((cell) => cell === null);
     },
 
     /**
@@ -445,6 +415,11 @@ export default {
      * @returns { integer } returns the index on the board the computer player will be making
      */
     narrowBoardAnalysis(boardNumber) {
+      if (this.isFullBoardProcessing) {
+        console.log(
+          `for full board analysis, the board number is ${boardNumber}`
+        );
+      }
       const thisBoard = this.boards[boardNumber];
       let computerMoves = [];
 
@@ -464,6 +439,7 @@ export default {
       if (computerMoves.length > 0) {
         let bestMove = this.findBestMove(computerMoves);
         if (this.isFullBoardProcessing) {
+          console.log(`best Move: ${JSON.stringify(bestMove)}`);
           return bestMove;
         }
         return bestMove.move;
@@ -478,12 +454,7 @@ export default {
         let computerMove = {};
         if (this.miniWinners[this.lastMove]) {
           computerMove = this.fullBoardAnalysis();
-          if (computerMove.move == -1 || !computerMove.move) {
-            alert(
-              "Something went wrong parsing the AI Moveset. Please contact the administrator."
-            );
-            this.resetGame();
-          }
+          console.log(`computerMove: ${JSON.stringify(computerMove)}`);
           this.boards[computerMove.board][computerMove.move] = "player-blue";
           this.checkMiniWinner(this.thisBoard);
           this.currentPlayer = "X";
@@ -735,6 +706,7 @@ export default {
   position: relative;
   align-content: flex-start;
   text-align: left;
+  color: #FFFFFF
 }
 
 .close-rules {
