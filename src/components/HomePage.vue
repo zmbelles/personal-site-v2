@@ -9,8 +9,8 @@
         <div class="info-section">
           <p class="info-label">Company:</p>
           <p class="info-value">
-            <a class="links" href="http://www.solution-source.net/"
-              >Solution Source</a
+            <a class="links" href="http://www.procaresoftware.com/"
+              >Procare Solutions</a
             >
           </p>
         </div>
@@ -26,10 +26,10 @@
       <div class="bio-container">
         <p class="bio">
           I graduated with a Bachelors of Science in Computer Science from North
-          Central College in May of 2023. I currently work as a NetSuite
-          Solution Provider and Application Development Engineer at Solution
-          Source in Goshen, Indiana. Check out my github down below or send me
-          an email from my Contact Me page.
+          Central College in May of 2023. I currently work as the in house NetSuite
+          developer at Procare Solutions. I enjoy learning new technologies and 
+          improving my skills as a developer. If you would like to collaborate or 
+          learn more, head to my contact me page and send me an email.
         </p>
       </div>
       <div class="languages-frameworks-container">
@@ -45,13 +45,7 @@
           <p class="section-title">Top 3 Frameworks used</p>
           <ul class="framework-list">
             <li><a class="links" href="https://vuejs.org">Vue</a></li>
-            <li>
-              <a
-                class="links"
-                href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4260857223.html#SuiteScript-API"
-                >SuiteScript</a
-              >
-            </li>
+            <li><a class="links" href="https://nextjs.org">Next.js</a></li>
             <li><a class="links" href="https://jquery.org">jQuery</a></li>
           </ul>
         </div>
@@ -121,6 +115,7 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
   display: flex;
   justify-content: center;
@@ -162,7 +157,7 @@ export default {
   color: #dfa8cd;
 }
 .links {
-  color: #ee00e2;
+  color: #B39DDB;
 }
 .info-label {
   font-weight: bold;
@@ -220,7 +215,7 @@ export default {
 }
 
 .info-value a {
-  color: #9510d8;
+  color: #B39DDB;
 }
 
 .section-title {
