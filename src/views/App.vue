@@ -40,6 +40,15 @@ body {
   margin: 0; /* Remove the default margin */
   background-color: #181825; /* Set the background color */
 }
+a {
+  color: #B39DDB; /* Gold color, adjust as needed */
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+  color: #B39DDB; /* Change color on hover, adjust as needed */
+  text-decoration: underline; /* Optionally add underline on hover */
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
