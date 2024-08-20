@@ -49,10 +49,9 @@ header {
   box-shadow: 0 2px 4px rgba(223, 168, 205, 0.5);
   padding: 0.5rem 1rem; /* Adjusted to rem */
 }
-
 .nav-links a {
   text-decoration: none;
-  color: #dadada;
+  color: #B39DDB;
   padding: 0.5rem 0.75rem; /* Use rem for scalable padding */
   margin: 0 3rem; /* Use rem to ensure consistent spacing */
   white-space: nowrap; /* Prevents the text from wrapping */
