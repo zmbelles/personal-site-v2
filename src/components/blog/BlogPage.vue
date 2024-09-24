@@ -2,6 +2,16 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
+          <router-link to="/blog/be-intentional" class="post-link">
+            Be Intentional
+          </router-link>
+      </h2>
+      <p class="blog-post-body">
+          My software development Tips and Tricks for 2024
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
         <router-link to="/blog/first-year-lessons" class="post-link">
           Triumphs&#44; Trials&#44; and Takeaways
         </router-link>
