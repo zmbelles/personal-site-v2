@@ -5,9 +5,6 @@
     <footer class="footer">
       <br><br>
       <div class="social-media-links">
-        <a href="https://www.facebook.com/zachary.belles.372" target="_blank">
-            <img src="@/assets/facebook.jpg" alt="Facebook" class="social-media-logo">
-        </a>
         <a href="https://www.instagram.com/zachb1997/" target="_blank">
             <img src="@/assets/instagram.jpg" alt="Facebook" class="social-media-logo">
         </a>
