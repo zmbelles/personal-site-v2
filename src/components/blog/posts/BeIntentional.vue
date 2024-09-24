@@ -24,6 +24,7 @@
             <li v-for="(tip, index) in section2.tips" :key="index">
             <strong>{{ tip.title }}</strong>
             <p>{{ tip.description }}</p>
+						<p class="example" v-if="tip.example">{{ tip.example }}</p>
             </li>
         </ol>
       </section>
@@ -77,23 +78,28 @@ export default {
           {
             title: "The documentation is (almost) always right.",
             description: `I have only once or twice seen NetSuite’s own documentation wrong about something. When you start digging 
-                            into 3rd-party APIs, especially startups, the documentation is often less reliable. If either you do not know 
-                            something, or the documentation isn’t very helpful, reach out to the developers. On multiple occasions I have 
-                            had this happen and each time I got the problem solved by reaching out to the developers.`,
+                            into 3rd-party APIs, especially startups, the documentation is often less reliable*. If either you do not know 
+                            something, or the documentation isn’t very helpful, reach out to the developers.`,
+						example: `*I cannot stress enough how helpful it can be to reach out to 3rd party API developers. For instance, one 3rd party API startup I 
+						was using while working with a former employer had some wrong documentation. After reaching out to them, they were able to show me the proper 
+						methods and syntax and update their documentation. In another instance, they even created a new endpoint to connect to that did exactly what we needed.`
           },
           {
             title: "Understand the client's needs and ask the why.",
-            description: `By digging deep into what the pain point of the client truly is you can cater a solution directly to it. By 
-                            asking the purpose behind a change, instead of just fulfilling exactly what is asked, a much better client 
-                            experience can be had.`,
+            description: `I have even fallen victim to this in the past and written sub-optimal code because either I didn’t fully grasp what the clients need was, 
+						or I had failed to ask what the purpose of the code change was for. I will fully credit Solution Source for giving me this line of logic as it has 
+						become one of my strongest assets like it is one of theirs. By digging deep into what the pain point of the client truly is you can cater a solution 
+						directly to it. This also prevents code being written that is never actually needed because it doesn't solve the actual problem the client has and 
+						ultimately leads to a more positive client experience.`,
           },
         ],
       },
       conclusion: {
         title: "Final Word",
         text: `These are my major tips for 2024 and I hope you can look at these recommendations and reflect on how you can 
-                 incorporate them into how you develop; I’m sure at least a few of them could save you some time. Please reach out 
-                 to me on LinkedIn if you would like to discuss this further. I am always open to collaboration.`,
+                 incorporate them into how you develop. Every day I am thankful for the new opportinities I am given to both
+								 write code that I am proud of, and improve upon legacy code that does not meet the current standards.
+								 Please reach out to me on LinkedIn if you would like to discuss this further; I am always open to collaboration.`,
       },
     };
   },
@@ -154,5 +160,9 @@ ul {
   margin: 5px 0 0 20px; /* Indent the paragraph under each list item */
 	text-align: left;
 }
-
+.example {
+	padding-left: 1cm;
+	font-size: smaller;
+	font-weight: bold;
+}
 </style>
