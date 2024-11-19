@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .header {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .bill-ship {
+        display: flex;
+        justify-content: space-between;
+      }
+      .items {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .items th,
+      .items td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 14px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header" id="companyName"></div>
+    <div class="section">
+      <strong>Document Number:</strong> <span id="documentNumber"></span>
+    </div>
+    <div class="bill-ship section">
+      <div>
+        <strong>Bill To:</strong>
+        <div id="billToName"></div>
+        <div id="billToAddr1"></div>
+        <div id="billToAddr2"></div>
+        <div id="billToCityStateZip"></div>
+      </div>
+      <div>
+        <strong>Ship To:</strong>
+        <div id="shipToName"></div>
+        <div id="shipToAddr1"></div>
+        <div id="shipToAddr2"></div>
+        <div id="shipToCityStateZip"></div>
+      </div>
+    </div>
+    <div class="section">
+      <strong>Ship Date:</strong> <span id="shipDate"></span>
+    </div>
+    <div class="section"><strong>Memo:</strong> <span id="memo"></span></div>
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="itemsTableBody"></tbody>
+    </table>
+    <div class="section"><strong>Total:</strong> <span id="total"></span></div>
+    <div class="footer">Don't start cryin', just call Ryan!</div>
+  </body>
+</html>
