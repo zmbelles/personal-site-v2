@@ -14,6 +14,7 @@ import PromisesInNetSuite from "@/components/blog/posts/PromisesInNetSuite";
 import GPTInNetSuite from '@/components/blog/posts/GPTGettingDumber';
 import FirstYearLessons from '@/components/blog/posts/FirstYearLessons';
 import SalesOrder from '@/components/forms/sales_order/SalesOrder_View.vue';
+import InvoiceForm from '@/components/forms/invoice/Invoice_View.vue';
 import BeIntentional from "./components/blog/posts/BeIntentional.vue";
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
@@ -376,6 +377,12 @@ const routes = [
     component: SalesOrder,
     name: "sales-order",
     meta: { title: "sales-order" },
+  },
+  {
+    path: "/forms/invoice",
+    component: InvoiceForm,
+    name: "invoice",
+    meta: { title: "invoice" },
   },
 ];
 
