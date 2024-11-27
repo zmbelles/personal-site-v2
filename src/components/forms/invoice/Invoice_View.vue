@@ -3,76 +3,68 @@
       <h1>Open-Source Invoice</h1>
       <button class="json-button" @click="toggleJsonPopup">Paste JSON</button>
       <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <label for="companyName">
-            Name of Company: <span class="required">*</span>
-          </label>
-          <input type="text" id="companyName" v-model="invoice.companyName" required>
+        <div class="form-container">
+          <div class="form-group">
+            <label for="companyName">
+              Name of Company: <span class="required">*</span>
+            </label>
+            <input type="text" id="companyName" v-model="invoice.companyName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="total">
+              Total: <span class="required">*</span>
+              <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('total')" alt="info">
+            </label>
+            <input type="number" id="total" v-model="invoice.total" required>
+          </div>
+
+          <div class="form-group">
+            <label for="billDate">Due Date:</label>
+            <input type="date" id="billDate" v-model="invoice.billDate">
+          </div>
+
+          
+          <div class="form-group">
+            <label for="billDate">Today's Date:</label>
+            <input type="date" id="billDate" v-model="invoice.todaysDate">
+          </div>
+
+          <div class="form-group">
+            <label for="billTo">
+              Bill To Name and Address: <span class="required">*</span>
+              <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('billTo')" alt="info">
+            </label>
+            <textarea id="billTo" v-model="billToInput" @input="updateBillTo"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="memo">Memo (optional):</label>
+            <textarea id="memo" v-model="invoice.memo"></textarea>
+          </div>
         </div>
   
-        <div class="form-group">
-          <label for="documentNumber">
-            Document Number: <span class="required">*</span>
-            <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('documentNumber')" alt="info">
-          </label>
-          <input type="text" id="documentNumber" v-model="invoice.documentNumber" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="billTo">
-            Bill To Name and Address: <span class="required">*</span>
-            <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('billTo')" alt="info">
-          </label>
-          <textarea id="billTo" v-model="billToInput" @input="updateBillTo"></textarea>
-        </div>
-  
-        <div class="form-group">
-          <label for="shipTo">
-            Ship To Name and Address: <span class="required">*</span>
-            <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('shipTo')" alt="info">
-          </label>
-          <textarea id="shipTo" v-model="shipToInput" @input="updateShipTo"></textarea>
-        </div>
-  
-        <div class="form-group">
-          <label for="total">
-            Total: <span class="required">*</span>
-            <img src="@/assets/icons8-info.svg" class="info-icon" @click="showInfo('total')" alt="info">
-          </label>
-          <input type="number" id="total" v-model="invoice.total" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="shipDate">Ship Date (optional):</label>
-          <input type="date" id="shipDate" v-model="invoice.shipDate">
-        </div>
-  
-        <div class="form-group">
-          <label for="memo">Memo (optional):</label>
-          <textarea id="memo" v-model="invoice.memo"></textarea>
-        </div>
-  
-        <div class="items-section">
-          <h2>Items</h2>
-          <button type="button" @click="addItem" class="add-button">Add New Item</button>
-          <div class="item-list">
+        <div class="services-section">
+          <h2>Services</h2>
+          <button type="button" @click="addService" class="add-button">Add New Service</button>
+          <div class="service-list">
             <table>
               <thead>
                 <tr>
-                  <th>Item Name</th>
+                  <th>Service Name</th>
                   <th>Quantity</th>
                   <th>Unit of Measure</th>
-                  <th>Price per Item</th>
+                  <th>Price per Service</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in invoice.items" :key="index" class="item-entry">
-                  <td><input type="text" v-model="item.name" /></td>
-                  <td><input type="number" v-model="item.quantity" /></td>
-                  <td><input type="text" v-model="item.unit" /></td>
-                  <td><input type="number" v-model="item.price" /></td>
-                  <td><button type="button" @click="removeItem(index)" class="remove-button">Remove</button></td>
+                <tr v-for="(service, index) in invoice.services" :key="index" class="service-entry">
+                  <td><input type="text" v-model="service.name" /></td>
+                  <td><input type="number" v-model="service.quantity" /></td>
+                  <td><input type="text" v-model="service.unit" /></td>
+                  <td><input type="number" v-model="service.price" /></td>
+                  <td><button type="button" @click="removeService(index)" class="remove-button">Remove</button></td>
                 </tr>
               </tbody>
             </table>
@@ -80,7 +72,7 @@
         </div>
         <br><br><br>
         <div class="button-container">
-          <button type="submit">Get printable template</button>
+          <button type="button" @click="generatePDF">Get printable template</button>
         </div>
       </form>
   
@@ -104,6 +96,7 @@
   import Prism from 'prismjs';
   import '@/themes/prism-night-owl.css';
   import 'prismjs/components/prism-json';
+  import { invoiceFactory } from './invoice_Factory.js';
   
   export default {
     data() {
@@ -119,7 +112,11 @@
     },
     methods: {
       submitForm() {
-        console.log("Submitted data:", this.invoice.getFullinvoice());
+        console.log("Submitted data:", this.invoice);
+      },
+      generatePDF() {
+        console.log("Generating PDF...", this.invoice);
+        invoiceFactory(this.invoice);
       },
       showInfo(field) {
         const infoTexts = {
@@ -156,7 +153,6 @@
           const data = JSON.parse(this.jsonInput);
           this.invoice = Object.assign(new invoice(), data);
           this.billToInput = `${this.invoice.billto.name}\n${this.invoice.billto.addr1}\n${this.invoice.billto.cityStateZip}`;
-          this.shipToInput = `${this.invoice.shipto.name}\n${this.invoice.shipto.addr1}\n${this.invoice.shipto.cityStateZip}`;
           this.jsonPopupVisible = false;
         } catch (e) {
           alert("Invalid JSON");
@@ -177,11 +173,11 @@
             cityStateZip: 'Receiver City, RE 11223'
           },
           total: 1000.00,
-          items: [
-            { name: 'Item 1', quantity: 2, price: 50.00 },
-            { name: 'Item 2', quantity: 1, price: 900.00 }
+          services: [
+            { name: 'Service 1', quantity: 2, price: 50.00 },
+            { name: 'Service 2', quantity: 1, price: 900.00 }
           ],
-          shipDate: '2024-01-01',
+          billDate: '2024-01-01',
           memo: 'Example memo'
         }, null, 2);
         this.jsonInput = exampleJson;
@@ -195,11 +191,11 @@
       updateShipTo() {
         this.invoice.setShipto(this.shipToInput);
       },
-      addItem() {
-        this.invoice.items.push({ name: '', quantity: 1, unit: 'EA', price: 0 });
+      addService() {
+        this.invoice.services.push({ name: '', quantity: 1, unit: 'EA', price: 0 });
       },
-      removeItem(index) {
-        this.invoice.items.splice(index, 1);
+      removeService(index) {
+        this.invoice.services.splice(index, 1);
       },
       highlightJson() {
         const element = this.$refs.jsonEditor;
@@ -281,10 +277,16 @@
     margin-bottom: 30px;
   }
   
-  .form-group {
-    margin-bottom: 20px;
-    position: relative;
+  .form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 20px; /* Space between rows and columns */
   }
+
+  .form-group {
+    width: 100%; /* Ensure each group spans its column */
+  }
+
   
   .form-group label {
     display: block;
@@ -410,28 +412,28 @@
     text-align: left;
   }
   
-  .items-section {
+  .services-section {
     margin-top: 30px;
   }
   
-  .items-section h2 {
+  .services-section h2 {
     color: #dfa8cd;
     margin-bottom: 15px;
   }
   
-  .item-list {
+  .service-list {
     background-color: #362e5f;
     border-radius: 8px;
     padding: 15px;
   }
   
-  .item-entry {
+  .service-entry {
     margin-bottom: 15px;
     border-bottom: 1px solid #504073;
     padding-bottom: 10px;
   }
   
-  .item-entry:last-child {
+  .service-entry:last-child {
     border-bottom: none;
   }
   
@@ -498,7 +500,7 @@
   }
   
   /* New styles for column widths */
-  thead th:nth-child(1), /* Item Name */
+  thead th:nth-child(1), /* service Name */
   tbody td:nth-child(1) {
     width: 30%;
     position: relative;
@@ -513,7 +515,7 @@
   tbody td:nth-child(2),
   thead th:nth-child(3), /* Unit of Measure */
   tbody td:nth-child(3),
-  thead th:nth-child(4), /* Price per Item */
+  thead th:nth-child(4), /* Price per service */
   tbody td:nth-child(4),
   thead th:nth-child(5), /* Actions */
   tbody td:nth-child(5) {

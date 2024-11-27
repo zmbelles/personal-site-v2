@@ -1,75 +1,214 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-      .header {
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      .section {
-        margin-bottom: 20px;
-      }
-      .bill-ship {
+<body>
+  <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4; /* Optional background for contrast */
         display: flex;
-        justify-content: space-between;
-      }
-      .items {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .items th,
-      .items td {
-        border: 1px solid black;
-        padding: 8px;
-      }
-      .footer {
-        margin-top: 20px;
-        font-size: 14px;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* Prevent scrollbars */
+    }
+
+    .content-container {
+        width: 794px; /* Fixed A4 width */
+        height: fit-content; /* Fixed A4 height */
+        background-color: #ffffff; /* White background for the page */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for contrast */
+        padding: 20px; /* Optional padding for inner content */
+        box-sizing: border-box; /* Ensure padding is included in width/height */
+    }
+
+    .header {
+        position: relative;
+        height: 100px; /* Adjust height as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 10px; /* Optional margin for spacing */
+    }
+
+    .logo-container img {
+        width: 200px; /* Set your desired width for double size */
+        height: auto;
+    }
+
+    .invoice-title {
+        font-size: 22px;
+        font-weight: bold;
         text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header" id="companyName"></div>
-    <div class="section">
-      <strong>Document Number:</strong> <span id="documentNumber"></span>
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .bill-ship {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bill-ship div {
+      width: 45%;
+    }
+
+    .items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .items th,
+    .items td {
+      border: 1px solid #d9dadd;
+      padding: 8px;
+      font-size: 9pt;
+    }
+
+    .items th {
+      background-color: #d9dadd;
+      text-align: left;
+    }
+
+    .total {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .total td {
+      border: none;
+      text-align: right;
+      font-size: 9pt;
+      padding: 5px;
+    }
+    .footer {
+      background-color: #f4f4f4; /* Light gray background for contrast */
+      border-top: 2px solid #333333; /* Dark top border for emphasis */
+      padding: 15px 20px; /* Adds spacing inside the footer */
+      text-align: center; /* Centers the footer content */
+      color: #333333; /* Dark gray text for readability */
+      margin-top: 30px; /* Adds spacing above the footer */
+      box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+
+    .footer-content {
+        font-size: 10pt; /* Slightly larger font size */
+        font-weight: bold; /* Makes the text bold */
+        margin-bottom: 10px; /* Spacing between the content and slogan */
+    }
+
+    .footer-slogan {
+        font-size: 12pt; /* Larger font size for emphasis */
+        font-style: italic; /* Italicized for visual distinction */
+        color: #0073e6; /* Blue color to make it pop */
+        font-weight: bold; /* Bold for emphasis */
+    }
+
+    .barcode {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+  <div class="content-container">
+    <div class="header">
+      <div class="logo-container">
+        <img src="../../../assets/Ryan_Logo.png" alt="Company Logo" />
+      </div>
+      <div class="invoice-title">INVOICE</div>
     </div>
     <div class="bill-ship section">
-      <div>
+      <div></br></br>
         <strong>Bill To:</strong>
-        <div id="billToName"></div>
-        <div id="billToAddr1"></div>
-        <div id="billToAddr2"></div>
-        <div id="billToCityStateZip"></div>
+        <p id="billToName"></p>
+        <p id="billToAddress"></p>
+        <p id="billToCityStateZip"></p>
       </div>
-      <div>
+      <div></br></br>
         <strong>Ship To:</strong>
-        <div id="shipToName"></div>
-        <div id="shipToAddr1"></div>
-        <div id="shipToAddr2"></div>
-        <div id="shipToCityStateZip"></div>
+        <p id="shipToName"></p>
+        <p id="shipToAddress"></p>
+        <p id="shipToCityStateZip"></p>
       </div>
     </div>
+
     <div class="section">
-      <strong>Ship Date:</strong> <span id="shipDate"></span>
+      <table>
+        <tr>
+          <td><strong>Invoice Date:</strong></td>
+          <td id="invoiceDate"></td>
+        </tr>
+        <tr>
+          <td><strong>Invoice Number:</strong></td>
+          <td id="invoiceNumber"></td>
+        </tr>
+        <tr>
+          <td><strong>PO Number:</strong></td>
+          <td id="poNumber"></td>
+        </tr>
+        <tr>
+          <td><strong>Payment Terms:</strong></td>
+          <td id="paymentTerms"></td>
+        </tr>
+        <tr>
+          <td><strong>Due Date:</strong></td>
+          <td id="dueDate"></td>
+        </tr>
+      </table>
     </div>
-    <div class="section"><strong>Memo:</strong> <span id="memo"></span></div>
+
     <table class="items">
       <thead>
         <tr>
-          <th>Item</th>
+          <th>Product Name</th>
+          <th>Description</th>
           <th>Quantity</th>
-          <th>Price</th>
+          <th>Units</th>
+          <th>Unit Price</th>
+          <th>Extended Price</th>
         </tr>
       </thead>
-      <tbody id="itemsTableBody"></tbody>
+      <tbody id="itemsTableBody">
+        <!-- Dynamic rows will go here -->
+      </tbody>
     </table>
-    <div class="section"><strong>Total:</strong> <span id="total"></span></div>
-    <div class="footer">Don't start cryin', just call Ryan!</div>
-  </body>
-</html>
+
+    <table class="total">
+      <tr>
+        <td>Subtotal:</td>
+        <td id="subtotal"></td>
+      </tr>
+      <tr>
+        <td>Shipping Cost:</td>
+        <td id="shippingCost"></td>
+      </tr>
+      <tr>
+        <td>Tax:</td>
+        <td id="taxTotal"></td>
+      </tr>
+      <tr>
+        <td><strong>Total:</strong></td>
+        <td id="invoiceTotal"></td>
+      </tr>
+    </table>
+
+    <div class="footer">
+      <div class="footer-content">
+          World Famous Plumbing <br>
+          If you have any questions about this invoice, please contact us at: <br>
+          <strong>Email:</strong> ryan.p.penman@gmail.com | <strong>Phone:</strong> (630) 715-5857
+      </div>
+      <div class="footer-slogan">
+          "Saving the day, one pipe at a time."
+      </div>
+    </div>
+  </div>
+</body>
