@@ -2,6 +2,15 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
+        <router-link to="/blog/find-a-niche" class="post-link"
+          >Find A Niche and Fill It</router-link>
+      </h2>
+      <p class="blog-post-body">
+        Understanding how to navigate the heavily competitive job market for Computer Science graduates
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
           <router-link to="/blog/be-intentional" class="post-link">
             Be Intentional
           </router-link>

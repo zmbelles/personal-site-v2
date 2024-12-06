@@ -16,6 +16,7 @@ import FirstYearLessons from '@/components/blog/posts/FirstYearLessons';
 import SalesOrder from '@/components/forms/sales_order/SalesOrder_View.vue';
 import InvoiceForm from '@/components/forms/invoice/Invoice_View.vue';
 import BeIntentional from "./components/blog/posts/BeIntentional.vue";
+import FindANiche from "./components/blog/posts/FindANiche.vue";
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
   { path: "/", component: Home, name: "Home", meta: { title: "Home" } },
@@ -330,6 +331,71 @@ const routes = [
       ],
     },
   },
+  {
+    path: "/blog/find-a-niche",
+    name: "FindANiche",
+    component: FindANiche,
+    meta: {
+      title: "Find a Niche and Fill It: Standing Out in a Saturated Tech Job Market",
+      metaTags: [
+        { charset: "UTF-8" },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0",
+        },
+        { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+        {
+          name: "description",
+          content:
+            "Learn how specializing in a niche skill set can help you stand out in a crowded job market for developers. Discover the benefits of focusing on ERP systems like NetSuite, understanding market demands, and aligning your career path with in-demand technologies.",
+        },
+        {
+          name: "keywords",
+          content:
+            "Software Development, Tech Job Market, Niche Specialization, ERP Systems, NetSuite Developers, Career Advice, 2024 Tips",
+        },
+        { name: "author", content: "Zachary Belles" },
+        { name: "robots", content: "index, follow" },
+        {
+          property: "og:title",
+          content: "Find a Niche and Fill It: Standing Out in a Saturated Tech Job Market",
+        },
+        {
+          property: "og:description",
+          content:
+            "Learn how specializing in a niche skill set can help you stand out in a crowded job market for developers. Discover the benefits of focusing on ERP systems like NetSuite, understanding market demands, and aligning your career path with in-demand technologies.",
+        },
+        {
+          property: "og:url",
+          content: "https://zacharybelles.com/blog/find-a-niche/",
+        },
+        { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "zacharybelles.com" },
+        {
+          property: "og:image",
+          content: "@/assets/findANiche.png",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        {
+          name: "twitter:title",
+          content: "Find a Niche and Fill It: Standing Out in a Saturated Tech Job Market",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Learn how specializing in a niche skill set can help you stand out in a crowded job market for developers. Discover the benefits of focusing on ERP systems like NetSuite, understanding market demands, and aligning your career path with in-demand technologies.",
+        },
+        {
+          name: "twitter:image",
+          content: "@/assets/find-a-niche.png",
+        },
+        { name: "geo.region", content: "US-IL" },
+        { name: "geo.placename", content: "Naperville" },
+        { name: "geo.position", content: "41.7508;-88.1535" },
+        { name: "ICBM", content: "41.7508, -88.1535" },
+      ],
+    },
+  },  
   {
     path: "/login",
     component: LoginPage,
