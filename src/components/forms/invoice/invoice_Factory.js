@@ -68,6 +68,13 @@ export async function invoiceFactory(invoice) {
           <p><strong>Total:</strong> $${invoice.total.toFixed(2)}</p>
         </div>
 
+        <!-- Memo and Notes Section -->
+        <div class="memo-notes" style="margin-top: 20px; padding: 10px; background-color: #f9f9f9; border: 1px solid #ddd;">
+          <h4 style="margin-bottom: 10px;">Memo and Service Notes</h4>
+          <p>${invoice.memo.replace(/\n/g, '<br>')}</p>
+        </div>
+
+        
         <!-- Footer Section -->
         <div class="footer" style="background-color: #f4f4f4; padding: 15px; text-align: center; margin-top: 30px; border-top: 2px solid #333333; box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);">
           <div class="footer-content" style="font-size: 10pt; color: #000000; font-weight: bold; margin-bottom: 10px;">
