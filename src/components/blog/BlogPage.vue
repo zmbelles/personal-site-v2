@@ -2,6 +2,25 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
+        <router-link to="/blog/remote-work-good-bad-ugly" class="post-link"
+          >Remote Work: The Good, the Bad, and the Ugly</router-link>
+      </h2>
+      <p class="blog-post-body">
+        Looking into the pros and cons of remote work and why it should stay.
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
+          <router-link to="/blog/remote-work-good-bad-ugly" class="post-link">
+            Be Intentional
+          </router-link>
+      </h2>
+      <p class="blog-post-body">
+          My software development Tips and Tricks for 2024
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
         <router-link to="/blog/find-a-niche" class="post-link"
           >Find A Niche and Fill It</router-link>
       </h2>

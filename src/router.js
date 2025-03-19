@@ -17,6 +17,7 @@ import SalesOrder from '@/components/forms/sales_order/SalesOrder_View.vue';
 import InvoiceForm from '@/components/forms/invoice/Invoice_View.vue';
 import BeIntentional from "./components/blog/posts/BeIntentional.vue";
 import FindANiche from "./components/blog/posts/FindANiche.vue";
+import RemoteWork from "./components/blog/posts/RemoteWork.vue";
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
   { path: "/", component: Home, name: "Home", meta: { title: "Home" } },
@@ -393,6 +394,58 @@ const routes = [
         { name: "geo.placename", content: "Naperville" },
         { name: "geo.position", content: "41.7508;-88.1535" },
         { name: "ICBM", content: "41.7508, -88.1535" },
+      ],
+    },
+  },  
+  {
+    path: "/blog/remote-work-good-bad-ugly",
+    component: RemoteWork,
+    name: "Remote Work: The Good, the Bad, and the Ugly",
+    meta: {
+      title: "Remote Work: The Good, the Bad, and the Ugly",
+      metaTags: [
+        { charset: "UTF-8" },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0",
+        },
+        { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+        {
+          name: "description",
+          content:
+            "Explore the realities of remote work in software engineering, from productivity and collaboration to corporate expectations.",
+        },
+        {
+          name: "keywords",
+          content:
+            "Remote Work, Software Engineering, Work from Home, Productivity, Collaboration, NetSuite, Remote Job, Office vs Remote, Tech Industry",
+        },
+        { name: "author", content: "Zachary Belles" },
+        { name: "robots", content: "index, follow" },
+        {
+          property: "og:title",
+          content: "Remote Work: The Good, the Bad, and the Ugly",
+        },
+        {
+          property: "og:description",
+          content:
+            "Explore the realities of remote work in software engineering, from productivity and collaboration to corporate expectations.",
+        },
+        {
+          property: "og:url",
+          content: "https://zacharybelles.com/blog/remote-work-good-bad-ugly/",
+        },
+        { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "zacharybelles.com/" },
+        {
+          name: "twitter:title",
+          content: "Remote Work: The Good, the Bad, and the Ugly",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Explore the realities of remote work in software engineering, productivity, and corporate expectations.",
+        },
       ],
     },
   },  
