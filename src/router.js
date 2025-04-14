@@ -4,6 +4,7 @@ import ResumePage from "@/components/ResumePage.vue";
 import BlogPage from "@/components/blog/BlogPage.vue";
 import FormPage from "@/components/forms/FormPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
+import HappyBirthday from "@/components/HappyBirthday.vue";
 import ContactPage from "@/components/ContactPage.vue";
 import GamesPage from "@/components/GamesPage.vue";
 import ButtonMatch from "@/components/games/ButtonMatch.vue";
@@ -460,6 +461,12 @@ const routes = [
     component: ContactPage,
     name: "contact",
     meta: { title: "Contact Me" },
+  },
+  {
+    path: "/happy-birthday",
+    component: HappyBirthday,
+    name: "Happy Birthday",
+    meta: { title: "Happy Birthday, Will" },
   },
   {
     path: "/games",
