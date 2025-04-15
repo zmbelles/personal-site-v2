@@ -14,7 +14,7 @@
         <!-- Add other social media links similarly -->
     </div>
       Made by <a href="http://github.com/zmbelles">Zachary Belles</a> in Vue.js
-      <p>&copy;2024 All Rights Reserved.</p>
+      <p>&copy;2025 All Rights Reserved.</p>
     </footer>
   </div>
 </template>
