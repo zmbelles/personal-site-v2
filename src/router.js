@@ -19,6 +19,7 @@ import InvoiceForm from '@/components/forms/invoice/Invoice_View.vue';
 import BeIntentional from "./components/blog/posts/BeIntentional.vue";
 import FindANiche from "./components/blog/posts/FindANiche.vue";
 import RemoteWork from "./components/blog/posts/RemoteWork.vue";
+import JobQuestion from "./components/blog/posts/JobQuestion.vue";
 import { nextTick } from 'vue'; // Import nextTick from Vue
 const routes = [
   { path: "/", component: Home, name: "Home", meta: { title: "Home" } },
@@ -29,6 +30,58 @@ const routes = [
     meta: { title: "Resume" },
   },
   { path: "/blog", component: BlogPage, name: "Blog", meta: { title: "Blog" } },
+  {
+    path: "/blog/question-that-got-me-the-job",
+    component: JobQuestion,
+    meta: {
+      title: "Bottom of the Ninth: From 20% to Hired",
+      metaTags: [
+        { charset: "UTF-8" },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0",
+        },
+        { "http-equiv": "X-UA-Compatible", content: "IE=edge" },
+        {
+          name: "description",
+          content:
+            "How a failed technical interview turned into a job offer. A story of persistence, growth, and getting it right when it counts.",
+        },
+        {
+          name: "keywords",
+          content:
+            "Software Development, NetSuite, Job Search, Technical Interview, Career Advice, Binary Search Tree, JavaScript References, Developer Growth, Zachary Belles",
+        },
+        { name: "author", content: "Zachary Belles" },
+        { name: "robots", content: "index, follow" },
+        {
+          property: "og:title",
+          content: "Bottom of the Ninth: From 20% to Hired",
+        },
+        {
+          property: "og:description",
+          content:
+            "How a failed technical interview turned into a job offer. A story of persistence, growth, and getting it right when it counts.",
+        },
+        {
+          property: "og:url",
+          content: "https://zacharybelles.com/blog/bottom-of-the-ninth/",
+        },
+        { property: "og:type", content: "article" },
+        { property: "og:site_name", content: "zacharybelles.com" },
+        { name: "twitter:card", content: "summary" },
+        {
+          name: "twitter:title",
+          content: "Bottom of the Ninth: From 20% to Hired",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "How a failed technical interview turned into a job offer. A story of persistence, growth, and getting it right when it counts.",
+        },
+      ],
+    }    
+  },
   {
     path: "/blog/times-in-netsuite",
     component: AdvPdf,
