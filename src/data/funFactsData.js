@@ -10,10 +10,10 @@ export const funFactsData = [
       will find myself playing games like Civ VI or Fire Emblem for hours.',
     },
     {
-      front: 'Zach\'s Favorite part about working for Solution Source',
-      back: 'My Favorite part about working for Solution Source is our approach \
-      to providing a purely need based solution to our clients instead of relying on \
-      shady tactics to upsell a feature that they might not utilize.',
+      front: 'Zach\'s Favorite part about working for Procare Solutions',
+      back: 'My favorite part about working for Procare is that I am helping \
+             with a product that is used by thousands of childcare providers \
+             and is a product myself and others I know personally endorse.',
     },
     {
       front: 'Zach\'s hobbies',
