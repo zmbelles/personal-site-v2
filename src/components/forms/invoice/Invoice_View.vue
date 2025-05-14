@@ -39,11 +39,29 @@
           </div>
 
           <div class="form-group">
-            <label for="memo">Memo (optional):</label>
+            <label for="memo">Memo/Service Notes (optional):</label>
             <textarea id="memo" v-model="invoice.memo"></textarea>
           </div>
+          <div class="form-group">
+            <label for="memo">Company Phone:<span class="required">*</span></label>
+            <input type="tel" id="customerPhone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" v-model="invoice.companyPhone" />
+          </div>
+          <div class="form-group">
+            <label for="memo">Company Email:<span class="required">*</span></label>
+            <input type="email" id="customerEmail" v-model="invoice.companyEmail" />
+          </div>
+          <div class="form-group">
+            <label for="memo">Company Slogan:<span class="required">*</span></label>
+            <input type="text" id="slogan" v-model="invoice.slogan" />
+          </div>
+          <div class="form-group">
+            <label for="companyLogo">Upload Company Logo:</label>
+            <input type="file" id="companyLogo" @change="handleLogoUpload" accept="image/*" />
+            <div v-if="invoice.logoDataUrl" class="logo-preview">
+              <img :src="invoice.logoDataUrl" alt="Company Logo" />
+            </div>
+          </div>
         </div>
-  
         <div class="services-section">
           <h2>Services</h2>
           <button type="button" @click="addService" class="add-button">Add New Service</button>
@@ -116,6 +134,14 @@
       },
       generatePDF() {
         console.log("Generating PDF...", this.invoice);
+
+        if (!this.invoice.todaysDate) {
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-based
+          const dd = String(today.getDate()).padStart(2, '0');
+          this.invoice.todaysDate = `${yyyy}-${mm}-${dd}`;
+        }
         invoiceFactory(this.invoice);
       },
       showInfo(field) {
@@ -249,6 +275,19 @@
   
         selection.removeAllRanges();
         selection.addRange(range);
+      },
+      handleLogoUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.invoice.logoDataUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
+      addCompanyPhone() {
+
       }
     },
     watch: {
@@ -297,6 +336,8 @@
   input[type="text"],
   input[type="number"],
   input[type="date"],
+  input[type="tel"],
+  input[type="email"],
   textarea {
     width: 100%;
     padding: 8px;
@@ -305,6 +346,7 @@
     background-color: rgb(201, 201, 201);
     color: black;
   }
+
   
   textarea {
     height: 100px;
