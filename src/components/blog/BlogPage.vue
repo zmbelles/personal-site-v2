@@ -2,6 +2,15 @@
   <div class="blog-page">
     <div class="blog-post">
       <h2 class="blog-post-title">
+        <router-link to="/blog/question-that-got-me-the-job" class="post-link"
+          >The One Question That Got Me the Job</router-link>
+      </h2>
+      <p class="blog-post-body">
+        My first software development job came down to one question. Let's dive into that.
+      </p>
+    </div>
+    <div class="blog-post">
+      <h2 class="blog-post-title">
         <router-link to="/blog/remote-work-good-bad-ugly" class="post-link"
           >Remote Work: The Good, the Bad, and the Ugly</router-link>
       </h2>
