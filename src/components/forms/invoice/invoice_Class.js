@@ -8,6 +8,10 @@ class Invoice {
         this.dueDate = null;
         this.todaysDate = null;
         this.memo = '';
+        this.slogan = '';
+        this.companyPhone = '';
+        this.companyEmail = '';
+        this.logoDataUrl = ''; 
     }
 
     setDueDate(date) {
