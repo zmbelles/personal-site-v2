@@ -12,6 +12,7 @@ class Invoice {
         this.companyPhone = '';
         this.companyEmail = '';
         this.logoDataUrl = ''; 
+        this.status = 'Open'; 
     }
 
     setDueDate(date) {
@@ -28,6 +29,10 @@ class Invoice {
 
     setTotal(total) {    
         this.total = total;
+    }
+
+    setStatus(status) {
+        this.status = status;
     }
 
     setCompanyName(companyName) {
@@ -78,6 +83,10 @@ class Invoice {
         this.services.splice(index, 1);
     }
 
+    getStatus() {
+        return this.status;
+    }
+
     getFullInvoice() {
         return {
             
@@ -88,7 +97,8 @@ class Invoice {
             total: this.total,
             services: this.services, 
             dueDate: this.dueDate,
-            memo: this.memo
+            memo: this.memo,
+            status: this.status
         }
     }
 }

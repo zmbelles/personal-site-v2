@@ -61,6 +61,13 @@
               <img :src="invoice.logoDataUrl" alt="Company Logo" />
             </div>
           </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select v-model="invoice.status" id="status" class="form-control">
+              <option>Open</option>
+              <option>Paid in Full</option>
+            </select>
+          </div>
         </div>
         <div class="services-section">
           <h2>Services</h2>

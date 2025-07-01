@@ -37,6 +37,10 @@ export async function invoiceFactory(invoice) {
               <td><strong>Today's Date:</strong></td>
               <td>${invoice.todaysDate}</td>
             </tr>
+            <tr>
+              <td><strong>Status:</strong></td>
+              <td>${invoice.status}</td>
+            </tr>
           </table>
         </div>
 
