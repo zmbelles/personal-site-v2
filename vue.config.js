@@ -1,7 +1,10 @@
 module.exports = {
+  publicPath: '/', // 👈 this fixes the 404s on your custom domain
+
   devServer: {
     historyApiFallback: true,
   },
+
   configureWebpack: {
     resolve: {
       fallback: {
