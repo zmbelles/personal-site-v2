@@ -9,8 +9,8 @@
         <div class="info-section">
           <p class="info-label">Company:</p>
           <p class="info-value">
-            <a class="links" href="http://www.procaresoftware.com/"
-              >Procare Solutions</a
+            <a class="links" href="https://www.netgain.tech/"
+              >Netgain Solutions</a
             >
           </p>
         </div>
@@ -26,8 +26,8 @@
       <div class="bio-container">
         <p class="bio">
           I graduated with a Bachelors of Science in Computer Science from North
-          Central College in May of 2023. I currently work as the in house NetSuite
-          developer at Procare Solutions. I enjoy learning new technologies and 
+          Central College in May of 2023. I currently work as Developer II at 
+          Netgain Solutions. I enjoy learning new technologies and 
           improving my skills as a developer. If you would like to collaborate or 
           learn more, head to my contact me page and send me an email.
         </p>

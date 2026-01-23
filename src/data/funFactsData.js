@@ -10,8 +10,8 @@ export const funFactsData = [
       will find myself playing games like Civ VI or Fire Emblem for hours.',
     },
     {
-      front: 'Zach\'s Favorite part about working for Procare Solutions',
-      back: 'My favorite part about working for Procare is that I am helping \
+      front: 'Zach\'s Favorite part about working for Netgain Solutions',
+      back: 'My favorite part about working for Netgain is that I am helping \
              with a product that is used by thousands of childcare providers \
              and is a product myself and others I know personally endorse.',
     },

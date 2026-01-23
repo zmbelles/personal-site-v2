@@ -13,8 +13,8 @@
         </a>
         <!-- Add other social media links similarly -->
     </div>
-      Made by <a href="http://github.com/zmbelles">Zachary Belles</a> in Vue.js
-      <p>&copy;2025 All Rights Reserved.</p>
+      Made by <a href="https://www.facebook.com/profile.php?id=61587200002055">Renderly</a> in Vue.js
+      <p>&copy;2026 All Rights Reserved.</p>
     </footer>
   </div>
 </template>
