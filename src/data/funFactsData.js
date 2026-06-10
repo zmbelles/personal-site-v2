@@ -11,9 +11,9 @@ export const funFactsData = [
     },
     {
       front: 'Zach\'s Favorite part about working for Netgain Solutions',
-      back: 'My favorite part about working for Netgain is that I am helping \
-             with a product that is used by thousands of childcare providers \
-             and is a product myself and others I know personally endorse.',
+      back: 'My favorite part about working for Netgain is the culture \
+             and being able to work alongside some of the most intellegent\
+             developers in the industry.',
     },
     {
       front: 'Zach\'s hobbies',
