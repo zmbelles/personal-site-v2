@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /
 
-Sitemap: https://zacharybelles.com/sitemap.xml
+Sitemap: https://thenetsuiteguy.com/sitemap.xml

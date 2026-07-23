@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/favicon.ico">
+  <title>Using Promises in NetSuite SuiteScripts</title>
+  <meta name="description" content="Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite." data-seo>
+  <meta name="keywords" content="NetSuite, SuiteScript, JavaScript, Promises, Asynchronous Programming, Coding, Scripting, ERP, SuiteScripts Best Practices" data-seo>
+  <meta name="author" content="Zachary Belles" data-seo>
+  <meta name="application-name" content="Zachary Belles" data-seo>
+  <meta name="apple-mobile-web-app-title" content="Zachary Belles" data-seo>
+  <meta name="theme-color" content="#181825" data-seo>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" data-seo>
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" data-seo>
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" data-seo>
+  <meta property="og:title" content="Using Promises in NetSuite SuiteScripts" data-seo>
+  <meta property="og:description" content="Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite." data-seo>
+  <meta property="og:type" content="article" data-seo>
+  <meta property="og:url" content="https://thenetsuiteguy.com/blog/promises-in-netsuite" data-seo>
+  <meta property="og:site_name" content="Zachary Belles" data-seo>
+  <meta property="og:locale" content="en_US" data-seo>
+  <meta property="og:image" content="https://thenetsuiteguy.com/og/default.png" data-seo>
+  <meta property="og:image:secure_url" content="https://thenetsuiteguy.com/og/default.png" data-seo>
+  <meta property="og:image:type" content="image/png" data-seo>
+  <meta property="og:image:width" content="1200" data-seo>
+  <meta property="og:image:height" content="630" data-seo>
+  <meta property="og:image:alt" content="Zachary Belles — NetSuite developer" data-seo>
+  <meta property="article:published_time" content="2024-01-09T21:29:00-05:00" data-seo>
+  <meta property="article:modified_time" content="2024-01-12T09:23:46-05:00" data-seo>
+  <meta property="article:author" content="Zachary Belles" data-seo>
+  <meta property="article:section" content="NetSuite" data-seo>
+  <meta property="article:tag" content="NetSuite" data-seo>
+  <meta property="article:tag" content="SuiteScript" data-seo>
+  <meta property="article:tag" content="JavaScript" data-seo>
+  <meta property="article:tag" content="Promises" data-seo>
+  <meta property="article:tag" content="Asynchronous Programming" data-seo>
+  <meta property="article:tag" content="Coding" data-seo>
+  <meta property="article:tag" content="Scripting" data-seo>
+  <meta property="article:tag" content="ERP" data-seo>
+  <meta property="article:tag" content="SuiteScripts Best Practices" data-seo>
+  <meta name="twitter:card" content="summary_large_image" data-seo>
+  <meta name="twitter:title" content="Using Promises in NetSuite SuiteScripts" data-seo>
+  <meta name="twitter:description" content="Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite." data-seo>
+  <meta name="twitter:image" content="https://thenetsuiteguy.com/og/default.png" data-seo>
+  <meta name="twitter:image:alt" content="Zachary Belles — NetSuite developer" data-seo>
+  <meta name="geo.region" content="US-IL" data-seo>
+  <meta name="geo.placename" content="Naperville" data-seo>
+  <meta name="geo.position" content="41.7508;-88.1535" data-seo>
+  <meta name="ICBM" content="41.7508, -88.1535" data-seo>
+  <link rel="canonical" href="https://thenetsuiteguy.com/blog/promises-in-netsuite" data-seo>
+  <script type="application/ld+json" data-seo>{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://thenetsuiteguy.com/blog/promises-in-netsuite#article","headline":"Using Promises in NetSuite SuiteScripts","description":"Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.","image":"https://thenetsuiteguy.com/og/default.png","datePublished":"2024-01-09T21:29:00-05:00","dateModified":"2024-01-12T09:23:46-05:00","inLanguage":"en","author":{"@type":"Person","@id":"https://thenetsuiteguy.com/#person","name":"Zachary Belles","url":"https://thenetsuiteguy.com/","sameAs":["https://www.linkedin.com/in/zachary-belles-333b42108/","https://www.instagram.com/zachb1997/"]},"publisher":{"@id":"https://thenetsuiteguy.com/#person"},"keywords":"NetSuite, SuiteScript, JavaScript, Promises, Asynchronous Programming, Coding, Scripting, ERP, SuiteScripts Best Practices","articleSection":"NetSuite","mainEntityOfPage":{"@type":"WebPage","@id":"https://thenetsuiteguy.com/blog/promises-in-netsuite"}}]}</script>
+<script defer="defer" src="/js/chunk-vendors.0596d855.js"></script><script defer="defer" src="/js/app.0a9ee90d.js"></script><link href="/css/app.764013ed.css" rel="stylesheet"></head><body><noscript><strong>This site needs JavaScript enabled to run.</strong></noscript><noscript data-seo><h1>Using Promises in NetSuite SuiteScripts</h1><p>Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.</p><p>This page needs JavaScript to run. Other pages on this site:</p><ul><li><a href="/">Home</a></li><li><a href="/resume">Resume</a></li><li><a href="/blog">Blog</a></li><li><a href="/seating-chart">Wedding Seating Chart Maker</a></li><li><a href="/games">Games</a></li><li><a href="/forms">Forms</a></li><li><a href="/contact">Contact</a></li></ul></noscript><div id="app"></div></body></html>
