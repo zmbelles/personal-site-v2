@@ -1,0 +1,290 @@
+{
+  "site": {
+    "origin": "https://thenetsuiteguy.com",
+    "name": "Zachary Belles",
+    "author": "Zachary Belles",
+    "locale": "en_US",
+    "lang": "en",
+    "themeColor": "#181825",
+    "titleFallback": "Zachary Belles",
+    "description": "Zachary Belles — NetSuite developer writing about SuiteScript, Advanced PDFs, and ERP customization, plus a handful of free browser tools.",
+    "image": "/og/default.png",
+    "imageAlt": "Zachary Belles — NetSuite developer",
+    "twitterCard": "summary_large_image",
+    "geo": {
+      "region": "US-IL",
+      "placename": "Naperville",
+      "position": "41.7508;-88.1535",
+      "icbm": "41.7508, -88.1535"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/zachary-belles-333b42108/",
+      "https://www.instagram.com/zachb1997/"
+    ]
+  },
+
+  "pages": {
+    "/": {
+      "title": "Zachary Belles — NetSuite Developer & Software Engineer",
+      "description": "NetSuite developer and software engineer. SuiteScript, Advanced PDF templates, and ERP customization — plus free browser tools and a blog on building for NetSuite.",
+      "keywords": "Zachary Belles, NetSuite Developer, SuiteScript, ERP, Software Engineer, NetSuite Consultant, Naperville",
+      "type": "website",
+      "priority": "1.0",
+      "changefreq": "monthly"
+    },
+
+    "/resume": {
+      "title": "Resume — Zachary Belles, NetSuite Developer",
+      "description": "The professional background of Zachary Belles: NetSuite development, SuiteScript, and software engineering, with a BS in Computer Science from North Central College.",
+      "keywords": "Zachary Belles Resume, NetSuite Developer Resume, SuiteScript Developer, Software Engineer CV",
+      "type": "profile",
+      "priority": "0.8",
+      "changefreq": "yearly"
+    },
+
+    "/contact": {
+      "title": "Contact Zachary Belles",
+      "description": "Get in touch with Zachary Belles about NetSuite development, SuiteScript work, collaboration, or questions about anything on this site.",
+      "keywords": "Contact Zachary Belles, NetSuite Developer Contact, Hire NetSuite Developer",
+      "type": "website",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/seating-chart": {
+      "title": "Free Wedding Seating Chart Maker — Drag & Drop, No Sign-Up",
+      "description": "Plan your wedding reception seating in your browser. Add round or rectangular tables, import your guest list, drag everyone into a seat, then export a PNG, CSV, or JSON. Free, no sign-up, nothing leaves your device.",
+      "keywords": "wedding seating chart, seating chart maker, free seating chart, reception table planner, wedding table layout, guest list seating, seating chart template, drag and drop seating chart, wedding planning tool",
+      "type": "website",
+      "image": "/og/seating-chart.png",
+      "imageAlt": "A wedding seating chart being arranged, with round tables and named guest seats",
+      "priority": "0.9",
+      "changefreq": "monthly",
+      "breadcrumb": [
+        { "name": "Home", "path": "/" },
+        { "name": "Wedding Seating Chart Maker", "path": "/seating-chart" }
+      ],
+      "application": {
+        "name": "Wedding Seating Chart Maker",
+        "category": "DesignApplication",
+        "featureList": [
+          "Round, oval, square, and rectangular tables",
+          "Import a guest list from CSV or pasted text",
+          "Drag and drop guests into seats",
+          "Swap two guests by dropping one onto the other",
+          "Rename, reshape, and resize tables on a zoomable floor plan",
+          "Export a PNG floor plan, a CSV seat list, or a JSON table listing",
+          "Saves automatically in your browser with no account"
+        ]
+      },
+      "faq": [
+        {
+          "q": "Is this wedding seating chart maker really free?",
+          "a": "Yes. It is completely free, there is no account to create, and there is no limit on guests or tables."
+        },
+        {
+          "q": "Does my guest list get uploaded anywhere?",
+          "a": "No. The chart is built entirely in your browser and saved in your browser's local storage. Your guest list is never sent to a server."
+        },
+        {
+          "q": "Can I import my guest list from a spreadsheet?",
+          "a": "Yes. Export your guests as a CSV and use Import CSV file, or paste names straight into the paste box — one name per line, or columns named First and Last, or a single Name column."
+        },
+        {
+          "q": "How do I save my seating chart and come back to it later?",
+          "a": "The chart saves itself in the browser you are using, so you can close the tab and return to it. To move it to another device or keep a backup, use Download JSON and load that file later with Load JSON."
+        },
+        {
+          "q": "What can I export when the seating chart is finished?",
+          "a": "Three formats: a PNG image of the floor plan to print or send to your venue, a CSV listing every seat for your caterer, and a JSON file listing each table with the names of the guests seated at it."
+        },
+        {
+          "q": "Can I use it for something other than a wedding?",
+          "a": "Yes. Nothing is wedding specific — it works just as well for banquets, galas, classrooms, conferences, or any event where you need to assign people to tables."
+        }
+      ]
+    },
+
+    "/games": {
+      "title": "Free Browser Games — Zachary Belles",
+      "description": "A small collection of free browser games built with Vue: Button Match and a 9x9 Hyper Tic-Tac-Toe you can play against the computer. No download, no sign-up.",
+      "keywords": "free browser games, online games no download, button match, tic tac toe, vue games",
+      "type": "website",
+      "priority": "0.6",
+      "changefreq": "yearly"
+    },
+
+    "/games/match": {
+      "title": "Button Match — Free Online Memory Game",
+      "description": "A free browser memory game: find the matching buttons before your streak runs out. Plays instantly, no download or sign-up needed.",
+      "keywords": "button match, memory game, matching game, free browser game, concentration game",
+      "type": "website",
+      "priority": "0.5",
+      "changefreq": "yearly"
+    },
+
+    "/games/tic-tac-toe": {
+      "title": "Hyper Tic-Tac-Toe — Play 9x9 Tic-Tac-Toe vs the Computer",
+      "description": "Tic-tac-toe on a 9x9 board against the computer. Far more strategy than the 3x3 version — free to play in your browser with nothing to install.",
+      "keywords": "hyper tic tac toe, 9x9 tic tac toe, tic tac toe vs computer, free tic tac toe online, strategy game",
+      "type": "website",
+      "priority": "0.5",
+      "changefreq": "yearly"
+    },
+
+    "/games/battleship": {
+      "title": "Battleship — Coming Soon",
+      "noindex": true
+    },
+
+    "/forms": {
+      "title": "NetSuite Form Templates — Zachary Belles",
+      "description": "Sample NetSuite transaction form layouts, including sales order and invoice templates, built to show what is possible with Advanced PDF customization.",
+      "keywords": "NetSuite forms, NetSuite Advanced PDF, sales order template, invoice template, NetSuite form customization",
+      "type": "website",
+      "priority": "0.6",
+      "changefreq": "yearly"
+    },
+
+    "/forms/sales-order": {
+      "title": "NetSuite Sales Order Form Template",
+      "description": "A sample NetSuite sales order form layout demonstrating Advanced PDF template structure, field placement, and print formatting.",
+      "keywords": "NetSuite sales order, sales order template, NetSuite Advanced PDF, transaction form, ERP forms",
+      "type": "website",
+      "priority": "0.5",
+      "changefreq": "yearly"
+    },
+
+    "/forms/invoice": {
+      "title": "NetSuite Invoice Form Template",
+      "description": "A sample NetSuite invoice form layout showing how Advanced PDF templates handle billing fields, line items, and print formatting.",
+      "keywords": "NetSuite invoice, invoice template, NetSuite Advanced PDF, billing form, ERP forms",
+      "type": "website",
+      "priority": "0.5",
+      "changefreq": "yearly"
+    },
+
+    "/blog": {
+      "title": "Blog — NetSuite, SuiteScript & Developer Career Notes",
+      "description": "Writing on NetSuite development: SuiteScript patterns, Advanced PDF templates, working with GPT, and lessons from a software engineering career.",
+      "keywords": "NetSuite blog, SuiteScript tutorials, NetSuite development, ERP development blog, developer career",
+      "type": "website",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+
+    "/blog/question-that-got-me-the-job": {
+      "title": "Bottom of the Ninth: From 20% to Hired",
+      "description": "How a failed technical interview turned into a job offer. A story of persistence, growth, and getting it right when it counts.",
+      "keywords": "Software Development, NetSuite, Job Search, Technical Interview, Career Advice, Binary Search Tree, JavaScript References, Developer Growth, Zachary Belles",
+      "type": "article",
+      "section": "Career",
+      "published": "2025-04-18T09:56:27-05:00",
+      "modified": "2025-04-18T09:56:27-05:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/times-in-netsuite": {
+      "title": "Using Times New Roman in NetSuite Advanced PDFs",
+      "description": "Learn how to enhance your NetSuite documents with NotoSerif fonts to get a Times New Roman look in Advanced PDF templates.",
+      "keywords": "NetSuite, Advanced PDF, Custom Fonts, NetSuite Fonts, PDF Templates, Business Customization, Document Design, Times New Roman, Times, ERP",
+      "type": "article",
+      "section": "NetSuite",
+      "published": "2023-12-18T21:45:34-06:00",
+      "modified": "2024-05-30T08:11:31-04:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/promises-in-netsuite": {
+      "title": "Using Promises in NetSuite SuiteScripts",
+      "description": "Discover the power of Promises in JavaScript for efficient SuiteScript development in NetSuite.",
+      "keywords": "NetSuite, SuiteScript, JavaScript, Promises, Asynchronous Programming, Coding, Scripting, ERP, SuiteScripts Best Practices",
+      "type": "article",
+      "section": "NetSuite",
+      "published": "2024-01-09T21:29:00-05:00",
+      "modified": "2024-01-12T09:23:46-05:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/gpt-in-netsuite": {
+      "title": "The N/GPT Module: Navigating SuiteScript with GPT-4",
+      "description": "Explore ethical and practical implications of using OpenAI's GPT-4 for SuiteScript development. Maximize productivity while ensuring data privacy.",
+      "keywords": "NetSuite, SuiteScript, ChatGPT, SuiteApps, Automated Intelligence, Large Language Model, LLM, Data Mining, GPT-4, OpenAI, AI Ethics, Data Privacy, Software Development",
+      "type": "article",
+      "section": "NetSuite",
+      "image": "/og/gpt-in-netsuite.png",
+      "imageAlt": "The N/GPT module — using GPT-4 with SuiteScript",
+      "published": "2024-02-12T21:01:36-05:00",
+      "modified": "2024-02-14T22:43:19-05:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/first-year-lessons": {
+      "title": "Lessons from My First Year as a NetSuite Developer",
+      "description": "Key insights and lessons learned during my first year as a NetSuite developer, including handling mistakes, work-life balance, and career satisfaction.",
+      "keywords": "NetSuite, Developer, Professional Development, Career Lessons, ERP, SuiteScript, Work-Life Balance, Software Development, Mistakes, Career Advice",
+      "type": "article",
+      "section": "Career",
+      "image": "/og/first-year-lessons.png",
+      "imageAlt": "Lessons from my first year as a NetSuite developer",
+      "published": "2024-05-29T23:11:19-04:00",
+      "modified": "2024-05-30T16:55:44-04:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/be-intentional": {
+      "title": "Be Intentional: Tips for Software Developers in 2024",
+      "description": "Essential tips for software developers, focusing on intentional programming, understanding client needs, and following documentation best practices.",
+      "keywords": "Software Development, NetSuite, Programming Best Practices, Developer Tips, Intentional Programming, SaaS Applications, Career Advice, 2024 Tips",
+      "type": "article",
+      "section": "Career",
+      "image": "/og/be-intentional.png",
+      "imageAlt": "Be intentional — tips for software developers",
+      "published": "2024-09-23T20:35:41-05:00",
+      "modified": "2024-09-23T23:06:06-05:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/find-a-niche": {
+      "title": "Find a Niche and Fill It: Standing Out in a Saturated Tech Job Market",
+      "description": "How specializing in a niche skill set helps you stand out in a crowded developer job market, and why ERP systems like NetSuite are worth the focus.",
+      "keywords": "Software Development, Tech Job Market, Niche Specialization, ERP Systems, NetSuite Developers, Career Advice, 2024 Tips",
+      "type": "article",
+      "section": "Career",
+      "image": "/og/find-a-niche.png",
+      "imageAlt": "Find a niche and fill it — standing out in a saturated tech job market",
+      "published": "2024-12-06T08:45:54-06:00",
+      "modified": "2024-12-06T08:45:54-06:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/blog/remote-work-good-bad-ugly": {
+      "title": "Remote Work: The Good, the Bad, and the Ugly",
+      "description": "The realities of remote work in software engineering, from productivity and collaboration to corporate expectations.",
+      "keywords": "Remote Work, Software Engineering, Work from Home, Productivity, Collaboration, NetSuite, Remote Job, Office vs Remote, Tech Industry",
+      "type": "article",
+      "section": "Career",
+      "published": "2025-03-19T10:51:15-05:00",
+      "modified": "2025-03-19T10:51:15-05:00",
+      "priority": "0.7",
+      "changefreq": "yearly"
+    },
+
+    "/happy-birthday": {
+      "title": "Happy Birthday, Will",
+      "noindex": true
+    },
+
+    "/login": {
+      "title": "Login",
+      "noindex": true
+    }
+  }
+}

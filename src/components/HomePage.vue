@@ -63,51 +63,9 @@
 <script>
 import FunFacts from "@/components/FunFacts.vue";
 
+// Title, meta and structured data for this page live in src/seo/pages.json.
 export default {
   name: "HomePage",
-  metaInfo() {
-    return {
-      title: "Zachary Belles - NetSuite Solution Expert",
-      meta: [
-        {
-          name: "description",
-          content:
-            "Zachary Belles, NetSuite Solution Provider and Application Development Engineer. Explore my professional portfolio and get in touch!",
-        },
-        // Open Graph / Facebook Meta Tags
-        {
-          property: "og:type",
-          content: "website",
-        },
-        {
-          property: "og:url",
-          content: "https://www.zacharybelles.com/",
-        },
-        {
-          property: "og:title",
-          content: "Zachary Belles - NetSuite Solution Expert",
-        },
-        {
-          property: "og:description",
-          content:
-            "Zachary Belles, a NetSuite Solution Provider and Application Development Engineer. Discover my professional journey and projects.",
-        },
-        {
-          property: "og:image",
-          content: "@/assetsoh pre/logo.png", // Provide the absolute URL to the image
-        },
-        // Add more meta tags as needed
-      ],
-      link: [
-        {
-          rel: "icon",
-          type: "image/png",
-          href: "/path-to-your-public-folder/logo.png", // The path should be relative to the public folder in your Vue project
-        },
-        // Add more links as needed, e.g., Apple touch icons
-      ],
-    };
-  },
   components: {
     FunFacts,
   },
