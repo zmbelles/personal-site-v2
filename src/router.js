@@ -28,6 +28,7 @@ import SeatingChart from "@/components/tools/seating/SeatingChartPage.vue";
 
 // Titles, descriptions, Open Graph data and structured data all live in
 // src/seo/pages.json, keyed by path — see src/seo/head.cjs.
+// meta.legacyLayout keeps the centered layout older pages were designed around.
 const routes = [
   { path: "/", component: Home, name: "Home" },
   { path: "/resume", component: ResumePage, name: "Resume" },
@@ -66,16 +67,16 @@ const routes = [
   { path: "/seating-chart", component: SeatingChart, name: "seating-chart" },
 
   { path: "/games", component: GamesPage, name: "games" },
-  { path: "/games/match", component: ButtonMatch, name: "match" },
-  { path: "/games/battleship", component: BattleShip, name: "battleship" },
-  { path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe" },
+  { path: "/games/match", component: ButtonMatch, name: "match", meta: { legacyLayout: true } },
+  { path: "/games/battleship", component: BattleShip, name: "battleship", meta: { legacyLayout: true } },
+  { path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta: { legacyLayout: true } },
 
   { path: "/forms", component: FormPage, name: "forms" },
-  { path: "/forms/sales-order", component: SalesOrder, name: "sales-order" },
-  { path: "/forms/invoice", component: InvoiceForm, name: "invoice" },
+  { path: "/forms/sales-order", component: SalesOrder, name: "sales-order", meta: { legacyLayout: true } },
+  { path: "/forms/invoice", component: InvoiceForm, name: "invoice", meta: { legacyLayout: true } },
 
-  { path: "/login", component: LoginPage, name: "login" },
-  { path: "/happy-birthday", component: HappyBirthday, name: "Happy Birthday" },
+  { path: "/login", component: LoginPage, name: "login", meta: { legacyLayout: true } },
+  { path: "/happy-birthday", component: HappyBirthday, name: "Happy Birthday", meta: { legacyLayout: true } },
 
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
@@ -83,6 +84,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition;
+    if (to.hash) return { el: to.hash };
+    return { top: 0 };
+  },
 });
 
 router.afterEach((to) => {

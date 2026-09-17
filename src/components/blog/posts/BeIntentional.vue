@@ -107,62 +107,21 @@ export default {
 </script>
 
 <style scoped>
-.blog-page {
-  font-family: "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
-  color: #ffffff;
-  background-color: #181825;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-}
-h1,
-h2 {
-  color: #dfa8cd;
-  margin-bottom: 15px;
-}
-
-.introduction,
-.content,
-.conclusion {
-  background-color: #362e5f;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-}
-.issues {
-    text-align: left;
-}
-ul {
-  margin-left: 20px;
-  list-style-type: disc;
-}
-
-.publication-date {
-  font-size: 0.9em;
-  color: #a8a8a8;
-  margin-bottom: 20px;
-}
-.numbered-list {
-  list-style-type: decimal; /* Use decimal numbers */
-  padding-left: 20px; /* Adjust padding for proper alignment */
-  margin: 0;
-	text-align: left;
-}
-
+/* Shared article styles live in src/styles/global.css (.blog-page). */
 .numbered-list li {
-  margin-bottom: 15px; /* Space between list items */
-	text-align: left;
+  margin-bottom: 1.2em;
 }
 
 .numbered-list li p {
-  margin: 5px 0 0 20px; /* Indent the paragraph under each list item */
-	text-align: left;
+  margin: 6px 0 0;
 }
+
 .example {
-	padding-left: 1cm;
-	font-size: smaller;
-	font-weight: bold;
+  padding: 10px 14px;
+  border-left: 2px solid var(--mauve);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--surface);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }
 </style>

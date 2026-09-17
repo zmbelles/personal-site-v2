@@ -150,7 +150,8 @@ function buildJsonLd(path, page, ctx) {
     });
     graph.push({
       ...publisher,
-      jobTitle: "NetSuite Developer",
+      jobTitle: SITE.jobTitle,
+      worksFor: SITE.worksFor && { "@type": "Organization", ...SITE.worksFor },
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "North Central College",

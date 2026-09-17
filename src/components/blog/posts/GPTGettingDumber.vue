@@ -88,46 +88,5 @@ export default {
 }
 </script>
   
-  <style scoped>
-  .blog-page {
-    font-family: "Segoe UI", Arial, sans-serif;
-    line-height: 1.6;
-    color: #bf8cbe; /* Light-colored text for readability */
-    background-color: #181825; /* Dark background */
-    max-width: 800px; /* Constrain width */
-    margin: 0 auto; /* Center the container */
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  h1,
-  h2 {
-    color: #dfa8cd; /* Light color for headers */
-  }
-  
-  h1 {
-    margin-bottom: 30px;
-  }
-  
-  h2 {
-    margin-bottom: 15px;
-  }
-  
-  .introduction,
-  .content,
-  .conclusion {
-    background-color: #362e5f; /* Dark purple background for sections */
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-  }
-  .publication-date {
-      font-size: 0.9em;
-      color: #a8a8a8; /* Choose a suitable color */
-      margin-bottom: 20px;
-    }
-  
-  /* Additional styling and responsiveness can be added as needed */
-  </style>
   
   

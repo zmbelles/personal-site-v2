@@ -7,7 +7,9 @@
     "lang": "en",
     "themeColor": "#181825",
     "titleFallback": "Zachary Belles",
-    "description": "Zachary Belles — NetSuite developer writing about SuiteScript, Advanced PDFs, and ERP customization, plus a handful of free browser tools.",
+    "description": "Zachary Belles — NetSuite developer at Netgain building fixed asset and lease accounting SuiteApps, writing about SuiteScript, plus a handful of free browser tools.",
+    "jobTitle": "NetSuite Developer",
+    "worksFor": { "name": "Netgain Solutions", "url": "https://www.netgain.tech/" },
     "image": "/og/default.png",
     "imageAlt": "Zachary Belles — NetSuite developer",
     "twitterCard": "summary_large_image",
@@ -26,8 +28,8 @@
   "pages": {
     "/": {
       "title": "Zachary Belles — NetSuite Developer & Software Engineer",
-      "description": "NetSuite developer and software engineer. SuiteScript, Advanced PDF templates, and ERP customization — plus free browser tools and a blog on building for NetSuite.",
-      "keywords": "Zachary Belles, NetSuite Developer, SuiteScript, ERP, Software Engineer, NetSuite Consultant, Naperville",
+      "description": "NetSuite developer at Netgain building the NetAsset and NetLease SuiteApps with SuiteScript, SuiteQL, and React — plus free browser tools and a blog on building for NetSuite.",
+      "keywords": "Zachary Belles, NetSuite Developer, SuiteScript, SuiteQL, SuiteApp Developer, Netgain, NetAsset, NetLease, ERP, Software Engineer, Naperville",
       "type": "website",
       "priority": "1.0",
       "changefreq": "monthly"
@@ -35,9 +37,10 @@
 
     "/resume": {
       "title": "Resume — Zachary Belles, NetSuite Developer",
-      "description": "The professional background of Zachary Belles: NetSuite development, SuiteScript, and software engineering, with a BS in Computer Science from North Central College.",
-      "keywords": "Zachary Belles Resume, NetSuite Developer Resume, SuiteScript Developer, Software Engineer CV",
+      "description": "The resume of Zachary Belles, NetSuite developer at Netgain: federally regulated (FERC) asset accounting, AI tooling with MCP and Claude, and SuiteApp development on NetAsset and NetLease, with a BS in Computer Science from North Central College.",
+      "keywords": "Zachary Belles Resume, NetSuite Developer Resume, SuiteScript Developer, SuiteApp Developer, NetAsset, NetLease, FERC, Group Depreciation, ASC 842, MCP, Claude, AI in NetSuite, Software Engineer CV",
       "type": "profile",
+      "modified": "2026-09-16",
       "priority": "0.8",
       "changefreq": "yearly"
     },
