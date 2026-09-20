@@ -20,6 +20,8 @@ import GPTInNetSuite from "@/components/blog/posts/GPTGettingDumber";
 import FirstYearLessons from "@/components/blog/posts/FirstYearLessons";
 import SalesOrder from "@/components/forms/sales_order/SalesOrder_View.vue";
 import InvoiceForm from "@/components/forms/invoice/Invoice_View.vue";
+import PurchaseOrder from "@/components/forms/purchase_order/PurchaseOrder_View.vue";
+import VendorBill from "@/components/forms/vendor_bill/VendorBill_View.vue";
 import BeIntentional from "@/components/blog/posts/BeIntentional.vue";
 import FindANiche from "@/components/blog/posts/FindANiche.vue";
 import RemoteWork from "@/components/blog/posts/RemoteWork.vue";
@@ -74,6 +76,8 @@ const routes = [
   { path: "/forms", component: FormPage, name: "forms" },
   { path: "/forms/sales-order", component: SalesOrder, name: "sales-order" },
   { path: "/forms/invoice", component: InvoiceForm, name: "invoice" },
+  { path: "/forms/purchase-order", component: PurchaseOrder, name: "purchase-order" },
+  { path: "/forms/vendor-bill", component: VendorBill, name: "vendor-bill" },
 
   { path: "/login", component: LoginPage, name: "login", meta: { legacyLayout: true } },
   { path: "/happy-birthday", component: HappyBirthday, name: "Happy Birthday", meta: { legacyLayout: true } },

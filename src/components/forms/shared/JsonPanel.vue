@@ -74,9 +74,73 @@ import "prismjs/components/prism-json";
 import "@/themes/prism-night-owl.css";
 import { addDays, toJson, todayIso } from "./transaction.js";
 
+/**
+ * The parts of the example that vary by document kind. exampleFor() below
+ * wraps this in the shape every kind shares (company, currency, discount…).
+ */
+const KIND_EXAMPLES = {
+  invoice: {
+    number: "INV-1042",
+    dueDateDays: 30,
+    terms: "Net 30",
+    billTo: "Northwind Millwork\nAttn: Accounts Payable\n900 Rand Road\nArlington Heights, IL 60004",
+    lines: [
+      { description: "Shop drawings and takeoff", quantity: 8, unit: "HR", rate: 125 },
+      { description: "Fabrication and finishing", quantity: 34, unit: "HR", rate: 96 },
+    ],
+    shipping: 0,
+    paid: 0,
+    memo: "Thank you for your business. Remit by ACH or check using the invoice number above.",
+  },
+  "sales-order": {
+    number: "SO-1042",
+    dueDateDays: 18,
+    terms: "Custom",
+    billTo: "Northwind Millwork\nAttn: Accounts Payable\n900 Rand Road\nArlington Heights, IL 60004",
+    shipTo: "Northwind Millwork, Dock 3\n914 Rand Road\nArlington Heights, IL 60004",
+    reference: "LTL freight, prepaid",
+    lines: [
+      { description: "Steel shelving bay, powder coated", quantity: 12, unit: "EA", rate: 148.5, weight: 41.2 },
+      { description: "Mounting hardware kit", quantity: 12, unit: "KIT", rate: 22, weight: 3.5 },
+    ],
+    shipping: 310,
+    paid: 1000,
+    memo: "Ships complete. Call the dock 24 hours ahead to schedule the delivery window.",
+  },
+  "purchase-order": {
+    number: "PO-1042",
+    dueDateDays: 21,
+    terms: "Custom",
+    billTo: "Timberline Steel Supply\nAttn: Order Desk\n4400 Industrial Pkwy\nJoliet, IL 60431",
+    shipTo: "Lakeshore Fabrication, Receiving Dock\n118 Harbor Way\nNaperville, IL 60540",
+    reference: "LTL freight, collect",
+    lines: [
+      { description: "Hot-rolled steel angle, 2x2x1/4", quantity: 40, unit: "FT", rate: 6.75, weight: 3.1 },
+      { description: "Powder coat finishing service", quantity: 1, unit: "LOT", rate: 850, weight: 0 },
+    ],
+    shipping: 175,
+    paid: 500,
+    memo: "Please confirm lead time and ship complete. Call with any substitutions before fulfilling.",
+  },
+  "vendor-bill": {
+    number: "BILL-1042",
+    dueDateDays: 30,
+    terms: "Net 30",
+    billTo: "Northwind Millwork\nAttn: Accounts Payable\n900 Rand Road\nArlington Heights, IL 60004",
+    poNumber: "PO-88120",
+    lines: [
+      { description: "Monthly hosting and maintenance", quantity: 1, unit: "EA", rate: 450 },
+      { description: "Emergency after-hours support", quantity: 2, unit: "HR", rate: 175 },
+    ],
+    shipping: 0,
+    paid: 0,
+    memo: "Thank you for your business. Remit by ACH or check using the bill number above.",
+  },
+};
+
 /** A filled-in document, so "Load example" shows the shape and the wording. */
 function exampleFor(spec) {
-  const isOrder = spec.kind === "sales-order";
+  const kind = KIND_EXAMPLES[spec.kind] || KIND_EXAMPLES.invoice;
   // Dated relative to today, so the example never reads as stale.
   const date = addDays(todayIso(), -6);
   return {
@@ -88,41 +152,22 @@ function exampleFor(spec) {
       website: "lakeshorefab.com",
       slogan: "Built square, delivered on time.",
     },
-    number: isOrder ? "SO-1042" : "INV-1042",
-    poNumber: "PO-88120",
+    number: kind.number,
+    ...(spec.showPoNumber ? { poNumber: kind.poNumber || "PO-88120" } : {}),
     date,
-    dueDate: addDays(date, isOrder ? 18 : 30),
-    terms: isOrder ? "Custom" : "Net 30",
+    dueDate: addDays(date, kind.dueDateDays),
+    terms: kind.terms,
     status: spec.statuses[0],
     currency: "USD",
-    billTo: "Northwind Millwork\nAttn: Accounts Payable\n900 Rand Road\nArlington Heights, IL 60004",
-    ...(spec.showShipTo
-      ? { shipTo: "Northwind Millwork — Dock 3\n914 Rand Road\nArlington Heights, IL 60004" }
-      : {}),
-    ...(spec.referenceLabel ? { reference: "LTL freight, prepaid" } : {}),
-    lines: [
-      {
-        description: isOrder ? "Steel shelving bay, powder coated" : "Shop drawings and takeoff",
-        quantity: isOrder ? 12 : 8,
-        unit: isOrder ? "EA" : "HR",
-        rate: isOrder ? 148.5 : 125,
-        ...(spec.showWeight ? { weight: 41.2 } : {}),
-      },
-      {
-        description: isOrder ? "Mounting hardware kit" : "Fabrication and finishing",
-        quantity: isOrder ? 12 : 34,
-        unit: isOrder ? "KIT" : "HR",
-        rate: isOrder ? 22 : 96,
-        ...(spec.showWeight ? { weight: 3.5 } : {}),
-      },
-    ],
+    billTo: kind.billTo,
+    ...(spec.showShipTo ? { shipTo: kind.shipTo } : {}),
+    ...(spec.referenceLabel ? { reference: kind.reference } : {}),
+    lines: kind.lines,
     discountRate: 0,
     taxRate: 8.25,
-    shipping: isOrder ? 310 : 0,
-    paid: isOrder ? 1000 : 0,
-    memo: isOrder
-      ? "Ships complete. Call the dock 24 hours ahead to schedule the delivery window."
-      : "Thank you for your business. Remit by ACH or check using the invoice number above.",
+    shipping: kind.shipping,
+    paid: kind.paid,
+    memo: kind.memo,
   };
 }
 
