@@ -48,6 +48,12 @@
         <p>{{ item.a }}</p>
       </div>
     </section>
+
+    <CoffeeRail wide>
+      No account, no guest limit, and your list never leaves your browser —
+      just one person building things in his own time. If this saved you an
+      evening of spreadsheet wrangling, a coffee goes a long way.
+    </CoffeeRail>
   </div>
 </template>
 
@@ -57,6 +63,7 @@ import seo from "@/seo/pages.json";
 import { provideSeatingStore } from "./store.js";
 import SeatingSidebar from "./SeatingSidebar.vue";
 import SeatingCanvas from "./SeatingCanvas.vue";
+import CoffeeRail from "@/components/support/CoffeeRail.vue";
 
 provideSeatingStore();
 
@@ -252,7 +259,9 @@ onUnmounted(() => document.removeEventListener("fullscreenchange", syncFullscree
   flex: 0 0 330px;
   background: var(--sc-panel);
   border-right: 1px solid var(--sc-line);
-  padding: 16px;
+  /* Extra room at the foot so the pinned coffee pill, which floats over the
+     bottom-left of the viewport, never sits on top of the last control. */
+  padding: 16px 16px 76px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

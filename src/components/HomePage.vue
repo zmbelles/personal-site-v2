@@ -217,9 +217,9 @@
           </router-link>
 
           <router-link to="/forms" class="card card--link tool-card">
-            <h3>NetSuite form templates</h3>
-            <p>Open source sales order and invoice layouts. Still in progress.</p>
-            <span class="arrow-link">Take a look</span>
+            <h3>Invoice &amp; sales order generators</h3>
+            <p>Fill in the form, watch the sheet build itself, download the PDF.</p>
+            <span class="arrow-link">Make one</span>
           </router-link>
         </div>
       </div>

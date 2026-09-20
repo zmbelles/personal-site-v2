@@ -141,30 +141,127 @@
     },
 
     "/forms": {
-      "title": "NetSuite Form Templates — Zachary Belles",
-      "description": "Sample NetSuite transaction form layouts, including sales order and invoice templates, built to show what is possible with Advanced PDF customization.",
-      "keywords": "NetSuite forms, NetSuite Advanced PDF, sales order template, invoice template, NetSuite form customization",
+      "title": "Free Invoice & Sales Order Generators — No Sign-Up",
+      "description": "Two free browser tools that build a printable invoice or sales order as you type, then download it as a PDF. Modelled on NetSuite Advanced PDF layouts. No account, nothing uploaded.",
+      "keywords": "free invoice generator, sales order generator, invoice maker, printable invoice PDF, NetSuite forms, NetSuite Advanced PDF, transaction form template, ERP forms",
       "type": "website",
-      "priority": "0.6",
-      "changefreq": "yearly"
+      "priority": "0.7",
+      "changefreq": "monthly"
     },
 
     "/forms/sales-order": {
-      "title": "NetSuite Sales Order Form Template",
-      "description": "A sample NetSuite sales order form layout demonstrating Advanced PDF template structure, field placement, and print formatting.",
-      "keywords": "NetSuite sales order, sales order template, NetSuite Advanced PDF, transaction form, ERP forms",
+      "title": "Free Sales Order Generator — Printable PDF, No Sign-Up",
+      "description": "Build a sales order in your browser: bill-to and ship-to addresses, line items with quantities, units and weights, shipping, deposits and a running total. Download a PDF or print it. Free, no account, nothing leaves your device.",
+      "keywords": "sales order generator, free sales order template, sales order PDF, printable sales order, order confirmation form, NetSuite sales order, Advanced PDF, ERP forms",
       "type": "website",
-      "priority": "0.5",
-      "changefreq": "yearly"
+      "priority": "0.7",
+      "changefreq": "monthly",
+      "breadcrumb": [
+        { "name": "Home", "path": "/" },
+        { "name": "NetSuite Forms", "path": "/forms" },
+        { "name": "Sales Order Generator", "path": "/forms/sales-order" }
+      ],
+      "application": {
+        "name": "Sales Order Generator",
+        "category": "BusinessApplication",
+        "featureList": [
+          "Live preview that updates as you type",
+          "Separate bill-to and ship-to addresses",
+          "Line items with quantity, unit, weight and price",
+          "Automatic subtotal, discount, tax, shipping and total",
+          "Deposit received and balance on delivery",
+          "Company logo upload and a configurable accent colour",
+          "Download a PDF or print straight from the browser",
+          "Import and export the order as JSON",
+          "Saves your draft in your browser with no account"
+        ]
+      },
+      "faq": [
+        {
+          "q": "Is this sales order generator free?",
+          "a": "Yes. There is no account, no watermark, no limit on line items, and no paid tier."
+        },
+        {
+          "q": "Does my customer data get uploaded anywhere?",
+          "a": "No. The sheet is built entirely in your browser and the draft is saved in your browser's local storage. Nothing is sent to a server."
+        },
+        {
+          "q": "What is the difference between a sales order and an invoice?",
+          "a": "A sales order confirms what the customer has agreed to buy before it ships, so it carries a ship-to address, weights and a ship date. An invoice asks for payment after the fact, so it carries payment terms, a due date and a balance due. Use the invoice generator for the second half of the job."
+        },
+        {
+          "q": "Can I load an order from my own system?",
+          "a": "Yes. Open the JSON panel and paste a payload. Keys you do not recognise are ignored, and older key names such as items, price and shipto are still accepted."
+        },
+        {
+          "q": "Will my draft still be here tomorrow?",
+          "a": "Yes, as long as you use the same browser and do not clear your site data. To move an order elsewhere or keep a backup, download it as JSON and paste it back in later."
+        },
+        {
+          "q": "Does this work with NetSuite?",
+          "a": "Not directly — it does not connect to NetSuite. The layout mirrors a NetSuite sales order print, so it is a quick way to settle on a design before you build the equivalent Advanced PDF template in FreeMarker."
+        }
+      ]
     },
 
     "/forms/invoice": {
-      "title": "NetSuite Invoice Form Template",
-      "description": "A sample NetSuite invoice form layout showing how Advanced PDF templates handle billing fields, line items, and print formatting.",
-      "keywords": "NetSuite invoice, invoice template, NetSuite Advanced PDF, billing form, ERP forms",
+      "title": "Free Invoice Generator — Printable PDF, No Sign-Up",
+      "description": "Create an invoice in your browser and watch it build as you type: payment terms that set the due date, tax and discount lines, a running balance due, and your own logo. Download a PDF or print it. Free, no account, nothing leaves your device.",
+      "keywords": "free invoice generator, invoice maker, invoice template, printable invoice PDF, billing form, create an invoice online, NetSuite invoice, Advanced PDF, ERP forms",
       "type": "website",
-      "priority": "0.5",
-      "changefreq": "yearly"
+      "priority": "0.7",
+      "changefreq": "monthly",
+      "breadcrumb": [
+        { "name": "Home", "path": "/" },
+        { "name": "NetSuite Forms", "path": "/forms" },
+        { "name": "Invoice Generator", "path": "/forms/invoice" }
+      ],
+      "application": {
+        "name": "Invoice Generator",
+        "category": "BusinessApplication",
+        "featureList": [
+          "Live preview that updates as you type",
+          "Payment terms that calculate the due date",
+          "Line items with quantity, unit and rate",
+          "Automatic subtotal, discount, tax, shipping and total",
+          "Amount paid and balance due, with a Paid in Full stamp",
+          "Company logo upload and a configurable accent colour",
+          "Thirteen currencies, formatted correctly",
+          "Download a PDF or print straight from the browser",
+          "Import and export the invoice as JSON",
+          "Saves your draft in your browser with no account"
+        ]
+      },
+      "faq": [
+        {
+          "q": "Is this invoice generator really free?",
+          "a": "Yes. There is no account, no watermark, no limit on line items, and no paid tier."
+        },
+        {
+          "q": "Does my customer data get uploaded anywhere?",
+          "a": "No. The invoice is built entirely in your browser and the draft is saved in your browser's local storage. Nothing is sent to a server."
+        },
+        {
+          "q": "How is the due date worked out?",
+          "a": "Pick payment terms — due on receipt, Net 15, 30, 45 or 60 — and the due date is counted forward from the invoice date. Type a due date yourself and the terms switch to Custom so the two never contradict each other."
+        },
+        {
+          "q": "Can I put my own logo and colours on it?",
+          "a": "Yes. Upload a logo of up to 2 MB and pick an accent colour, which is used for the title, the table header, the total and the footer rule."
+        },
+        {
+          "q": "Can I invoice in a currency other than dollars?",
+          "a": "Yes. Thirteen currencies are available and every amount is formatted for the one you choose."
+        },
+        {
+          "q": "Will my draft still be here tomorrow?",
+          "a": "Yes, as long as you use the same browser and do not clear your site data. To move an invoice elsewhere or keep a backup, download it as JSON and paste it back in later."
+        },
+        {
+          "q": "Does this work with NetSuite?",
+          "a": "Not directly — it does not connect to NetSuite. The layout is the one I start from when building Advanced PDF templates, so it is a quick way to settle on a design before writing any FreeMarker."
+        }
+      ]
     },
 
     "/blog": {

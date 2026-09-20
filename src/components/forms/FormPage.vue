@@ -2,16 +2,22 @@
   <div class="forms">
     <header class="container page-hero">
       <p class="eyebrow">NetSuite forms</p>
-      <h1>Open source transaction form templates</h1>
+      <h1>Open source transaction forms</h1>
       <p>
-        Printable layouts for common NetSuite transactions, built to show what
-        Advanced PDF customization can do. Both accept JSON. They're still in the
-        works.
+        Two printable transaction layouts you can fill in right here. Type into
+        the form, watch the sheet build itself alongside, then download a PDF or
+        print it. Both read and write JSON, both are free, and nothing you type
+        ever leaves your browser.
       </p>
     </header>
 
     <div class="container grid">
-      <div v-for="form in forms" :key="form.name" class="card form" aria-disabled="true">
+      <router-link
+        v-for="form in forms"
+        :key="form.path"
+        :to="form.path"
+        class="card card--link form"
+      >
         <div class="doc" aria-hidden="true">
           <div class="doc-head">
             <span class="doc-logo"></span>
@@ -24,10 +30,31 @@
           </div>
           <span class="doc-line w30 right"></span>
         </div>
-        <h2>{{ form.name }} <span class="badge">Coming soon</span></h2>
+        <h2>{{ form.name }}</h2>
         <p>{{ form.body }}</p>
-      </div>
+        <ul class="chip-list">
+          <li v-for="tag in form.tags" :key="tag" class="chip">{{ tag }}</li>
+        </ul>
+        <span class="arrow-link">{{ form.cta }}</span>
+      </router-link>
     </div>
+
+    <section class="container why">
+      <h2>Why these exist</h2>
+      <p>
+        Most of my day is spent on NetSuite Advanced PDF templates, where the
+        layout is FreeMarker and XML rather than HTML. These two are the same
+        designs rebuilt for the browser: the same header block, the same line
+        table, the same totals stack. If you are building the NetSuite version,
+        they are a quick way to settle on a layout before you write any
+        FreeMarker — and if you just need an invoice for a side project, they
+        work perfectly well on their own.
+      </p>
+      <p>
+        The whole thing runs on your machine. There is no account, no server,
+        and no copy of your customer list anywhere but your own browser.
+      </p>
+    </section>
   </div>
 </template>
 
@@ -38,14 +65,20 @@ export default {
     return {
       forms: [
         {
-          name: "Sales Order",
-          short: "SALES ORDER",
-          body: "A completely open source template for your company's sales orders. Also accepts JSON.",
-        },
-        {
           name: "Invoice",
           short: "INVOICE",
-          body: "A completely open source template for your company's invoices. Also accepts JSON.",
+          path: "/forms/invoice",
+          body: "Bill a customer: payment terms that set the due date for you, tax and discount lines, and a running balance due.",
+          tags: ["Live preview", "PDF & print", "JSON in and out"],
+          cta: "Build an invoice",
+        },
+        {
+          name: "Sales Order",
+          short: "SALES ORDER",
+          path: "/forms/sales-order",
+          body: "Confirm an order before it ships: separate bill-to and ship-to, per-line weights, shipping costs and a deposit.",
+          tags: ["Live preview", "PDF & print", "JSON in and out"],
+          cta: "Build a sales order",
         },
       ],
     };
@@ -58,22 +91,27 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-  padding-bottom: clamp(64px, 10vw, 112px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
 }
 
 .form h2 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
   margin: 20px 0 8px;
   font-size: 1.375rem;
   font-weight: 600;
+  color: var(--text);
 }
 
 .form p {
-  margin: 0;
+  margin: 0 0 16px;
   color: var(--text-muted);
+}
+
+.form .chip-list {
+  margin-bottom: 20px;
 }
 
 .doc {
@@ -135,6 +173,24 @@ export default {
 .doc-table span:first-child {
   background: var(--violet);
   opacity: 0.55;
+}
+
+.why {
+  max-width: 760px;
+  margin-inline: auto;
+  padding-block: clamp(48px, 8vw, 88px) clamp(64px, 10vw, 112px);
+  text-align: left;
+}
+
+.why h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.why p {
+  margin: 0 0 1.1em;
+  color: var(--text-muted);
 }
 
 @media (max-width: 720px) {
