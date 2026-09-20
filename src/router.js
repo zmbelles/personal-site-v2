@@ -72,8 +72,8 @@ const routes = [
   { path: "/games/tic-tac-toe", component: TicTacToe, name: "tictactoe", meta: { legacyLayout: true } },
 
   { path: "/forms", component: FormPage, name: "forms" },
-  { path: "/forms/sales-order", component: SalesOrder, name: "sales-order", meta: { legacyLayout: true } },
-  { path: "/forms/invoice", component: InvoiceForm, name: "invoice", meta: { legacyLayout: true } },
+  { path: "/forms/sales-order", component: SalesOrder, name: "sales-order" },
+  { path: "/forms/invoice", component: InvoiceForm, name: "invoice" },
 
   { path: "/login", component: LoginPage, name: "login", meta: { legacyLayout: true } },
   { path: "/happy-birthday", component: HappyBirthday, name: "Happy Birthday", meta: { legacyLayout: true } },

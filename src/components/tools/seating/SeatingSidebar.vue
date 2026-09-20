@@ -98,8 +98,8 @@
     <section class="sc-panel">
       <h3>Export</h3>
       <div class="sc-export-grid">
-        <button class="sc-btn" @click="exportPNG(store.state)">PNG image</button>
-        <button class="sc-btn" @click="exportCSV(store.state)">CSV list</button>
+        <button class="sc-btn" @click="askThen('PNG', () => exportPNG(store.state))">PNG image</button>
+        <button class="sc-btn" @click="askThen('CSV', () => exportCSV(store.state))">CSV list</button>
         <button class="sc-btn" @click="exportJSON(store.state)">Download JSON</button>
         <button class="sc-btn" @click="jsonRef?.click()">Load JSON</button>
       </div>
@@ -117,6 +117,15 @@
 
       <button class="sc-btn sc-danger sc-wide" @click="resetAll">Reset all</button>
     </section>
+
+    <!-- Lives inside the app shell, which is the element that goes full
+         screen — a dialog outside it would never be seen there. -->
+    <CoffeeDialog
+      v-if="coffeeOpen"
+      thing="This seating chart maker"
+      :noun="pendingNoun"
+      @close="closeCoffee"
+    />
   </aside>
 </template>
 
@@ -127,8 +136,38 @@ import { SHAPES } from "./geometry.js";
 import { parseGuestsFromCSV } from "./csv.js";
 import { exportCSV, exportJSON, exportPNG, docToChart } from "./exporters.js";
 import SeatingGuestChip from "./SeatingGuestChip.vue";
+import CoffeeDialog from "@/components/support/CoffeeDialog.vue";
+import { markAsked, shouldAsk } from "@/components/support/coffee.js";
 
 const store = useSeatingStore();
+
+/*
+ * The coffee ask, shown once a session before an export. It never blocks the
+ * file: closeCoffee runs the pending export whichever button was pressed.
+ * "Download JSON" is deliberately left out — that one is how people back their
+ * chart up, and interrupting a backup would be a nasty thing to do.
+ */
+const coffeeOpen = ref(false);
+const pendingNoun = ref("download");
+let afterCoffee = null;
+
+function askThen(noun, action) {
+  if (!shouldAsk()) {
+    action();
+    return;
+  }
+  markAsked();
+  pendingNoun.value = noun;
+  afterCoffee = action;
+  coffeeOpen.value = true;
+}
+
+function closeCoffee() {
+  coffeeOpen.value = false;
+  const action = afterCoffee;
+  afterCoffee = null;
+  if (action) action();
+}
 
 const shape = ref("circle");
 const seats = ref(8);
