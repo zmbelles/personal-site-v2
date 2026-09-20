@@ -85,7 +85,7 @@ function loadFromStorage() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return sanitize(JSON.parse(raw));
   } catch {
-    /* private mode, corrupt entry — fall through to a blank chart */
+    /* private mode, corrupt entry; fall through to a blank chart */
   }
   return blankChart();
 }
@@ -115,7 +115,7 @@ function createStore() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch {
-        /* storage full or blocked — the chart still works for this session */
+        /* storage full or blocked; the chart still works for this session */
       }
     }, 200);
   });

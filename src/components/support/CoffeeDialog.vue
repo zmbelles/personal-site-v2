@@ -12,7 +12,7 @@
 
       <h2 id="cd-title">Enjoying this?</h2>
       <p id="cd-body">
-        {{ thing }} is free and always will be — no account, no watermark, and
+        {{ thing }} is free and always will be, no account, no watermark, and
         nothing you type ever leaves your browser. It also takes a real person
         real time and energy to build and keep working. If it saved you some
         trouble, would you buy me a coffee?

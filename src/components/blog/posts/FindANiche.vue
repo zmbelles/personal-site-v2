@@ -39,7 +39,7 @@ export default {
           title: "Understanding the Current Job Market",
           description: `The influx of layoffs and market oversaturation has led to a challenging environment for recent graduates. Many are competing 
           with experienced developers for the same entry-level roles. The joke about 'entry-level' jobs asking for years of experience has stopped 
-          being funny—it's the new normal. This is because of all of the senior developers who have been laid off that are now vying for the same jobs
+          being funny; it's the new normal. This is because of all of the senior developers who have been laid off that are now vying for the same jobs
           as you. They have those 5 years of experience you are missing and are willing to take the entry level pay so they can keep their foot in the door.
           Because of this, navigating the saturated computer science landscape requires a different approach.`,
         },
@@ -57,13 +57,13 @@ export default {
           popular niche as of late, but that too has been starting to become oversaturated. Would I say that he and I got lucky? No, of course not. Luck 
           may have been a portion of it, but luck will only get you as far as an interview. You need to be able to prove your worth in technical interviews as well. 
           Instead of jumping on the bandwagon of every popular tool, do research on what is actually in demand. You may find that MySQL or PostgreSQL 
-          expertise is more valued than learning yet another Javascript Framework in MongoDB. Likewise, focus on what you enjoy—if frontend design or 
+          expertise is more valued than learning yet another Javascript Framework in MongoDB. Likewise, focus on what you enjoy: if frontend design or
           UI/UX isn't your thing, don't force it. Align your niche with your interests and market needs.`,
         },
       ],
       finalThoughts: `Of all the things I have mentioned, the most crucial piece of advice is to start early. Explore job boards, send out countless applications, 
       and pay attention to where the demand truly is. Don't be afraid to reach out to hiring managers and recruiters on linkedin for jobs you apply for.
-      Find your niche before the ink on your degree dries, or pivot to one as soon as you can. By doing so, you won't just land a job—you’ll carve out a meaningful,
+      Find your niche before the ink on your degree dries, or pivot to one as soon as you can. By doing so, you won't just land a job; you’ll carve out a meaningful,
       sustainable path in the industry.`,
     };
   },

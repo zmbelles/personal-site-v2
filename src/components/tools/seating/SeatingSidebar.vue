@@ -119,7 +119,7 @@
     </section>
 
     <!-- Lives inside the app shell, which is the element that goes full
-         screen — a dialog outside it would never be seen there. -->
+         screen; a dialog outside it would never be seen there. -->
     <CoffeeDialog
       v-if="coffeeOpen"
       thing="This seating chart maker"
@@ -144,7 +144,7 @@ const store = useSeatingStore();
 /*
  * The coffee ask, shown once a session before an export. It never blocks the
  * file: closeCoffee runs the pending export whichever button was pressed.
- * "Download JSON" is deliberately left out — that one is how people back their
+ * "Download JSON" is deliberately left out; that one is how people back their
  * chart up, and interrupting a backup would be a nasty thing to do.
  */
 const coffeeOpen = ref(false);

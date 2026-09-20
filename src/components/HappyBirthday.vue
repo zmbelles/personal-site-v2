@@ -10,7 +10,7 @@
         <h2>🏒 For the Love of Hockey</h2>
         <p>
           From the first puck drop to overtime shootouts, you've lived and breathed Blackhawks hockey.
-          Here's hoping next year is full of wins — both on the ice and in life.
+          Here's hoping next year is full of wins, both on the ice and in life.
         </p>
       </div>
   
@@ -34,7 +34,7 @@
         <h2>🥃 Here's to You</h2>
         <p>
           Wishing you a year of laughter, success, and plenty of whiskey with friends.
-          Love you, bro — proud of everything you’ve done and everything you're gonna do.
+          Love you, bro, proud of everything you’ve done and everything you're gonna do.
         </p>
       </div>
     </div>

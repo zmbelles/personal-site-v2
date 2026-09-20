@@ -21,7 +21,7 @@ const QUIET_KEY = "tng.coffee.quietUntil";
 const NEVER_KEY = "tng.coffee.never";
 
 // Storage is blocked outright in some privacy modes, and a thrown exception
-// here must never stop someone getting their file — so every read fails to
+// here must never stop someone getting their file, so every read fails to
 // "do not ask" and every write fails silently.
 function read(store, key) {
   try {
@@ -63,7 +63,7 @@ export function markSupported() {
 
 /**
  * Called when someone picks "Don't ask again". Unlike the other two this has
- * no expiry — the only way back is clearing site data, which is the right
+ * no expiry; the only way back is clearing site data, which is the right
  * trade for a prompt nobody is obliged to see.
  */
 export function markNeverAsk() {

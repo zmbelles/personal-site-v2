@@ -34,7 +34,7 @@ export const invoiceSpec = {
   paidLabel: "Amount paid",
   balanceLabel: "Balance due",
   // The status printed as a stamp across the document rather than as a line of
-  // text — only "paid" is worth shouting about.
+  // text; only "paid" is worth shouting about.
   stampStatus: "Paid in Full",
 
   filePrefix: "invoice",

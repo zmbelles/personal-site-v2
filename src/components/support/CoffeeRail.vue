@@ -5,7 +5,7 @@
     <h2 class="cr-title">{{ heading }}</h2>
     <p class="cr-copy">
       <slot>
-        Free, no sign-up, nothing uploaded — and built and maintained by one
+        Free, no sign-up, nothing uploaded, and built and maintained by one
         person in his own time. If it saved you some, a coffee goes a long way.
       </slot>
     </p>
@@ -15,7 +15,7 @@
       :href="url"
       target="_blank"
       rel="noopener"
-      aria-label="Buy me a coffee — opens buymeacoffee.com in a new tab"
+      aria-label="Buy me a coffee, opens buymeacoffee.com in a new tab"
     >
       Buy me a coffee
     </a>
@@ -48,7 +48,7 @@ export default {
  * The support card, parked in the left margin and pinned so it rides along as
  * you scroll.
  *
- * It is fixed, so it is out of flow and cannot squeeze the content column —
+ * It is fixed, so it is out of flow and cannot squeeze the content column;
  * the page stays exactly as wide as it was. Its width is derived from whatever
  * margin the viewport actually leaves, rather than being a fixed size that
  * looks marooned on a big screen, and it is centred in that margin.
@@ -131,9 +131,9 @@ export default {
 
 /*
  * Three sizes, because the margin is whatever the viewport leaves over:
- *   full card  — room for the heading and the copy
- *   compact    — cup and button only, still filling the margin
- *   corner cup — no usable margin at all, so it tucks into the corner
+ *   full card:  room for the heading and the copy
+ *   compact:    cup and button only, still filling the margin
+ *   corner cup: no usable margin at all, so it tucks into the corner
  * The corner rules come last so they win when both queries match.
  */
 @media (max-width: 1629px) {
@@ -200,7 +200,7 @@ export default {
   }
 
   .cr:not(.cr--wide) .cr-btn {
-    /* The whole card is the link at this size — see the overlay below. */
+    /* The whole card is the link at this size; see the overlay below. */
     position: absolute;
     inset: 0;
     padding: 0;

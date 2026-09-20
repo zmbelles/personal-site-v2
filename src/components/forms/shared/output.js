@@ -2,8 +2,8 @@
  * Turns the rendered sheet into something you can keep: a PDF, the browser
  * print dialog, or a JSON file.
  *
- * html2pdf pulls in html2canvas and jsPDF — around half a megabyte that nobody
- * who is only reading the page should have to download — so it is imported
+ * html2pdf pulls in html2canvas and jsPDF, around half a megabyte that nobody
+ * who is only reading the page should have to download, so it is imported
  * dynamically and webpack keeps it in its own chunk.
  */
 import { PAGE_WIDTH, renderDocumentHtml } from "./documentHtml.js";
@@ -19,7 +19,7 @@ export function fileName(doc, spec, extension) {
 function mountSheet(doc, spec) {
   const host = document.createElement("div");
   host.setAttribute("aria-hidden", "true");
-  // Off to the left rather than display:none — html2canvas measures layout, and
+  // Off to the left rather than display:none; html2canvas measures layout, and
   // a hidden element has none.
   host.style.cssText = `position:fixed;left:-10000px;top:0;width:${PAGE_WIDTH}px;background:#ffffff;`;
   host.innerHTML = renderDocumentHtml(doc, spec, { preview: false });
@@ -69,7 +69,7 @@ export async function downloadPdf(doc, spec) {
 }
 
 /**
- * Prints through a throwaway iframe so the browser lays the sheet out itself —
+ * Prints through a throwaway iframe so the browser lays the sheet out itself:
  * real selectable text, and no rasterising.
  */
 export async function printDocument(doc, spec) {

@@ -4,23 +4,23 @@
  * An invoice and a sales order are the same document with different labels, so
  * one plain object backs both and src/components/forms/shared/specs.js supplies
  * the wording and which panels apply. Everything here is plain data and pure
- * functions — the Vue layer owns the reactivity, the renderer owns the markup.
+ * functions; the Vue layer owns the reactivity, the renderer owns the markup.
  */
 
 export const CURRENCIES = [
-  { code: "USD", label: "USD — US dollar" },
-  { code: "CAD", label: "CAD — Canadian dollar" },
-  { code: "EUR", label: "EUR — Euro" },
-  { code: "GBP", label: "GBP — British pound" },
-  { code: "AUD", label: "AUD — Australian dollar" },
-  { code: "NZD", label: "NZD — New Zealand dollar" },
-  { code: "CHF", label: "CHF — Swiss franc" },
-  { code: "SEK", label: "SEK — Swedish krona" },
-  { code: "MXN", label: "MXN — Mexican peso" },
-  { code: "BRL", label: "BRL — Brazilian real" },
-  { code: "INR", label: "INR — Indian rupee" },
-  { code: "JPY", label: "JPY — Japanese yen" },
-  { code: "ZAR", label: "ZAR — South African rand" },
+  { code: "USD", label: "USD - US dollar" },
+  { code: "CAD", label: "CAD - Canadian dollar" },
+  { code: "EUR", label: "EUR - Euro" },
+  { code: "GBP", label: "GBP - British pound" },
+  { code: "AUD", label: "AUD - Australian dollar" },
+  { code: "NZD", label: "NZD - New Zealand dollar" },
+  { code: "CHF", label: "CHF - Swiss franc" },
+  { code: "SEK", label: "SEK - Swedish krona" },
+  { code: "MXN", label: "MXN - Mexican peso" },
+  { code: "BRL", label: "BRL - Brazilian real" },
+  { code: "INR", label: "INR - Indian rupee" },
+  { code: "JPY", label: "JPY - Japanese yen" },
+  { code: "ZAR", label: "ZAR - South African rand" },
 ];
 
 // Net terms double as a shortcut: picking one recalculates the due date from
@@ -208,7 +208,7 @@ export function fromJson(spec, raw) {
   doc.terms = TERMS.some((term) => term.label === source.terms) ? source.terms : "Custom";
 
   // Terms without a date means "work it out", which is derived here rather than
-  // left to the form's watcher — that only fires when a value actually changes,
+  // left to the form's watcher; that only fires when a value actually changes,
   // and a payload can easily repeat the defaults.
   const term = TERMS.find((entry) => entry.label === doc.terms);
   if (!doc.dueDate && term && term.days != null) doc.dueDate = addDays(doc.date, term.days);

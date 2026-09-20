@@ -3,7 +3,7 @@
     class="sc-seat"
     :class="{ 'is-occupied': !!guest, 'is-over': over }"
     :style="{ left: x + 'px', top: y + 'px', '--c': guest ? colorFor(guest.name) : undefined }"
-    :title="guest ? guest.name : `Seat ${index + 1} — click to assign`"
+    :title="guest ? guest.name : `Seat ${index + 1}, click to assign`"
     :draggable="!!guest"
     @dragstart="onDragStart"
     @dragover.prevent="over = true"

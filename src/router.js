@@ -27,7 +27,7 @@ import JobQuestion from "@/components/blog/posts/JobQuestion.vue";
 import SeatingChart from "@/components/tools/seating/SeatingChartPage.vue";
 
 // Titles, descriptions, Open Graph data and structured data all live in
-// src/seo/pages.json, keyed by path — see src/seo/head.cjs.
+// src/seo/pages.json, keyed by path; see src/seo/head.cjs.
 // meta.legacyLayout keeps the centered layout older pages were designed around.
 const routes = [
   { path: "/", component: Home, name: "Home" },

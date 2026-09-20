@@ -8,9 +8,9 @@
         and nothing you type ever leaves your computer.
       </p>
       <ul class="sc-intro-tips">
-        <li><b>Seat someone</b> — drag a name onto a chair, or click a chair to pick from the list.</li>
-        <li><b>Move a table</b> — drag it. Hover it to rename, reshape, or change the seat count.</li>
-        <li><b>Get around</b> — right-click and drag to pan, <kbd>Ctrl</kbd> + scroll to zoom.</li>
+        <li><b>Seat someone</b>: drag a name onto a chair, or click a chair to pick from the list.</li>
+        <li><b>Move a table</b>: drag it. Hover it to rename, reshape, or change the seat count.</li>
+        <li><b>Get around</b>: right-click and drag to pan, <kbd>Ctrl</kbd> + scroll to zoom.</li>
       </ul>
     </section>
 
@@ -30,7 +30,7 @@
       <p>
         Your chart saves itself in this browser, so you can close the tab and
         come back to it. Clearing your site data or switching devices will lose
-        it — use <b>Download JSON</b> to keep a copy you can load again later.
+        it; use <b>Download JSON</b> to keep a copy you can load again later.
       </p>
       <p class="sc-muted-note">
         Exports: a <b>PNG</b> to print or send to your venue, a <b>CSV</b> of
@@ -50,7 +50,7 @@
     </section>
 
     <CoffeeRail wide>
-      No account, no guest limit, and your list never leaves your browser —
+      No account, no guest limit, and your list never leaves your browser,
       just one person building things in his own time. If this saved you an
       evening of spreadsheet wrangling, a coffee goes a long way.
     </CoffeeRail>

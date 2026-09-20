@@ -87,7 +87,7 @@ export function docToChart(doc) {
     const seats = Math.max(1, Math.min(MAX_SEATS, names.length || 1));
     const shape = SHAPES.includes(t.shape) ? t.shape : "circle";
     const id = uid("t");
-    // Files written by hand often omit coordinates — lay those out for them.
+    // Files written by hand often omit coordinates; lay those out for them.
     const placed =
       Number.isFinite(t.x) && Number.isFinite(t.y)
         ? { x: t.x, y: t.y }
@@ -182,8 +182,8 @@ export function exportPNG(state) {
   const ctx = canvas.getContext("2d");
   ctx.scale(scale, scale);
 
-  // The export stays light on purpose — it is meant to be printed or sent to a
-  // venue — but uses the site's purple rather than the UI's dark palette.
+  // The export stays light on purpose; it is meant to be printed or sent to a
+  // venue, but uses the site's purple rather than the UI's dark palette.
   ctx.fillStyle = "#faf8fd";
   ctx.fillRect(0, 0, width, height);
 

@@ -170,7 +170,7 @@
               ></textarea>
             </label>
           </div>
-          <p class="txn-note">One line per line of the label — name first, then street, then city.</p>
+          <p class="txn-note">One line per line of the label: name first, then street, then city.</p>
         </section>
 
         <section class="card txn-card">
@@ -317,7 +317,7 @@
         </div>
 
         <p class="txn-note txn-preview-note">
-          Everything stays in this browser — the sheet is built on your machine
+          Everything stays in this browser; the sheet is built on your machine
           and nothing is uploaded.
         </p>
       </aside>
@@ -426,7 +426,7 @@ export default {
       window.addEventListener("resize", this.onResize);
     }
     // Measured straight away rather than through onResize, so a page opened in
-    // a background tab — where rAF does not run — is still sized correctly.
+    // a background tab (where rAF does not run) is still sized correctly.
     this.measure();
   },
   beforeUnmount() {
@@ -491,7 +491,7 @@ export default {
         return;
       }
       if (file.size > MAX_LOGO_BYTES) {
-        this.say("That logo is over 2 MB — try a smaller PNG or SVG.");
+        this.say("That logo is over 2 MB, try a smaller PNG or SVG.");
         return;
       }
 
@@ -515,7 +515,7 @@ export default {
 
     /**
      * Validate, ask about a coffee if it is time to, then hand over the file.
-     * The ask never gates the output — `closeCoffee` runs the action whichever
+     * The ask never gates the output; `closeCoffee` runs the action whichever
      * button was pressed.
      */
     startDownload() {
@@ -601,7 +601,7 @@ export default {
         try {
           save(toJson(this.doc, this.spec));
         } catch {
-          // Storage is unavailable entirely — the form still works, it just
+          // Storage is unavailable entirely; the form still works, it just
           // will not survive a refresh.
         }
       }

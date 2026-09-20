@@ -7,11 +7,11 @@
     "lang": "en",
     "themeColor": "#181825",
     "titleFallback": "Zachary Belles",
-    "description": "Zachary Belles — NetSuite developer at Netgain building fixed asset and lease accounting SuiteApps, writing about SuiteScript, plus a handful of free browser tools.",
+    "description": "Zachary Belles, NetSuite developer at Netgain building fixed asset and lease accounting SuiteApps, writing about SuiteScript, plus a handful of free browser tools.",
     "jobTitle": "NetSuite Developer",
     "worksFor": { "name": "Netgain Solutions", "url": "https://www.netgain.tech/" },
     "image": "/og/default.png",
-    "imageAlt": "Zachary Belles — NetSuite developer",
+    "imageAlt": "Zachary Belles, NetSuite developer",
     "twitterCard": "summary_large_image",
     "geo": {
       "region": "US-IL",
@@ -27,8 +27,8 @@
 
   "pages": {
     "/": {
-      "title": "Zachary Belles — NetSuite Developer & Software Engineer",
-      "description": "NetSuite developer at Netgain building the NetAsset and NetLease SuiteApps with SuiteScript, SuiteQL, and React — plus free browser tools and a blog on building for NetSuite.",
+      "title": "Zachary Belles | NetSuite Developer & Software Engineer",
+      "description": "NetSuite developer at Netgain building the NetAsset and NetLease SuiteApps with SuiteScript, SuiteQL, and React, plus free browser tools and a blog on building for NetSuite.",
       "keywords": "Zachary Belles, NetSuite Developer, SuiteScript, SuiteQL, SuiteApp Developer, Netgain, NetAsset, NetLease, ERP, Software Engineer, Naperville",
       "type": "website",
       "priority": "1.0",
@@ -36,7 +36,7 @@
     },
 
     "/resume": {
-      "title": "Resume — Zachary Belles, NetSuite Developer",
+      "title": "Resume | Zachary Belles, NetSuite Developer",
       "description": "The resume of Zachary Belles, NetSuite developer at Netgain: federally regulated (FERC) asset accounting, AI tooling with MCP and Claude, and SuiteApp development on NetAsset and NetLease, with a BS in Computer Science from North Central College.",
       "keywords": "Zachary Belles Resume, NetSuite Developer Resume, SuiteScript Developer, SuiteApp Developer, NetAsset, NetLease, FERC, Group Depreciation, ASC 842, MCP, Claude, AI in NetSuite, Software Engineer CV",
       "type": "profile",
@@ -55,7 +55,7 @@
     },
 
     "/seating-chart": {
-      "title": "Free Wedding Seating Chart Maker — Drag & Drop, No Sign-Up",
+      "title": "Free Wedding Seating Chart Maker | Drag & Drop, No Sign-Up",
       "description": "Plan your wedding reception seating in your browser. Add round or rectangular tables, import your guest list, drag everyone into a seat, then export a PNG, CSV, or JSON. Free, no sign-up, nothing leaves your device.",
       "keywords": "wedding seating chart, seating chart maker, free seating chart, reception table planner, wedding table layout, guest list seating, seating chart template, drag and drop seating chart, wedding planning tool",
       "type": "website",
@@ -91,7 +91,7 @@
         },
         {
           "q": "Can I import my guest list from a spreadsheet?",
-          "a": "Yes. Export your guests as a CSV and use Import CSV file, or paste names straight into the paste box — one name per line, or columns named First and Last, or a single Name column."
+          "a": "Yes. Export your guests as a CSV and use Import CSV file, or paste names straight into the paste box: one name per line, or columns named First and Last, or a single Name column."
         },
         {
           "q": "How do I save my seating chart and come back to it later?",
@@ -103,13 +103,13 @@
         },
         {
           "q": "Can I use it for something other than a wedding?",
-          "a": "Yes. Nothing is wedding specific — it works just as well for banquets, galas, classrooms, conferences, or any event where you need to assign people to tables."
+          "a": "Yes. Nothing is wedding specific; it works just as well for banquets, galas, classrooms, conferences, or any event where you need to assign people to tables."
         }
       ]
     },
 
     "/games": {
-      "title": "Free Browser Games — Zachary Belles",
+      "title": "Free Browser Games | Zachary Belles",
       "description": "A small collection of free browser games built with Vue: Button Match and a 9x9 Hyper Tic-Tac-Toe you can play against the computer. No download, no sign-up.",
       "keywords": "free browser games, online games no download, button match, tic tac toe, vue games",
       "type": "website",
@@ -118,7 +118,7 @@
     },
 
     "/games/match": {
-      "title": "Button Match — Free Online Memory Game",
+      "title": "Button Match | Free Online Memory Game",
       "description": "A free browser memory game: find the matching buttons before your streak runs out. Plays instantly, no download or sign-up needed.",
       "keywords": "button match, memory game, matching game, free browser game, concentration game",
       "type": "website",
@@ -127,8 +127,8 @@
     },
 
     "/games/tic-tac-toe": {
-      "title": "Hyper Tic-Tac-Toe — Play 9x9 Tic-Tac-Toe vs the Computer",
-      "description": "Tic-tac-toe on a 9x9 board against the computer. Far more strategy than the 3x3 version — free to play in your browser with nothing to install.",
+      "title": "Hyper Tic-Tac-Toe | Play 9x9 Tic-Tac-Toe vs the Computer",
+      "description": "Tic-tac-toe on a 9x9 board against the computer. Far more strategy than the 3x3 version, free to play in your browser with nothing to install.",
       "keywords": "hyper tic tac toe, 9x9 tic tac toe, tic tac toe vs computer, free tic tac toe online, strategy game",
       "type": "website",
       "priority": "0.5",
@@ -136,12 +136,12 @@
     },
 
     "/games/battleship": {
-      "title": "Battleship — Coming Soon",
+      "title": "Battleship | Coming Soon",
       "noindex": true
     },
 
     "/forms": {
-      "title": "Free Invoice & Sales Order Generators — No Sign-Up",
+      "title": "Free Invoice & Sales Order Generators | No Sign-Up",
       "description": "Two free browser tools that build a printable invoice or sales order as you type, then download it as a PDF. Modelled on NetSuite Advanced PDF layouts. No account, nothing uploaded.",
       "keywords": "free invoice generator, sales order generator, invoice maker, printable invoice PDF, NetSuite forms, NetSuite Advanced PDF, transaction form template, ERP forms",
       "type": "website",
@@ -150,7 +150,7 @@
     },
 
     "/forms/sales-order": {
-      "title": "Free Sales Order Generator — Printable PDF, No Sign-Up",
+      "title": "Free Sales Order Generator | Printable PDF, No Sign-Up",
       "description": "Build a sales order in your browser: bill-to and ship-to addresses, line items with quantities, units and weights, shipping, deposits and a running total. Download a PDF or print it. Free, no account, nothing leaves your device.",
       "keywords": "sales order generator, free sales order template, sales order PDF, printable sales order, order confirmation form, NetSuite sales order, Advanced PDF, ERP forms",
       "type": "website",
@@ -199,13 +199,13 @@
         },
         {
           "q": "Does this work with NetSuite?",
-          "a": "Not directly — it does not connect to NetSuite. The layout mirrors a NetSuite sales order print, so it is a quick way to settle on a design before you build the equivalent Advanced PDF template in FreeMarker."
+          "a": "Not directly. It does not connect to NetSuite. The layout mirrors a NetSuite sales order print, so it is a quick way to settle on a design before you build the equivalent Advanced PDF template in FreeMarker."
         }
       ]
     },
 
     "/forms/invoice": {
-      "title": "Free Invoice Generator — Printable PDF, No Sign-Up",
+      "title": "Free Invoice Generator | Printable PDF, No Sign-Up",
       "description": "Create an invoice in your browser and watch it build as you type: payment terms that set the due date, tax and discount lines, a running balance due, and your own logo. Download a PDF or print it. Free, no account, nothing leaves your device.",
       "keywords": "free invoice generator, invoice maker, invoice template, printable invoice PDF, billing form, create an invoice online, NetSuite invoice, Advanced PDF, ERP forms",
       "type": "website",
@@ -243,7 +243,7 @@
         },
         {
           "q": "How is the due date worked out?",
-          "a": "Pick payment terms — due on receipt, Net 15, 30, 45 or 60 — and the due date is counted forward from the invoice date. Type a due date yourself and the terms switch to Custom so the two never contradict each other."
+          "a": "Pick payment terms (due on receipt, Net 15, 30, 45 or 60) and the due date is counted forward from the invoice date. Type a due date yourself and the terms switch to Custom so the two never contradict each other."
         },
         {
           "q": "Can I put my own logo and colours on it?",
@@ -259,13 +259,13 @@
         },
         {
           "q": "Does this work with NetSuite?",
-          "a": "Not directly — it does not connect to NetSuite. The layout is the one I start from when building Advanced PDF templates, so it is a quick way to settle on a design before writing any FreeMarker."
+          "a": "Not directly. It does not connect to NetSuite. The layout is the one I start from when building Advanced PDF templates, so it is a quick way to settle on a design before writing any FreeMarker."
         }
       ]
     },
 
     "/blog": {
-      "title": "Blog — NetSuite, SuiteScript & Developer Career Notes",
+      "title": "Blog | NetSuite, SuiteScript & Developer Career Notes",
       "description": "Writing on NetSuite development: SuiteScript patterns, Advanced PDF templates, working with GPT, and lessons from a software engineering career.",
       "keywords": "NetSuite blog, SuiteScript tutorials, NetSuite development, ERP development blog, developer career",
       "type": "website",
@@ -316,7 +316,7 @@
       "type": "article",
       "section": "NetSuite",
       "image": "/og/gpt-in-netsuite.png",
-      "imageAlt": "The N/GPT module — using GPT-4 with SuiteScript",
+      "imageAlt": "The N/GPT module, using GPT-4 with SuiteScript",
       "published": "2024-02-12T21:01:36-05:00",
       "modified": "2024-02-14T22:43:19-05:00",
       "priority": "0.7",
@@ -344,7 +344,7 @@
       "type": "article",
       "section": "Career",
       "image": "/og/be-intentional.png",
-      "imageAlt": "Be intentional — tips for software developers",
+      "imageAlt": "Be intentional: tips for software developers",
       "published": "2024-09-23T20:35:41-05:00",
       "modified": "2024-09-23T23:06:06-05:00",
       "priority": "0.7",
@@ -358,7 +358,7 @@
       "type": "article",
       "section": "Career",
       "image": "/og/find-a-niche.png",
-      "imageAlt": "Find a niche and fill it — standing out in a saturated tech job market",
+      "imageAlt": "Find a niche and fill it: standing out in a saturated tech job market",
       "published": "2024-12-06T08:45:54-06:00",
       "modified": "2024-12-06T08:45:54-06:00",
       "priority": "0.7",

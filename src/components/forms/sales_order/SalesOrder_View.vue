@@ -10,7 +10,7 @@
     </FormFaq>
 
     <CoffeeRail>
-      No account, no watermark, no limit on line items — just one person
+      No account, no watermark, no limit on line items, just one person
       building things in his own time. If this saved you an afternoon, a coffee
       goes a long way.
     </CoffeeRail>
@@ -31,8 +31,8 @@ export default {
       spec: salesOrderSpec,
       heading: "Free sales order generator",
       lede:
-        "Build a sales order line by line — quantities, units, weights and " +
-        "shipping — then download a PDF or print it. No sign-up, nothing leaves " +
+        "Build a sales order line by line: quantities, units, weights and " +
+        "shipping, then download a PDF or print it. No sign-up, nothing leaves " +
         "your browser, and the layout mirrors a NetSuite sales order print.",
     };
   },

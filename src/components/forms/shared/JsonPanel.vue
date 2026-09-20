@@ -97,7 +97,7 @@ function exampleFor(spec) {
     currency: "USD",
     billTo: "Northwind Millwork\nAttn: Accounts Payable\n900 Rand Road\nArlington Heights, IL 60004",
     ...(spec.showShipTo
-      ? { shipTo: "Northwind Millwork — Dock 3\n914 Rand Road\nArlington Heights, IL 60004" }
+      ? { shipTo: "Northwind Millwork, Dock 3\n914 Rand Road\nArlington Heights, IL 60004" }
       : {}),
     ...(spec.referenceLabel ? { reference: "LTL freight, prepaid" } : {}),
     lines: [
@@ -193,7 +193,7 @@ export default {
       try {
         parsed = JSON.parse(this.text);
       } catch (error) {
-        this.error = "That is not valid JSON — " + error.message;
+        this.error = "That is not valid JSON: " + error.message;
         return;
       }
       if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {

@@ -1,8 +1,8 @@
 /**
  * Renders a document object as a sheet of printable HTML.
  *
- * One renderer feeds all three outputs — the live preview, the PDF and the
- * print dialog — so what you see while typing is exactly what comes out.
+ * One renderer feeds all three outputs, the live preview, the PDF and the
+ * print dialog, so what you see while typing is exactly what comes out.
  *
  * Every rule is an inline style on purpose. html2canvas rasterises a clone of
  * this markup, and a clone only keeps the styling it carries with it; a
@@ -49,7 +49,7 @@ function tint(hex, alpha) {
 function value(text, preview) {
   const clean = String(text ?? "").trim();
   if (clean) return esc(clean);
-  return preview ? `<span style="color:${FAINT}">—</span>` : "";
+  return preview ? `<span style="color:${FAINT}">-</span>` : "";
 }
 
 function addressBlock(text, preview, placeholder) {

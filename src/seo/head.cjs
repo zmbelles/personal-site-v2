@@ -29,7 +29,7 @@ function indexablePaths() {
   return Object.keys(PAGES).filter((p) => !PAGES[p].noindex);
 }
 
-// An unrecognised path is a 404 — never invite crawlers to index one.
+// An unrecognised path is a 404; never invite crawlers to index one.
 const NOT_FOUND = {
   title: "Page Not Found",
   description: "That page does not exist. Head back to the home page to find your way around.",

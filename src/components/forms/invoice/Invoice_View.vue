@@ -13,7 +13,7 @@
     </FormFaq>
 
     <CoffeeRail>
-      No account, no watermark, no limit on line items — just one person
+      No account, no watermark, no limit on line items, just one person
       building things in his own time. If this saved you an afternoon, a coffee
       goes a long way.
     </CoffeeRail>

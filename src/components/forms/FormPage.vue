@@ -47,7 +47,7 @@
         designs rebuilt for the browser: the same header block, the same line
         table, the same totals stack. If you are building the NetSuite version,
         they are a quick way to settle on a layout before you write any
-        FreeMarker — and if you just need an invoice for a side project, they
+        FreeMarker, and if you just need an invoice for a side project, they
         work perfectly well on their own.
       </p>
       <p>
