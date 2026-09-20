@@ -38,18 +38,18 @@
   </url>
   <url>
     <loc>https://thenetsuiteguy.com/forms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thenetsuiteguy.com/forms/sales-order</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thenetsuiteguy.com/forms/invoice</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://thenetsuiteguy.com/blog</loc>
