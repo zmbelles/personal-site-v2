@@ -42,17 +42,19 @@
     <section class="container why">
       <h2>Why these exist</h2>
       <p>
-        Most of my day is spent on NetSuite Advanced PDF templates, where the
-        layout is FreeMarker and XML rather than HTML. All four are the same
-        design rebuilt for the browser: the same header block, the same line
-        table, the same totals stack. If you are building the NetSuite version,
-        they are a quick way to settle on a layout before you write any
-        FreeMarker, and if you just need an invoice for a side project, they
-        work perfectly well on their own.
+        A lot of small and self-run businesses just need to send the
+        occasional invoice, purchase order, or bill, not pay for a monthly
+        subscription to a full accounting suite to do it. These four are
+        free and permanent: fill in the fields, watch the sheet build itself
+        alongside, and walk away with a real PDF.
       </p>
       <p>
-        The whole thing runs on your machine. There is no account, no server,
-        and no copy of your customer list anywhere but your own browser.
+        The layouts happen to be the same ones I use to preview NetSuite
+        Advanced PDF templates before writing any FreeMarker, since that is
+        most of what I build day to day, so they hold up the same way real
+        billing paperwork does. The whole thing runs on your machine: no
+        account, no server, and no copy of your customer list anywhere but
+        your own browser.
       </p>
     </section>
   </div>
