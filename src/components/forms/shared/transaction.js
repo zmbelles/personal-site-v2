@@ -247,7 +247,6 @@ export function toJson(doc, spec) {
     accent: doc.accent,
     company: { ...doc.company },
     number: doc.number,
-    poNumber: doc.poNumber,
     date: doc.date,
     terms: doc.terms,
     dueDate: doc.dueDate,
@@ -272,6 +271,7 @@ export function toJson(doc, spec) {
 
   if (spec.showShipTo) payload.shipTo = doc.shipTo;
   if (spec.referenceLabel) payload.reference = doc.reference;
+  if (spec.showPoNumber) payload.poNumber = doc.poNumber;
 
   // An uploaded logo is tens of kilobytes of base64: useless to read and it
   // swamps the editor, so it stays out of the copied JSON.

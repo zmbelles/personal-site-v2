@@ -120,7 +120,7 @@ export function renderDocumentHtml(doc, spec, { preview = false } = {}) {
     metaRow(spec.dateLabel, formatDate(doc.date)),
     metaRow(spec.dueDateLabel, formatDate(doc.dueDate)),
     spec.showTerms ? metaRow("Terms", doc.terms === "Custom" ? "" : doc.terms) : "",
-    metaRow("PO #", doc.poNumber),
+    spec.showPoNumber ? metaRow("PO #", doc.poNumber) : "",
     spec.referenceLabel ? metaRow(spec.referenceLabel, doc.reference) : "",
     metaRow("Status", doc.status === spec.stampStatus ? "" : doc.status),
   ]
@@ -129,18 +129,25 @@ export function renderDocumentHtml(doc, spec, { preview = false } = {}) {
 
   /* ---------- parties ---------- */
 
+  // Most documents ship to the same party they bill; a purchase order ships
+  // to the issuer instead, so its spec points shipToSource at "company".
+  const shipToFallback =
+    spec.shipToSource === "company"
+      ? [doc.company.name, ...addressLines(doc.company.address)].filter(Boolean).join("\n")
+      : doc.billTo;
+
   const parties = [
     `<td style="vertical-align:top;padding-right:24px;width:${spec.showShipTo ? "34%" : "58%"}">
-       <div style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${MUTED};margin-bottom:6px">Bill to</div>
-       <div style="font-size:11.5px;line-height:1.45">${addressBlock(doc.billTo, preview, "Customer name and address")}</div>
+       <div style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${MUTED};margin-bottom:6px">${esc(spec.billToLabel)}</div>
+       <div style="font-size:11.5px;line-height:1.45">${addressBlock(doc.billTo, preview, spec.billToBlank)}</div>
      </td>`,
     spec.showShipTo
       ? `<td style="vertical-align:top;padding-right:24px;width:34%">
            <div style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${MUTED};margin-bottom:6px">Ship to</div>
            <div style="font-size:11.5px;line-height:1.45">${addressBlock(
-             doc.shipTo || doc.billTo,
+             doc.shipTo || shipToFallback,
              preview,
-             "Shipping name and address"
+             spec.shipToBlank
            )}</div>
          </td>`
       : "",

@@ -96,7 +96,7 @@
               <span>{{ spec.numberLabel }} <i aria-hidden="true">*</i></span>
               <input v-model="doc.number" type="text" required :placeholder="spec.numberPlaceholder" />
             </label>
-            <label class="txn-field">
+            <label v-if="spec.showPoNumber" class="txn-field">
               <span>PO #</span>
               <input v-model="doc.poNumber" type="text" placeholder="PO-88120" />
             </label>
@@ -147,27 +147,23 @@
 
           <div class="txn-row">
             <label class="txn-field">
-              <span>Bill to <i aria-hidden="true">*</i></span>
+              <span>{{ spec.billToLabel }} <i aria-hidden="true">*</i></span>
               <textarea
                 v-model="doc.billTo"
                 rows="5"
                 required
-                placeholder="Northwind Millwork&#10;Attn: Accounts Payable&#10;900 Rand Road&#10;Arlington Heights, IL 60004"
+                :placeholder="spec.billToExample"
               ></textarea>
             </label>
 
             <label v-if="spec.showShipTo" class="txn-field">
               <span>
                 Ship to
-                <button type="button" class="txn-inline-btn" @click="doc.shipTo = doc.billTo">
-                  copy bill to
+                <button type="button" class="txn-inline-btn" @click="copyShipTo">
+                  {{ spec.shipToSource === "company" ? "use my address" : "copy bill to" }}
                 </button>
               </span>
-              <textarea
-                v-model="doc.shipTo"
-                rows="5"
-                placeholder="Leave blank to reuse the billing address"
-              ></textarea>
+              <textarea v-model="doc.shipTo" rows="5" :placeholder="shipToHint"></textarea>
             </label>
           </div>
           <p class="txn-note">One line per line of the label — name first, then street, then city.</p>
@@ -284,7 +280,7 @@
 
           <label class="txn-field">
             <span>Notes</span>
-            <textarea v-model="doc.memo" rows="3" placeholder="Anything the customer should read before paying."></textarea>
+            <textarea v-model="doc.memo" rows="3" :placeholder="spec.memoPlaceholder"></textarea>
           </label>
         </section>
 
@@ -395,6 +391,11 @@ export default {
     previewHtml() {
       return renderDocumentHtml(this.doc, this.spec, { preview: true });
     },
+    shipToHint() {
+      return this.spec.shipToSource === "company"
+        ? "Leave blank to ship to your own address above."
+        : "Leave blank to reuse the billing address.";
+    },
   },
   watch: {
     doc: {
@@ -462,6 +463,14 @@ export default {
     onResize() {
       cancelAnimationFrame(this.frame);
       this.frame = requestAnimationFrame(this.measure);
+    },
+
+    /* ---- addresses ---- */
+    copyShipTo() {
+      this.doc.shipTo =
+        this.spec.shipToSource === "company"
+          ? [this.doc.company.name, this.doc.company.address].filter(Boolean).join("\n")
+          : this.doc.billTo;
     },
 
     /* ---- lines ---- */
