@@ -52,6 +52,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://thenetsuiteguy.com/forms/purchase-order</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thenetsuiteguy.com/forms/vendor-bill</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thenetsuiteguy.com/blog</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
