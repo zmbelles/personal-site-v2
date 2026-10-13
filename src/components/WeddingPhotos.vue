@@ -36,9 +36,20 @@
           {{ c.name }}<span class="wp-tab-count">{{ c.photos.length }}</span>
         </button>
       </nav>
-      <p class="wp-count">
-        {{ total.toLocaleString() }} photos<template v-if="pageCount > 1"> · showing {{ pageStart + 1 }}–{{ pageEnd }}</template>
-      </p>
+      <div class="wp-meta">
+        <p class="wp-count">
+          {{ total.toLocaleString() }} photos<template v-if="pageCount > 1"> · showing {{ pageStart + 1 }}–{{ pageEnd }}</template>
+        </p>
+        <div v-if="dl" class="wp-dl">
+          <span class="wp-dl-text">Zipping {{ dl.label }}… {{ dl.done.toLocaleString() }} / {{ dl.total.toLocaleString() }}</span>
+          <span class="wp-dl-bar"><span :style="{ width: `${(dl.done / dl.total) * 100}%` }"></span></span>
+          <button class="btn btn--ghost btn--sm" @click="dl.cancelled = true">Cancel</button>
+        </div>
+        <button v-else class="btn btn--ghost btn--sm" @click="downloadSection">
+          Download {{ cat ? categories[cat].name : "all" }} ({{ total.toLocaleString() }} · ~{{ approxSize }})
+        </button>
+      </div>
+      <p v-if="dlError" class="wp-error">{{ dlError }}</p>
       <nav
         v-for="where in pageCount > 1 ? ['top', 'bottom'] : []"
         :key="where"
@@ -98,6 +109,8 @@
 </template>
 
 <script>
+import { downloadZip } from "client-zip";
+
 // Photos live in the zmbelles/wedding-photos repo, encrypted with a key derived
 // from the page password (see tools/build.mjs there). Nothing readable is
 // published; the browser derives the key and decrypts each image on demand.
@@ -107,6 +120,9 @@ const SESSION_KEY = "wedding-photos-pw";
 const MAX_IN_FLIGHT = 6;
 const FULL_CACHE = 8;
 const PAGE_SIZE = 60;
+const AVG_FULL_MB = 0.2; // average full-size webp, for the size hint on the button
+
+const fileName = (id) => `wedding-${String(id + 1).padStart(4, "0")}.webp`;
 
 const fetchBytes = async (path) => {
   const res = await fetch(BASE + path);
@@ -137,9 +153,16 @@ export default {
       page: 0,
       // Position of the open photo within the current category, or null.
       current: null,
+      // Zip in progress: { label, done, total, cancelled }, or null.
+      dl: null,
+      dlError: "",
     };
   },
   computed: {
+    approxSize() {
+      const mb = this.total * AVG_FULL_MB;
+      return mb >= 100 ? `${Math.round(mb / 10) * 10} MB` : `${Math.max(1, Math.round(mb))} MB`;
+    },
     list() {
       return this.categories[this.cat]?.photos || [];
     },
@@ -216,6 +239,7 @@ export default {
   },
   beforeUnmount() {
     window.removeEventListener("keydown", this.onKey);
+    if (this.dl) this.dl.cancelled = true;
     for (const url of [...Object.values(this.thumbs), ...Object.values(this.fulls)]) URL.revokeObjectURL(url);
     document.body.style.overflow = "";
   },
@@ -382,6 +406,81 @@ export default {
         this.requested.delete(`f${old}`);
       }
       this.fulls = fulls;
+    },
+
+    // Zips the full-size copies of every photo in the current tab. Where the
+    // browser can write files directly (Chrome, Edge) the zip streams to disk;
+    // elsewhere it is assembled in memory and then saved.
+    async downloadSection() {
+      const ids = this.list.slice();
+      const label = this.cat ? this.categories[this.cat].name : "all photos";
+      const suggestedName = `wedding-photos-${this.cat ? this.slug(this.cat) : "all"}.zip`;
+      this.dlError = "";
+
+      let writable = null;
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName,
+            types: [{ description: "Zip file", accept: { "application/zip": [".zip"] } }],
+          });
+          writable = await handle.createWritable();
+        } catch (e) {
+          if (e.name === "AbortError") return; // closed the save dialog
+          writable = null;
+        }
+      }
+
+      this.dl = { label, done: 0, total: ids.length, cancelled: false };
+      const dl = this.dl; // the reactive proxy, so progress updates render
+      const key = this.key;
+      const fetchPhoto = async (id) => {
+        const path = `f/${String(id).padStart(4, "0")}.bin`;
+        let blob;
+        try {
+          blob = await fetchBytes(path);
+        } catch {
+          blob = await fetchBytes(path); // one retry for a dropped connection
+        }
+        return { name: fileName(id), input: await this.decrypt(key, blob) };
+      };
+      // Keeps a few requests in flight while handing photos to the zip in order.
+      async function* photos() {
+        const ahead = [];
+        let next = 0;
+        const fill = () => {
+          while (next < ids.length && ahead.length < MAX_IN_FLIGHT) ahead.push(fetchPhoto(ids[next++]));
+        };
+        fill();
+        while (ahead.length) {
+          if (dl.cancelled) throw new DOMException("Download cancelled", "AbortError");
+          const file = await ahead.shift();
+          fill();
+          dl.done++;
+          yield file;
+        }
+      }
+
+      const zip = downloadZip(photos());
+      try {
+        if (writable) {
+          await zip.body.pipeTo(writable);
+        } else {
+          const url = URL.createObjectURL(await zip.blob());
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = suggestedName;
+          a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
+      } catch (e) {
+        if (!dl.cancelled) {
+          console.error(e);
+          this.dlError = "The download stopped partway. Check your connection and try again.";
+        }
+      } finally {
+        this.dl = null;
+      }
     },
 
     // pos is a position within the current category, not a photo id.
@@ -593,9 +692,42 @@ export default {
   padding: 0 2px;
 }
 
+.wp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: 12px 0 20px;
+}
+
 .wp-count {
   color: var(--text-muted);
-  margin: 12px 0 20px;
+  margin: 0;
+}
+
+.wp-dl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+}
+
+.wp-dl-bar {
+  width: 140px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.wp-dl-bar span {
+  display: block;
+  height: 100%;
+  background: var(--gradient);
+  transition: width 0.2s linear;
 }
 
 .wp-grid {
