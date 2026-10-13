@@ -493,6 +493,11 @@
       "noindex": true
     },
 
+    "/wedding": {
+      "title": "Wedding Photos",
+      "noindex": true
+    },
+
     "/login": {
       "title": "Login",
       "noindex": true

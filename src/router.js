@@ -27,6 +27,7 @@ import FindANiche from "@/components/blog/posts/FindANiche.vue";
 import RemoteWork from "@/components/blog/posts/RemoteWork.vue";
 import JobQuestion from "@/components/blog/posts/JobQuestion.vue";
 import SeatingChart from "@/components/tools/seating/SeatingChartPage.vue";
+import WeddingPhotos from "@/components/WeddingPhotos.vue";
 
 // Titles, descriptions, Open Graph data and structured data all live in
 // src/seo/pages.json, keyed by path — see src/seo/head.cjs.
@@ -81,6 +82,7 @@ const routes = [
 
   { path: "/login", component: LoginPage, name: "login", meta: { legacyLayout: true } },
   { path: "/happy-birthday", component: HappyBirthday, name: "Happy Birthday", meta: { legacyLayout: true } },
+  { path: "/wedding", component: WeddingPhotos, name: "wedding" },
 
   { path: "/:pathMatch(.*)*", component: NotFound, name: "not-found" },
 ];
