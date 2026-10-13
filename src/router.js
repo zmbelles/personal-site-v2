@@ -26,6 +26,7 @@ import BeIntentional from "@/components/blog/posts/BeIntentional.vue";
 import FindANiche from "@/components/blog/posts/FindANiche.vue";
 import RemoteWork from "@/components/blog/posts/RemoteWork.vue";
 import JobQuestion from "@/components/blog/posts/JobQuestion.vue";
+import SuiteScriptDeadline from "@/components/blog/posts/SuiteScriptDeadline.vue";
 import SeatingChart from "@/components/tools/seating/SeatingChartPage.vue";
 
 // Titles, descriptions, Open Graph data and structured data all live in
@@ -38,6 +39,11 @@ const routes = [
 
   { path: "/blog", component: BlogPage, name: "Blog" },
   { path: "/blog/question-that-got-me-the-job", component: JobQuestion },
+  {
+    path: "/blog/suitescript-2-1-deadline",
+    component: SuiteScriptDeadline,
+    name: "SuiteScript 1.0, 2.0, and 2.x Are on the Clock",
+  },
   {
     path: "/blog/times-in-netsuite",
     component: AdvPdf,

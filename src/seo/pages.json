@@ -384,6 +384,18 @@
       "changefreq": "monthly"
     },
 
+    "/blog/suitescript-2-1-deadline": {
+      "title": "SuiteScript 1.0, 2.0, and 2.x Are on the Clock: Planning for 2028.2",
+      "description": "Oracle is retiring SuiteScript 1.0, 2.0, and 2.x by NetSuite 2028.2. The official timeline, what breaks on the 2.1 runtime, and a practical plan for paying down the tech debt.",
+      "keywords": "NetSuite, SuiteScript 2.1, SuiteScript 1.0 deprecation, SuiteScript 2.0, NApiVersion 2.x, NetSuite 2028.2, SuiteScript migration, Technical Debt, NetSuite Developer",
+      "type": "article",
+      "section": "NetSuite",
+      "published": "2026-10-13T09:00:00-05:00",
+      "modified": "2026-10-13T09:00:00-05:00",
+      "priority": "0.8",
+      "changefreq": "yearly"
+    },
+
     "/blog/question-that-got-me-the-job": {
       "title": "Bottom of the Ninth: From 20% to Hired",
       "description": "How a failed technical interview turned into a job offer. A story of persistence, growth, and getting it right when it counts.",
