@@ -28,6 +28,8 @@ import RemoteWork from "@/components/blog/posts/RemoteWork.vue";
 import JobQuestion from "@/components/blog/posts/JobQuestion.vue";
 import SuiteScriptDeadline from "@/components/blog/posts/SuiteScriptDeadline.vue";
 import SeatingChart from "@/components/tools/seating/SeatingChartPage.vue";
+import HelpfulPages from "@/components/HelpfulPages.vue";
+import GasFinder from "@/components/tools/gas/GasFinderPage.vue";
 
 // Titles, descriptions, Open Graph data and structured data all live in
 // src/seo/pages.json, keyed by path — see src/seo/head.cjs.
@@ -72,6 +74,8 @@ const routes = [
     name: "Remote Work: The Good, the Bad, and the Ugly",
   },
 
+  { path: "/tools", component: HelpfulPages, name: "tools" },
+  { path: "/tools/gas-finder", component: GasFinder, name: "gas-finder" },
   { path: "/seating-chart", component: SeatingChart, name: "seating-chart" },
 
   { path: "/games", component: GamesPage, name: "games" },

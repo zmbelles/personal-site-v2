@@ -43,9 +43,10 @@
 
       <nav class="footer-col" aria-label="Free tools">
         <p class="footer-heading">Free tools</p>
+        <router-link to="/tools/gas-finder">Cheapest Gas Finder</router-link>
         <router-link to="/seating-chart">Seating Chart Maker</router-link>
+        <router-link to="/forms">Business Forms</router-link>
         <router-link to="/games">Games</router-link>
-        <router-link to="/forms">Invoice &amp; Sales Order</router-link>
       </nav>
     </div>
 
