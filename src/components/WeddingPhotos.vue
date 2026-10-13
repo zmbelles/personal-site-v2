@@ -114,6 +114,14 @@ const fetchBytes = async (path) => {
   return new Uint8Array(await res.arrayBuffer());
 };
 
+// Every photo once, in the order of the day: anything that only appears in
+// Highlights first, then each section in turn.
+const allPhotos = ([highlights, ...sections]) => {
+  const inSections = sections.flatMap((c) => c.photos);
+  const seen = new Set(inSections);
+  return [...highlights.photos.filter((id) => !seen.has(id)), ...inSections];
+};
+
 export default {
   name: "WeddingPhotos",
   data() {
@@ -252,7 +260,8 @@ export default {
           throw e;
         }
         this.key = key;
-        this.categories = JSON.parse(new TextDecoder().decode(manifest)).categories;
+        const { categories } = JSON.parse(new TextDecoder().decode(manifest));
+        this.categories = [{ name: "All photos", photos: allPhotos(categories) }, ...categories];
         try {
           sessionStorage.setItem(SESSION_KEY, this.password);
         } catch {
