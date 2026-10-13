@@ -25,10 +25,26 @@
     </form>
 
     <div v-else class="wp-gallery">
-      <p ref="top" class="wp-count">
-        {{ dims.length.toLocaleString() }} photos · showing {{ pageStart + 1 }}–{{ pageEnd }}
+      <nav ref="top" class="wp-tabs" aria-label="Sections">
+        <button
+          v-for="(c, n) in categories"
+          :key="c.name"
+          :class="['wp-tab', { 'wp-tab--on': n === cat }]"
+          :aria-current="n === cat ? 'page' : null"
+          @click="selectCat(n)"
+        >
+          {{ c.name }}<span class="wp-tab-count">{{ c.photos.length }}</span>
+        </button>
+      </nav>
+      <p class="wp-count">
+        {{ total.toLocaleString() }} photos<template v-if="pageCount > 1"> · showing {{ pageStart + 1 }}–{{ pageEnd }}</template>
       </p>
-      <nav v-for="where in ['top', 'bottom']" :key="where" :class="['wp-pager', `wp-pager--${where}`]" aria-label="Pages">
+      <nav
+        v-for="where in pageCount > 1 ? ['top', 'bottom'] : []"
+        :key="where"
+        :class="['wp-pager', `wp-pager--${where}`]"
+        aria-label="Pages"
+      >
         <button class="btn btn--ghost btn--sm" :disabled="page === 0" aria-label="Previous page" @click="goTo(page - 1)">‹<span class="wp-word"> Prev</span></button>
         <template v-for="(p, n) in pageLinks" :key="n">
           <span v-if="p === null" class="wp-gap">…</span>
@@ -43,13 +59,13 @@
       </nav>
       <div class="wp-grid">
         <button
-          v-for="i in pageIndexes"
-          :key="i"
+          v-for="(id, n) in pageIds"
+          :key="id"
           class="wp-cell"
-          :aria-label="`Open photo ${i + 1}`"
-          @click="openAt(i)"
+          :aria-label="`Open photo ${pageStart + n + 1}`"
+          @click="openAt(pageStart + n)"
         >
-          <img v-if="thumbs[i]" :src="thumbs[i]" alt="" />
+          <img v-if="thumbs[id]" :src="thumbs[id]" alt="" />
         </button>
       </div>
     </div>
@@ -63,16 +79,16 @@
       @touchstart.passive="touchStart"
       @touchend.passive="touchEnd"
     >
-      <img v-if="fulls[current]" :src="fulls[current]"  class="wp-full" alt="" />
-      <img v-else-if="thumbs[current]" :src="thumbs[current]" class="wp-full wp-full--loading" alt="" />
+      <img v-if="fulls[currentId]" :src="fulls[currentId]" class="wp-full" alt="" />
+      <img v-else-if="thumbs[currentId]" :src="thumbs[currentId]" class="wp-full wp-full--loading" alt="" />
       <button class="wp-nav wp-nav--prev" aria-label="Previous photo" @click="step(-1)">‹</button>
       <button class="wp-nav wp-nav--next" aria-label="Next photo" @click="step(1)">›</button>
       <div class="wp-bar">
-        <span>{{ current + 1 }} / {{ dims.length }}</span>
+        <span>{{ categories[cat].name }} · {{ current + 1 }} / {{ total }}</span>
         <a
-          v-if="fulls[current]"
-          :href="fulls[current]"
-          :download="`wedding-${String(current + 1).padStart(4, '0')}.webp`"
+          v-if="fulls[currentId]"
+          :href="fulls[currentId]"
+          :download="`wedding-${String(currentId + 1).padStart(4, '0')}.webp`"
           class="btn btn--ghost btn--sm"
         >Download</a>
         <button class="btn btn--ghost btn--sm" @click="close">Close</button>
@@ -106,27 +122,36 @@ export default {
       busy: false,
       error: "",
       unlocked: false,
-      dims: [],
+      categories: [],
       thumbs: {},
       fulls: {},
-      current: null,
+      cat: 0,
       page: 0,
+      // Position of the open photo within the current category, or null.
+      current: null,
     };
   },
   computed: {
+    list() {
+      return this.categories[this.cat]?.photos || [];
+    },
+    total() {
+      return this.list.length;
+    },
+    currentId() {
+      return this.current === null ? null : this.list[this.current];
+    },
     pageCount() {
-      return Math.max(1, Math.ceil(this.dims.length / PAGE_SIZE));
+      return Math.max(1, Math.ceil(this.total / PAGE_SIZE));
     },
     pageStart() {
       return this.page * PAGE_SIZE;
     },
     pageEnd() {
-      return Math.min(this.pageStart + PAGE_SIZE, this.dims.length);
+      return Math.min(this.pageStart + PAGE_SIZE, this.total);
     },
-    pageIndexes() {
-      const out = [];
-      for (let i = this.pageStart; i < this.pageEnd; i++) out.push(i);
-      return out;
+    pageIds() {
+      return this.list.slice(this.pageStart, this.pageEnd);
     },
     // First, last, and two either side of the current page; null marks a gap.
     pageLinks() {
@@ -143,11 +168,21 @@ export default {
     },
   },
   watch: {
-    "$route.query.page"() {
-      this.page = this.pageFromRoute();
+    "$route.query"() {
+      this.syncFromRoute();
     },
-    page() {
+    pageIds() {
       this.loadPage();
+    },
+    // On phones the tabs scroll sideways; keep the active one in view.
+    cat() {
+      this.$nextTick(() => {
+        const row = this.$refs.top;
+        const tab = row?.querySelector(".wp-tab--on");
+        if (row && tab && row.scrollWidth > row.clientWidth) {
+          row.scrollTo({ left: tab.offsetLeft - row.offsetLeft - 16, behavior: "smooth" });
+        }
+      });
     },
   },
   created() {
@@ -217,14 +252,14 @@ export default {
           throw e;
         }
         this.key = key;
-        this.dims = JSON.parse(new TextDecoder().decode(manifest));
+        this.categories = JSON.parse(new TextDecoder().decode(manifest)).categories;
         try {
           sessionStorage.setItem(SESSION_KEY, this.password);
         } catch {
           /* ignore */
         }
         this.unlocked = true;
-        this.page = this.pageFromRoute();
+        this.syncFromRoute();
         this.loadPage();
       } catch (e) {
         console.error(e);
@@ -248,27 +283,46 @@ export default {
       return URL.createObjectURL(new Blob([bytes], { type: "image/webp" }));
     },
 
-    pageFromRoute() {
-      const n = parseInt(this.$route.query.page, 10);
-      return Number.isFinite(n) ? Math.min(Math.max(n - 1, 0), this.pageCount - 1) : 0;
+    slug(n) {
+      return this.categories[n].name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    },
+
+    // The URL is the source of truth: ?c=<section>&page=<n>, both optional.
+    query(cat, page) {
+      return { c: cat ? this.slug(cat) : undefined, page: page ? String(page + 1) : undefined };
+    },
+
+    syncFromRoute() {
+      if (!this.categories.length) return;
+      const { c, page } = this.$route.query;
+      const found = this.categories.findIndex((_, n) => this.slug(n) === c);
+      const cat = found < 0 ? 0 : found;
+      if (cat !== this.cat && this.current !== null) this.close();
+      this.cat = cat;
+      const n = parseInt(page, 10);
+      this.page = Number.isFinite(n) ? Math.min(Math.max(n - 1, 0), this.pageCount - 1) : 0;
+    },
+
+    selectCat(n) {
+      if (n === this.cat) return;
+      this.$router.push({ query: this.query(n, 0) });
     },
 
     goTo(p) {
-      const query = { ...this.$route.query, page: p ? String(p + 1) : undefined };
-      this.$router.push({ query });
-      this.page = p;
+      this.$router.push({ query: this.query(this.cat, p) });
       this.$refs.top?.scrollIntoView({ block: "start" });
     },
 
     // Drop thumbnails still queued for the page being left, then queue this one.
     loadPage() {
       if (!this.key) return;
+      const onPage = new Set(this.pageIds);
       this.queue = this.queue.filter((job) => {
-        const keep = job.full || (job.i >= this.pageStart && job.i < this.pageEnd);
+        const keep = job.full || onPage.has(job.i);
         if (!keep) this.requested.delete(`t${job.i}`);
         return keep;
       });
-      for (const i of this.pageIndexes) this.enqueue(i, false);
+      for (const id of this.pageIds) this.enqueue(id, false);
     },
 
     // Thumbnails and full images share one small pool so a fast scroll can't
@@ -310,7 +364,7 @@ export default {
       this.fullOrder.push(i);
       while (this.fullOrder.length > FULL_CACHE) {
         const old = this.fullOrder.shift();
-        if (old === this.current) {
+        if (old === this.currentId) {
           this.fullOrder.push(old);
           continue;
         }
@@ -321,24 +375,24 @@ export default {
       this.fulls = fulls;
     },
 
-    openAt(i) {
-      this.current = i;
+    // pos is a position within the current category, not a photo id.
+    openAt(pos) {
+      this.current = pos;
       document.body.style.overflow = "hidden";
-      this.enqueue(i, true);
-      this.enqueue(i, false);
-      const next = (i + 1) % this.dims.length;
-      this.enqueue(next, true);
+      const id = this.list[pos];
+      this.enqueue(id, true);
+      this.enqueue(id, false);
+      this.enqueue(this.list[(pos + 1) % this.total], true);
     },
 
     step(delta) {
-      const n = this.dims.length;
-      const i = (this.current + delta + n) % n;
-      const p = Math.floor(i / PAGE_SIZE);
+      const pos = (this.current + delta + this.total) % this.total;
+      const p = Math.floor(pos / PAGE_SIZE);
       if (p !== this.page) {
-        this.$router.replace({ query: { ...this.$route.query, page: p ? String(p + 1) : undefined } });
+        this.$router.replace({ query: this.query(this.cat, p) });
         this.page = p;
       }
-      this.openAt(i);
+      this.openAt(pos);
     },
 
     close() {
@@ -418,6 +472,64 @@ export default {
 .wp-gallery {
   display: flex;
   flex-direction: column;
+}
+
+.wp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+
+.wp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.wp-tab:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.wp-tab--on {
+  background: var(--violet-deep);
+  border-color: var(--violet);
+  color: var(--text);
+}
+
+.wp-tab-count {
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+}
+
+.wp-tab--on .wp-tab-count {
+  color: var(--text-muted);
+}
+
+/* One swipeable row on phones instead of three wrapped lines. */
+@media (max-width: 520px) {
+  .wp-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 4px;
+    scrollbar-width: none;
+  }
+
+  .wp-tabs::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .wp-grid {
