@@ -59,9 +59,11 @@ function renderNoscript(title, description) {
     ["/", "Home"],
     ["/resume", "Resume"],
     ["/blog", "Blog"],
+    ["/tools", "Helpful Pages"],
+    ["/tools/gas-finder", "Cheapest Gas Finder"],
     ["/seating-chart", "Wedding Seating Chart Maker"],
+    ["/forms", "Business Forms"],
     ["/games", "Games"],
-    ["/forms", "Forms"],
     ["/contact", "Contact"],
   ]
     .map(([href, label]) => `<li><a href="${href}">${esc(label)}</a></li>`)

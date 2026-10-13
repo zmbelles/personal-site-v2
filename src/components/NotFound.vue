@@ -12,7 +12,7 @@
     </div>
     <div class="nf-links">
       <router-link to="/resume">Resume</router-link>
-      <router-link to="/seating-chart">Seating Chart</router-link>
+      <router-link to="/tools">Helpful Pages</router-link>
       <router-link to="/games">Games</router-link>
       <router-link to="/contact">Contact</router-link>
     </div>

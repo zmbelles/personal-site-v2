@@ -54,6 +54,76 @@
       "changefreq": "yearly"
     },
 
+    "/tools": {
+      "title": "Helpful Pages — Free Browser Tools by Zachary Belles",
+      "description": "Free tools that run in your browser: a gas finder that counts the cost of driving to the pump, a wedding seating chart maker, and invoice, sales order, purchase order and bill generators. No sign-up.",
+      "keywords": "free online tools, cheapest gas finder, wedding seating chart maker, invoice generator, purchase order generator, free browser tools, no sign-up tools",
+      "type": "website",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+
+    "/tools/gas-finder": {
+      "title": "Cheapest Gas Finder — Counts the Gas Used to Get There",
+      "description": "Find the cheapest place to fill up near you. Pick your car and how full the tank is, and nearby stations are ranked by the true cost of a fill-up including the gas burned driving there. Free, no sign-up.",
+      "keywords": "cheapest gas near me, gas price finder, is it worth driving for cheaper gas, gas calculator, fuel cost calculator, gas station finder, mpg calculator, cheap gas",
+      "type": "website",
+      "priority": "0.9",
+      "changefreq": "monthly",
+      "breadcrumb": [
+        { "name": "Home", "path": "/" },
+        { "name": "Helpful Pages", "path": "/tools" },
+        { "name": "Cheapest Gas Finder", "path": "/tools/gas-finder" }
+      ],
+      "application": {
+        "name": "Cheapest Gas Finder",
+        "category": "TravelApplication",
+        "featureList": [
+          "Year, make and model lookup for about 19,000 vehicles from EPA data",
+          "Separate MPG for every engine, transmission and drivetrain, about 29,000 in all",
+          "An estimated tank size for every vehicle, editable along with MPG",
+          "Fuel gauge slider for how full the tank is right now",
+          "Finds gas stations up to 50 miles from your location or a ZIP code",
+          "Ranks stations by the full cost of the fill-up including the drive there and back",
+          "Add a destination to find the cheapest stop along the way, counting only the detour",
+          "Flags when the lowest sign price is not actually the cheapest option",
+          "Regular, midgrade, premium and diesel",
+          "One-tap directions to the winning station"
+        ]
+      },
+      "faq": [
+        {
+          "q": "Is it worth driving farther for cheaper gas?",
+          "a": "Usually only when the station is close. Every extra mile burns gas at the price you are trying to save on. A 5¢ discount on 11 gallons saves 55¢, while an extra 16 miles of round trip in a 25 mpg car burns about $3 of gas. This tool does that math for every nearby station."
+        },
+        {
+          "q": "Where do the MPG numbers come from?",
+          "a": "From the U.S. EPA's fueleconomy.gov dataset, using the combined city and highway rating. Each engine, transmission and drivetrain has its own rating, so a 2020 Camaro with the 2.0L turbo and automatic shows 25 mpg while the 6.2L V8 shows 20. Pick yours from the engine list. If you know your real-world MPG, type it in instead.",
+          "link": { "text": "Download the EPA fuel economy dataset", "url": "https://www.fueleconomy.gov/feg/download.shtml" }
+        },
+        {
+          "q": "Why is the tank size marked as an estimate?",
+          "a": "The EPA doesn't publish fuel tank capacity, and no open dataset does, so it's estimated from the vehicle's size class and from the tank it would need for a typical highway range. It's usually within a gallon or two. Your owner's manual will have the exact figure. Type it in and the results update."
+        },
+        {
+          "q": "Where do the gas prices come from?",
+          "a": "Where live prices are available, they come from Google's station listings, for up to 3 searches a day per device. Any station without a listed price can be filled in with the price you see on the sign, and it is ranked straight away."
+        },
+        {
+          "q": "Can it find the cheapest gas on the way somewhere?",
+          "a": "Yes. Add a destination and it looks for stations along the route instead of around you. The drive itself costs the same wherever you stop, so each station is charged only for the detour it adds: out to the station and back to your route. A station right on your way adds nothing, so a cheaper one has to be close to the route to win."
+        },
+        {
+          "q": "Is my location stored anywhere?",
+          "a": "Not by this site. To find stations and measure driving distances, your location and destination are sent to the services that do the lookup: OpenStreetMap's servers (station list, address search and OSRM routing) and Google Maps (prices and backup routing). Nothing is saved on a server here. Your car and settings are remembered in your own browser so you don't have to pick them again; use Start over to forget them."
+        },
+        {
+          "q": "How are driving distances worked out?",
+          "a": "With a routing service that follows real roads: OpenStreetMap's OSRM, with Google's routing as a backup. On a trip, a stop costs the drive from your start to the station and on to your destination, minus the drive you'd make anyway. If neither service answers, distances are estimated from a straight line and marked with ≈ so you can tell."
+        }
+      ]
+    },
+
     "/seating-chart": {
       "title": "Free Wedding Seating Chart Maker — Drag & Drop, No Sign-Up",
       "description": "Plan your wedding reception seating in your browser. Add round or rectangular tables, import your guest list, drag everyone into a seat, then export a PNG, CSV, or JSON. Free, no sign-up, nothing leaves your device.",

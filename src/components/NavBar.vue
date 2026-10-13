@@ -43,9 +43,8 @@ export default {
       links: [
         { to: "/resume", label: "Resume" },
         { to: "/blog", label: "Blog" },
-        { to: "/seating-chart", label: "Seating Chart" },
+        { to: "/tools", label: "Helpful Pages" },
         { to: "/games", label: "Games" },
-        { to: "/forms", label: "Forms" },
       ],
     };
   },
